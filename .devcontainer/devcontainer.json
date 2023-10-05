@@ -1,5 +1,5 @@
 {
-	"name": "2023-autumn-Perpetual-devcontainer",
+	"name": "2023-autumn-perpetual-devcontainer",
 	"build": {
 		"dockerfile": "../Dockerfile",
 		"context": "..",

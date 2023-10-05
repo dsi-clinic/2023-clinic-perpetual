@@ -1,4 +1,4 @@
-# 2023-clinic-Perpetual
+# 2023-clinic-perpetual
 
 ## Project Background
 
