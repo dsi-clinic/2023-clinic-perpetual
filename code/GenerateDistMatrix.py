@@ -22,8 +22,10 @@ def get_matrix_data(coordinates, access_token):
     # Convert list of coordinates to string format
     coordinates_str = ";".join([f"{lon},{lat}" for lon, lat in coordinates])
 
-    # Endpoint URL (assuming driving mode here, but can be changed to walking, cycling, etc.)
-    url = f"https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{coordinates_str}"
+    # Endpoint URL (assuming driving mode here,
+    # but can be changed to walking, cycling, etc.)
+    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/"
+    url = f"{url_root}/{coordinates_str}"
 
     # Parameters
     params = {
@@ -55,7 +57,8 @@ def generate_capacity_list(df, timestamp_str):
 
 def initialize_data():
     """
-    Initialize the data from the CSV file and the Mapbox token from the config file.
+    Initialize the data from the CSV file
+    and the Mapbox token from the config file.
 
     :return: Dataframe and Mapbox token
     """
@@ -85,7 +88,8 @@ def main():
     full_matrix = np.zeros(len(df))
 
     # Get the matrix data.
-    # Goes through every source once and then every destination for every source.
+    # Goes through every source once
+    # and then every destination for every source.
     col_idx = df.columns.get_loc("Coordinates")
     for i in tqdm.tqdm(range(len(df))):
         horizontal = [[]]
