@@ -24,7 +24,7 @@ def get_matrix_data(coordinates, access_token):
 
     # Endpoint URL (assuming driving mode here,
     # but can be changed to walking, cycling, etc.)
-    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/"
+    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving"
     url = f"{url_root}/{coordinates_str}"
 
     # Parameters
