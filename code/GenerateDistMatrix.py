@@ -100,10 +100,14 @@ def main():
             ].tolist()
 
             # API does not allow calls with only 1 destination
-            # so we attach a dummy destination at the end 
+            # so we attach a dummy destination at the end
             # to make sure the call go through and remove it later
             coordinate_list.append(df.iloc[i, col_idx])
-            result = [get_matrix_data(coordinate_list, mapbox_token)["distances"][0][:-1]]
+            result = [
+                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][
+                    :-1
+                ]
+            ]
 
             horizontal = np.hstack((horizontal, result))
             time.sleep(1)
