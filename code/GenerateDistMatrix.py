@@ -94,11 +94,17 @@ def main():
     for i in tqdm.tqdm(range(len(df))):
         horizontal = [[]]
         # Goes through 24 destinations for every source due to api limit
-        for j in range(0, len(df), 24):
+        for j in range(0, len(df), 23):
             coordinate_list = [df.iloc[i, col_idx]] + df.iloc[
-                j : j + 24, col_idx
+                j : j + 23, col_idx
             ].tolist()
-            result = get_matrix_data(coordinate_list, mapbox_token)["distances"]
+
+            # API does not allow calls with only 1 destination
+            # so we attach a dummy destination at the end 
+            # to make sure the call go through and remove it later
+            coordinate_list.append(df.iloc[i, col_idx])
+            result = [get_matrix_data(coordinate_list, mapbox_token)["distances"][0][:-1]]
+
             horizontal = np.hstack((horizontal, result))
             time.sleep(1)
         full_matrix = np.vstack((full_matrix, horizontal))
