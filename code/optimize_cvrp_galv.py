@@ -87,6 +87,71 @@ def print_solution(data, manager, routing, solution):
     print(f"Total load of all routes: {total_load}")
 
 
+
+def save_to_table(data, manager, routing, solution):
+    """Save each route to its own dataframe and print solutions on the console."""
+    print(f"Objective: {solution.ObjectiveValue()}")
+    routes = []
+    distances = []
+    loads = []
+    total_distance = 0
+    total_load = 0
+    for vehicle_id in range(data["num_vehicles"]):
+        route = []
+        agg_distances = []
+        truck_load = []
+        index = routing.Start(vehicle_id)
+        plan_output = f"Route for vehicle {vehicle_id}:\n"
+        route_distance = 0
+        route_load = 0
+        while not routing.IsEnd(index):
+            node_index = manager.IndexToNode(index)
+            route_load += data["demands"][node_index]
+            plan_output += f" {node_index} Load({route_load}) -> "
+            #route.append({node_index:route_load})
+            route.append(node_index)
+            truck_load.append(route_load)
+            agg_distances.append(route_distance)
+            previous_index = index
+            index = solution.Value(routing.NextVar(index))
+            route_distance += routing.GetArcCostForVehicle(
+                previous_index, index, vehicle_id
+            )
+            
+        plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
+        route.append(manager.IndexToNode(index))
+        truck_load.append(route_load)
+        agg_distances.append(route_distance)
+        plan_output += f"Distance of the route: {route_distance}m\n"
+        plan_output += f"Load of the route: {route_load}\n"
+        print(plan_output)
+        total_distance += route_distance
+        total_load += route_load
+        routes.append(route)
+        distances.append(agg_distances)
+        loads.append(truck_load)
+    print(f"Total distance of all routes: {total_distance}m")
+    print(f"Total load of all routes: {total_load}")
+    return routes, distances, loads
+
+
+
+
+def make_dataframe(data, manager, routing, solution, df):
+    '''use the output of save_to_table to save the dataframe as a 
+            csv file in the data folder'''
+    routes, distances, loads = save_to_table(data, manager, routing, solution)
+    for i in range(len(routes)):
+        route_df = df.loc[routes[i], :]
+        route_df["Cumulative_Distance"] = distances[i]
+        route_df["Truck_Load"] =loads[i]
+        route_df = route_df.reset_index()
+        route_df = route_df.rename(columns={"index": "Original_Index"})
+        
+        path = "../data/route" + str(i+1) + ".csv"
+        route_df.to_csv(path, index = False)
+
+
 def main():
     """Solve the CVRP problem."""
     # Instantiate the data problem.
@@ -144,7 +209,10 @@ def main():
 
     # Print solution on console.
     if solution:
-        print_solution(data, manager, routing, solution)
+        #print_solution(data, manager, routing, solution)
+        make_dataframe(data, manager, routing, solution, galveston)
+        
+
 
 
 if __name__ == "__main__":
