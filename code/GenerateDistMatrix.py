@@ -109,9 +109,8 @@ def main():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename = (
-        f"../data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
-    )
+    filename_root = "../data/generated_distance_matrices/distance_matrix"
+    filename = f"{filename_root}_{timestamp_str}.npy"
     np.save(filename, full_matrix)
 
     # Save the capacity list to a file
