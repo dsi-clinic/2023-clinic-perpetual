@@ -1,9 +1,9 @@
 """Capacited Vehicles Routing Problem (CVRP)."""
 
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
 import numpy as np
 import pandas as pd
+from ortools.constraint_solver import pywrapcp, routing_enums_pb2
+
 
 def create_data_model():
     """
@@ -11,15 +11,19 @@ def create_data_model():
 
     Modified:
         1. loads distance matrix from data/distance_matrix_g.csv
-        2. loads demands from the 'Daily_Pickup_Totes' column in FUE_Galveston.csv
-        3. (temp) data["num_vehicles"] scales by number of capacities listed in data["vehicle_capacities"]
+        2. loads demands from the 'Daily_Pickup_Totes' column in
+            FUE_Galveston.csv
+        3. (temp) data["num_vehicles"] scales by number of capacities listed in
+            data["vehicle_capacities"]
     - Huanlin Dai
-    
+
     """
     fue_data = pd.read_csv("../data/FUE_Galveston.csv")
     data = {}
-    data["distance_matrix"] = np.loadtxt('../data/distance_matrix_g.csv', delimiter=',', dtype = int)
-    data["demands"] = fue_data['Daily_Pickup_Totes'].astype(int)
+    data["distance_matrix"] = np.loadtxt(
+        "../data/distance_matrix_g.csv", delimiter=",", dtype=int
+    )
+    data["demands"] = fue_data["Daily_Pickup_Totes"].astype(int)
     data["vehicle_capacities"] = [150, 150, 150]
     data["num_vehicles"] = len(data["vehicle_capacities"])
     data["depot"] = 0
@@ -88,7 +92,9 @@ def main():
         from_node = manager.IndexToNode(from_index)
         return data["demands"][from_node]
 
-    demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
+    demand_callback_index = routing.RegisterUnaryTransitCallback(
+        demand_callback
+    )
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,
         0,  # null capacity slack
