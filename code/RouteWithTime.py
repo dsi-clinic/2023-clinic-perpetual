@@ -70,16 +70,16 @@ def request_time(df, mapbox_token):
     col_duration = [300]
     total_time = 300
     col_idx = df.columns.get_loc("Coordinates")
-    
+
     for i in tqdm.tqdm(range(0, len(df) - 1, 24)):
         # Goes through 24 destinations for every source due to api limit
-        coordinate_list = df.iloc[i: i + 25, col_idx].tolist()
+        coordinate_list = df.iloc[i : i + 25, col_idx].tolist()
         result = get_list_data(coordinate_list, mapbox_token)
         # pull out duration list from result
-        leg_list = result['routes'][0]['legs']
-        time_list = [i['duration'] for i in leg_list]
+        leg_list = result["routes"][0]["legs"]
+        time_list = [i["duration"] for i in leg_list]
         # accumulate time along the route
-        for j in range(len(time_list)-1):
+        for j in range(len(time_list) - 1):
             total_time += time_list[j] + 5 * 60
             col_duration.append(int(total_time))
         time.sleep(1)
