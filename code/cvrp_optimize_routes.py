@@ -2,14 +2,8 @@
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal number of trucks and
-routes to deploy in Galveston.
+routes to deploy based on a given dataset of locations.
 
-Run this script in the terminal using:
-python optimize_cvrp_galv.py <arg1> <arg2>
-
-The two arguments are:
-arg1 = number of vehicles
-arg2 = number of seconds in the time limit
 """
 
 import sys
@@ -18,19 +12,13 @@ import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-# import the data
-galveston = pd.read_csv("../data/FUE_Galveston.csv")
-
 # load the distance matrix
 distance_matrix = np.loadtxt(
     "../data/distance_matrix_g.csv", delimiter=",", dtype=int
 )
 
-
-# import sys
-# arg 1 = num_vehicles
-# arg 2 = num_seconds
-
+# get the location_df
+###
 
 def get_demands(location_df):
     """
@@ -54,7 +42,7 @@ def create_data_model():
     """Stores the data for the problem."""
     data = {}
     data["distance_matrix"] = distance_matrix.astype(int)
-    data["demands"] = get_demands(galveston)
+    data["demands"] = get_demands(location_df)
     data["num_vehicles"] = int(sys.argv[1])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
