@@ -9,3 +9,9 @@ Please make sure to document each source file here.
 *  `route1.csv` : CSV file containing the route for one of the trucks delivering totes for GAL FUEs
 
 *  `route2.csv` : CSV file containing the route for the second truck delivering totes for GAL FUEs
+*galveston_indoor_pts.csv:* This file contains all the FUEs that will serve as both pickup and dropoff locations for the simulation. Perpetual refers to them as indoor points.
+
+*galveston_outdoor_pts.csv:* This file contains all the locations where Perpetual will place a bin. Perpetual refers to them as outdoor points and will only be used for pickup. This dataset also marks whether a location is going to be served by a bike or a truck. The following is the classification for the id of the bins:
+- city approved have IDs starting from 1000
+- private parking bins have IDs starting from 2000
+- park_board bins have IDs starting from 3000
