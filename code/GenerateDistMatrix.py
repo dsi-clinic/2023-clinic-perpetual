@@ -103,7 +103,9 @@ def main():
             # to make sure the call go through and remove it later
             coordinate_list.append(df.iloc[i, col_idx])
             result = [
-                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][:-1]
+                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][
+                    :-1
+                ]
             ]
 
             horizontal = np.hstack((horizontal, result))
@@ -117,7 +119,9 @@ def main():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename = f"data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
+    filename = (
+        f"data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
+    )
     np.save(filename, full_matrix)
 
     # Save the capacity list to a file
