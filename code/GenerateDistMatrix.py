@@ -1,12 +1,13 @@
+import configparser
+import datetime
+import pickle
+import sys
+import time
+
+import numpy as np
 import pandas as pd
 import requests
-import configparser
-import numpy as np
 import tqdm
-import time
-import datetime
-import sys
-import pickle
 
 
 def get_matrix_data(coordinates, access_token):
@@ -21,10 +22,10 @@ def get_matrix_data(coordinates, access_token):
     # Convert list of coordinates to string format
     coordinates_str = ";".join([f"{lon},{lat}" for lon, lat in coordinates])
 
-    # Endpoint URL (assuming driving mode here, but can be changed to walking, cycling, etc.)
-    url = (
-        f"https://api.mapbox.com/directions-matrix/v1/mapbox/driving/{coordinates_str}"
-    )
+    # Endpoint URL (assuming driving mode here,
+    # but can be changed to walking, cycling, etc.)
+    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving"
+    url = f"{url_root}/{coordinates_str}"
 
     # Parameters
     params = {
@@ -56,7 +57,8 @@ def generate_capacity_list(df, timestamp_str):
 
 def initialize_data():
     """
-    Initialize the data from the CSV file and the Mapbox token from the config file.
+    Initialize the data from the CSV file
+    and the Mapbox token from the config file.
 
     :return: Dataframe and Mapbox token
     """
@@ -85,23 +87,30 @@ def main():
     full_matrix = np.zeros(len(df))
 
     # Get the matrix data.
-    # Goes through every source once and then every destination for every source.
+    # Goes through every source once
+    # and then every destination for every source.
     col_idx = df.columns.get_loc("Coordinates")
     for i in tqdm.tqdm(range(len(df))):
         horizontal = [[]]
         # Goes through 24 destinations for every source due to api limit
-        for j in range(0, len(df), 13):
+        for j in range(0, len(df), 23):
             coordinate_list = [df.iloc[i, col_idx]] + df.iloc[
-                j : j + 13, col_idx
+                j : j + 23, col_idx
             ].tolist()
-            result_dict = get_matrix_data(coordinate_list, mapbox_token)
-            result_list = result_dict["distances"]
-            horizontal = np.hstack((horizontal, result_list))
+
+            # API does not allow calls with only 1 destination
+            # so we attach a dummy destination at the end
+            # to make sure the call go through and remove it later
+            coordinate_list.append(df.iloc[i, col_idx])
+            result = [
+                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][:-1]
+            ]
+
+            horizontal = np.hstack((horizontal, result))
             time.sleep(1)
         full_matrix = np.vstack((full_matrix, horizontal))
 
     current_datetime = datetime.datetime.now()
-
     timestamp_str = current_datetime.strftime("%Y%m%d_%H%M%S")
 
     # remove the first row which is all zeros
