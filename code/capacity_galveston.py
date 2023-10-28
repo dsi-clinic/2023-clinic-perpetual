@@ -4,23 +4,20 @@
 Created on Fri Oct 13 22:18:05 2023
 
 @author: genie_god
+Capacited Vehicles Routing Problem (CVRP).
 """
-
-"""Capacited Vehicles Routing Problem (CVRP)."""
-
-
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
-import numpy as np
 import pickle
+
+import numpy as np
+from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 
 def create_data_model():
     """Stores the data for the problem."""
     loaded_array = np.load(
-        "../data/generated_distance_matrices/distance_matrix_20231013_090000.npy"
+        "../data/generated_distance_matrices/\
+        distance_matrix_20231013_090000.npy"
     )
-    distance_matrix = loaded_array.tolist()
     data = {}
     # data["distance_matrix"] = distance_matrix
     data["distance_matrix"] = loaded_array.astype(int)
@@ -98,7 +95,9 @@ def main():
         from_node = manager.IndexToNode(from_index)
         return data["demands"][from_node]
 
-    demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
+    demand_callback_index = routing.RegisterUnaryTransitCallback(
+        demand_callback
+    )
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,
         0,  # null capacity slack
