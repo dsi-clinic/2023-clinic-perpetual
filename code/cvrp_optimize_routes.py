@@ -4,6 +4,12 @@ Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal number of trucks and
 routes to deploy based on a given dataset of locations.
 
+
+The arguments are:
+arg1 = name of the df for tote service locations
+arg2 = name of the df of corresponding ditance matrix
+arg3 = day_number 
+arg4 = number of vehicles
 """
 
 import sys
@@ -12,95 +18,93 @@ import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
+#load the location df
+location_df = pd.read_csv("../data/" + str(sys.argv[1]) +".csv")
+    
 # load the distance matrix
 distance_matrix = np.loadtxt(
-    "../data/distance_matrix_g.csv", delimiter=",", dtype=int
-)
+        "../data/" + str(sys.argv[2]) + ".csv", delimiter=",", dtype=int
+    )
 
-# get the location_df
-###
 
-def get_demands(location_df):
+def get_pickup_demands(location_df):
     """
     This function will get the daily number of totes to be
     picked up at every location provided in the df.
 
     Inputs: location_df = df of all the service locations
                         on the daily truck route
-    Outputs: demands_list = a list of the number of totes to be collected
+    Outputs: pickup_demands = a list of the number of totes to be collected
                             at each location daily
                             (in the same order of locations from the df)
     """
-    demands_list = []
+    pickup_demands = []
     for index, row in location_df.iterrows():
-        demands_list.append(int(row["Daily_Pickup_Totes"]))
+        pickup_demands.append(int(row["Daily_Pickup_Totes"]))
 
-    return demands_list
+    return pickup_demands
+
+
+def get_dropoff_demands(location_df, cluster_number):
+    '''
+    This function will get the number of totes to be
+    dropped off at specified locations for the 
+    given day.
+
+    Inputs: location_df = df of all the service locations
+                        on the daily truck route
+            cluster_number = day of dropoff service
+    Outputs: dropoff_demands = a list of the number of totes to be dropped off
+                            at each location daily (will be 0 at the locations
+                            which are not receiving totes that day)
+                            (in the same order of locations from the df)
+    '''
+    dropoff_demands = []
+    for index, row in location_df.iterrows():
+        if row["cluster_number"] == cluster_number:
+            dropoff_demands.append(int(row["Weekly_Dropoff_Totes"]))
+        else:
+            dropoff_demands.append(0)
+
+    return dropoff_demands
 
 
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
     data["distance_matrix"] = distance_matrix.astype(int)
-    data["demands"] = get_demands(location_df)
-    data["num_vehicles"] = int(sys.argv[1])
+    data["pickup_demands"] = get_pickup_demands(location_df)
+    data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
+    data["num_vehicles"] = int(sys.argv[5])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
 
-def print_solution(data, manager, routing, solution):
-    """Prints solution on console."""
-    print(f"Objective: {solution.ObjectiveValue()}")
-    total_distance = 0
-    total_load = 0
-    for vehicle_id in range(data["num_vehicles"]):
-        index = routing.Start(vehicle_id)
-        plan_output = f"Route for vehicle {vehicle_id}:\n"
-        route_distance = 0
-        route_load = 0
-        while not routing.IsEnd(index):
-            node_index = manager.IndexToNode(index)
-            route_load += data["demands"][node_index]
-            plan_output += f" {node_index} Load({route_load}) -> "
-            previous_index = index
-            index = solution.Value(routing.NextVar(index))
-            route_distance += routing.GetArcCostForVehicle(
-                previous_index, index, vehicle_id
-            )
-        plan_output += f" {manager.IndexToNode(index)} \
-            Load({route_load})\n"
-        plan_output += f"Distance of the route: {route_distance}m\n"
-        plan_output += f"Load of the route: {route_load}\n"
-        print(plan_output)
-        total_distance += route_distance
-        total_load += route_load
-    print(f"Total distance of all routes: {total_distance}m")
-    print(f"Total load of all routes: {total_load}")
-
-
+#comment out all lines pertaining to the print statements
 def save_to_table(data, manager, routing, solution):
-    """Save each route to its own dataframe
-    and print solutions on the console."""
-    print(f"Objective: {solution.ObjectiveValue()}")
+    """Save each route to its own dataframe"""
+    #print(f"Objective: {solution.ObjectiveValue()}")
     routes = []
     distances = []
     loads = []
     total_distance = 0
     total_load = 0
+
+    #create a route for each vehicle
     for vehicle_id in range(data["num_vehicles"]):
         route = []
         agg_distances = []
-        truck_load = []
         index = routing.Start(vehicle_id)
-        plan_output = f"Route for vehicle {vehicle_id}:\n"
+        #plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
-        route_load = 0
+        route_load = sum(dropoff_demands)
+        truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
-            route_load += data["demands"][node_index]
-            plan_output += f" {node_index} Load({route_load}) -> "
-            # route.append({node_index:route_load})
+            route_load += data["pickup_demands"][node_index]
+            route_load -= data["dropoff_demands"][node_index]
+            #plan_output += f" {node_index} Load({route_load}) -> "
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -110,36 +114,22 @@ def save_to_table(data, manager, routing, solution):
                 previous_index, index, vehicle_id
             )
 
-        plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
+        #plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
         route.append(manager.IndexToNode(index))
         truck_load.append(route_load)
         agg_distances.append(route_distance)
-        plan_output += f"Distance of the route: {route_distance}m\n"
-        plan_output += f"Load of the route: {route_load}\n"
-        print(plan_output)
+        #plan_output += f"Distance of the route: {route_distance}m\n"
+        #plan_output += f"Load of the route: {route_load}\n"
+        #print(plan_output)
         total_distance += route_distance
         total_load += route_load
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-    print(f"Total distance of all routes: {total_distance}m")
-    print(f"Total load of all routes: {total_load}")
+    #print(f"Total distance of all routes: {total_distance}m")
+    #print(f"Total load of all routes: {total_load}")
     return routes, distances, loads
 
-
-def make_dataframe(data, manager, routing, solution, df):
-    """use the output of save_to_table to save the dataframe as a
-    csv file in the data folder"""
-    routes, distances, loads = save_to_table(data, manager, routing, solution)
-    for i in range(len(routes)):
-        route_df = df.loc[routes[i], :]
-        route_df["Cumulative_Distance"] = distances[i]
-        route_df["Truck_Load"] = loads[i]
-        route_df = route_df.reset_index()
-        route_df = route_df.rename(columns={"index": "Original_Index"})
-
-        path = "../data/route" + str(i + 1) + ".csv"
-        route_df.to_csv(path, index=False)
 
 
 def main():
@@ -202,7 +192,8 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        make_dataframe(data, manager, routing, solution, galveston)
+        routes, distances, loads = save_to_table(data, manager, routing, solution)
+        return routes, distances, loads
 
 
 if __name__ == "__main__":
