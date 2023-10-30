@@ -10,9 +10,13 @@ arg1 = name of the df for tote service locations
 arg2 = name of the df of corresponding ditance matrix
 arg3 = day_number 
 arg4 = number of vehicles
+arg5 = num seconds of simulation
+arg6 = day
+arg7 = trial number
 """
 
 import sys
+import os
 
 import numpy as np
 import pandas as pd
@@ -22,10 +26,9 @@ from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 location_df = pd.read_csv("../data/" + str(sys.argv[1]) +".csv")
     
 # load the distance matrix
-distance_matrix = np.loadtxt(
-        "../data/" + str(sys.argv[2]) + ".csv", delimiter=",", dtype=int
-    )
+distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) +".csv")
 
+trial_num = str(sys.argv[7])
 
 def get_pickup_demands(location_df):
     """
@@ -75,7 +78,7 @@ def create_data_model():
     data["distance_matrix"] = distance_matrix.astype(int)
     data["pickup_demands"] = get_pickup_demands(location_df)
     data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
-    data["num_vehicles"] = int(sys.argv[5])
+    data["num_vehicles"] = int(sys.argv[4])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
@@ -98,7 +101,7 @@ def save_to_table(data, manager, routing, solution):
         index = routing.Start(vehicle_id)
         #plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
-        route_load = sum(dropoff_demands)
+        route_load = sum(data["dropoff_demands"])
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
@@ -130,6 +133,26 @@ def save_to_table(data, manager, routing, solution):
     #print(f"Total load of all routes: {total_load}")
     return routes, distances, loads
 
+
+def make_dataframe(data, manager, routing, solution, df):
+    """use the output of save_to_table to save the dataframe as a
+    csv file in the data folder"""
+    routes, distances, loads = save_to_table(data, manager, routing, solution)
+    #create the folder for the day that will be stored
+    #os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
+    os.mkdir("../data/" + str(sys.argv[6]))
+
+    for i in range(len(routes)):
+        route_df = df.loc[routes[i], :]
+        route_df["Cumulative_Distance"] = distances[i]
+        route_df["Truck_Load"] = loads[i]
+        route_df = route_df.reset_index()
+        route_df = route_df.rename(columns={"index": "Original_Index"})
+
+        #generate the path for the route file
+        path = "../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
+        #save the route file 
+        route_df.to_csv(path, index=False)
 
 
 def main():
@@ -184,7 +207,7 @@ def main():
     search_parameters.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    search_parameters.time_limit.FromSeconds(int(sys.argv[2]))
+    search_parameters.time_limit.FromSeconds(int(sys.argv[5]))
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)
@@ -192,8 +215,8 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        routes, distances, loads = save_to_table(data, manager, routing, solution)
-        return routes, distances, loads
+        #return save_to_table(data, manager, routing, solution)
+        make_dataframe(data, manager, routing, solution, location_df)
 
 
 if __name__ == "__main__":
