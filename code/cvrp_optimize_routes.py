@@ -79,6 +79,7 @@ def create_data_model():
     data["pickup_demands"] = get_pickup_demands(location_df)
     data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
+    #starting_load = sum(data["dropoff_demands"])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
@@ -145,12 +146,13 @@ def make_dataframe(data, manager, routing, solution, df):
     for i in range(len(routes)):
         route_df = df.loc[routes[i], :]
         route_df["Cumulative_Distance"] = distances[i]
-        route_df["Truck_Load"] = loads[i]
+        #route_df["Truck_Load"] = loads[i]
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
         #generate the path for the route file
-        path = "../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
+        #path = "../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
+        path = "../data/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
         #save the route file 
         route_df.to_csv(path, index=False)
 
@@ -186,7 +188,7 @@ def main():
         """Returns the demand of the node."""
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
-        return data["demands"][from_node]
+        return data["pickup_demands"][from_node]
 
     demand_callback_index = routing.RegisterUnaryTransitCallback(
         demand_callback
