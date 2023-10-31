@@ -8,27 +8,27 @@ routes to deploy based on a given dataset of locations.
 The arguments are:
 arg1 = name of the df for tote service locations
 arg2 = name of the df of corresponding ditance matrix
-arg3 = day_number 
+arg3 = day_number
 arg4 = number of vehicles
 arg5 = num seconds of simulation
 arg6 = day
 arg7 = trial number
 """
 
-import sys
 import os
+import sys
 
-import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-#load the location df
-location_df = pd.read_csv("../data/" + str(sys.argv[1]) +".csv")
-    
+# load the location df
+location_df = pd.read_csv("../data/" + str(sys.argv[1]) + ".csv")
+
 # load the distance matrix
-distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) +".csv")
+distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
 
 trial_num = str(sys.argv[7])
+
 
 def get_pickup_demands(location_df):
     """
@@ -49,9 +49,9 @@ def get_pickup_demands(location_df):
 
 
 def get_dropoff_demands(location_df, cluster_number):
-    '''
+    """
     This function will get the number of totes to be
-    dropped off at specified locations for the 
+    dropped off at specified locations for the
     given day.
 
     Inputs: location_df = df of all the service locations
@@ -61,7 +61,7 @@ def get_dropoff_demands(location_df, cluster_number):
                             at each location daily (will be 0 at the locations
                             which are not receiving totes that day)
                             (in the same order of locations from the df)
-    '''
+    """
     dropoff_demands = []
     for index, row in location_df.iterrows():
         if row["cluster_number"] == cluster_number:
@@ -79,28 +79,28 @@ def create_data_model():
     data["pickup_demands"] = get_pickup_demands(location_df)
     data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
-    #starting_load = sum(data["dropoff_demands"])
+    # starting_load = sum(data["dropoff_demands"])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
 
-#comment out all lines pertaining to the print statements
+# comment out all lines pertaining to the print statements
 def save_to_table(data, manager, routing, solution):
     """Save each route to its own dataframe"""
-    #print(f"Objective: {solution.ObjectiveValue()}")
+    # print(f"Objective: {solution.ObjectiveValue()}")
     routes = []
     distances = []
     loads = []
     total_distance = 0
     total_load = 0
 
-    #create a route for each vehicle
+    # create a route for each vehicle
     for vehicle_id in range(data["num_vehicles"]):
         route = []
         agg_distances = []
         index = routing.Start(vehicle_id)
-        #plan_output = f"Route for vehicle {vehicle_id}:\n"
+        # plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
         route_load = sum(data["dropoff_demands"])
         truck_load = []
@@ -108,7 +108,7 @@ def save_to_table(data, manager, routing, solution):
             node_index = manager.IndexToNode(index)
             route_load += data["pickup_demands"][node_index]
             route_load -= data["dropoff_demands"][node_index]
-            #plan_output += f" {node_index} Load({route_load}) -> "
+            # plan_output += f" {node_index} Load({route_load}) -> "
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -118,20 +118,20 @@ def save_to_table(data, manager, routing, solution):
                 previous_index, index, vehicle_id
             )
 
-        #plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
+        # plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
         route.append(manager.IndexToNode(index))
         truck_load.append(route_load)
         agg_distances.append(route_distance)
-        #plan_output += f"Distance of the route: {route_distance}m\n"
-        #plan_output += f"Load of the route: {route_load}\n"
-        #print(plan_output)
+        # plan_output += f"Distance of the route: {route_distance}m\n"
+        # plan_output += f"Load of the route: {route_load}\n"
+        # print(plan_output)
         total_distance += route_distance
         total_load += route_load
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-    #print(f"Total distance of all routes: {total_distance}m")
-    #print(f"Total load of all routes: {total_load}")
+    # print(f"Total distance of all routes: {total_distance}m")
+    # print(f"Total load of all routes: {total_load}")
     return routes, distances, loads
 
 
@@ -139,21 +139,22 @@ def make_dataframe(data, manager, routing, solution, df):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
     routes, distances, loads = save_to_table(data, manager, routing, solution)
-    #create the folder for the day that will be stored
-    #os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
+    # create the folder for the day that will be stored
+    # os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
     os.mkdir("../data/" + str(sys.argv[6]))
 
     for i in range(len(routes)):
         route_df = df.loc[routes[i], :]
         route_df["Cumulative_Distance"] = distances[i]
-        #route_df["Truck_Load"] = loads[i]
+        route_df["Truck_Load"] = loads[i]
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        #generate the path for the route file
-        #path = "../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
+        # generate the path for the route file
+        # path = "../data/trial" + str(sys.argv[7]) + "/"
+        #            + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
         path = "../data/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
-        #save the route file 
+        # save the route file
         route_df.to_csv(path, index=False)
 
 
@@ -217,7 +218,7 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        #return save_to_table(data, manager, routing, solution)
+        # return save_to_table(data, manager, routing, solution)
         make_dataframe(data, manager, routing, solution, location_df)
 
 

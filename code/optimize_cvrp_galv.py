@@ -31,6 +31,7 @@ distance_matrix = np.loadtxt(
 # arg 1 = num_vehicles
 # arg 2 = num_seconds
 
+
 def get_demands(location_df):
     """
     This function will get the daily number of totes to be
@@ -47,6 +48,7 @@ def get_demands(location_df):
         demands_list.append(int(row["Daily_Pickup_Totes"]))
 
     return demands_list
+
 
 def create_data_model():
     """Stores the data for the problem."""
