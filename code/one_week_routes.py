@@ -14,10 +14,9 @@ arg 4 = num_vehicles
 arg 5 = num seconds you want each simulation to run
 """
 
+import os
 import subprocess
 import sys
-
-# import os
 
 
 def perform_one_week_route():
@@ -30,8 +29,6 @@ def perform_one_week_route():
     Outputs: none (saves the routes for each day in the data folder)
     """
     # get_clusters()
-
-    # os.mkdir("../data/trial" + str(sys.argv[7])
 
     list_of_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     for day_number, day in enumerate(list_of_days):
@@ -53,6 +50,7 @@ def perform_one_week_route():
 
 def main():
     """ """
+    os.mkdir("../data/trial" + str(sys.argv[1]))
     perform_one_week_route()
 
 

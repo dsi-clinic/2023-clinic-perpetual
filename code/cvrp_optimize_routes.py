@@ -27,8 +27,6 @@ location_df = pd.read_csv("../data/" + str(sys.argv[1]) + ".csv")
 # load the distance matrix
 distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
 
-trial_num = str(sys.argv[7])
-
 
 def get_pickup_demands(location_df):
     """
@@ -79,7 +77,6 @@ def create_data_model():
     data["pickup_demands"] = get_pickup_demands(location_df)
     data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
-    # starting_load = sum(data["dropoff_demands"])
     data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
@@ -140,8 +137,7 @@ def make_dataframe(data, manager, routing, solution, df):
     csv file in the data folder"""
     routes, distances, loads = save_to_table(data, manager, routing, solution)
     # create the folder for the day that will be stored
-    # os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
-    os.mkdir("../data/" + str(sys.argv[6]))
+    os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
 
     for i in range(len(routes)):
         route_df = df.loc[routes[i], :]
@@ -153,7 +149,15 @@ def make_dataframe(data, manager, routing, solution, df):
         # generate the path for the route file
         # path = "../data/trial" + str(sys.argv[7]) + "/"
         #            + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
-        path = "../data/" + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
+        path = (
+            "../data/trial"
+            + str(sys.argv[7])
+            + "/"
+            + str(sys.argv[6])
+            + "/route"
+            + str(i + 1)
+            + ".csv"
+        )
         # save the route file
         route_df.to_csv(path, index=False)
 
@@ -189,7 +193,10 @@ def main():
         """Returns the demand of the node."""
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
-        return data["pickup_demands"][from_node]
+        return (
+            data["pickup_demands"][from_node]
+            - data["dropoff_demands"][from_node]
+        )
 
     demand_callback_index = routing.RegisterUnaryTransitCallback(
         demand_callback
@@ -198,7 +205,7 @@ def main():
         demand_callback_index,
         0,  # null capacity slack
         data["vehicle_capacities"],  # vehicle maximum capacities
-        True,  # start cumul to zero
+        False,  # start cumul to zero
         "Capacity",
     )
 
