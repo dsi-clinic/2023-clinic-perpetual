@@ -155,7 +155,9 @@ if __name__ == "__main__":
     route_1 = calc_routes(galv_graph1, coords1)
     route_2 = calc_routes(galv_graph2, coords2)
 
-    map = folium.Map(location = [29.30135, -94.7977], tiles="OpenStreetMap", zoom_start=11)
+    map = folium.Map(
+        location=[29.30135, -94.7977], tiles="OpenStreetMap", zoom_start=11
+    )
     add_markers(map, route_1_data, "blue")
     add_markers(map, route_2_data, "red")
     folium.PolyLine(locations=route_1, color="blue").add_to(map)
