@@ -1,0 +1,216 @@
+location,way_points,waypoints_location,waypoints_instruction
+0,0,"[-94.852238, 29.273577]",Drive south.
+0,1,"[-94.85254, 29.272946]",Turn right onto Hope Boulevard.
+0,2,"[-94.854941, 29.27302]",Turn left to stay on Hope Boulevard.
+0,3,"[-94.854348, 29.272921]",Your destination is on the right.
+1,0,"[-94.854348, 29.272921]",Drive east on Hope Boulevard.
+1,1,"[-94.852602, 29.272814]",Turn right onto Lockheed Road.
+1,2,"[-94.852678, 29.270092]",Turn left.
+1,3,"[-94.852444, 29.270081]",Your destination is on the left.
+2,0,"[-94.852444, 29.270081]",Drive south.
+2,1,"[-94.852595, 29.269897]",Turn left onto Lockheed Road.
+2,2,"[-94.849723, 29.264935]",Turn right onto 81st Street.
+2,3,"[-94.846051, 29.257581]",Turn right onto Stewart Road.
+2,4,"[-94.854139, 29.25428]",Turn left onto 89th Street.
+2,5,"[-94.853511, 29.253112]",Turn right.
+2,6,"[-94.854118, 29.252854]",Your destination is on the right.
+3,0,"[-94.854118, 29.252854]",Drive southwest.
+3,1,"[-94.854581, 29.252658]",Turn right.
+3,2,"[-94.854861, 29.253188]",Turn right.
+3,3,"[-94.853702, 29.253031]",Turn left.
+3,4,"[-94.853511, 29.253112]",Turn right onto 89th Street.
+3,5,"[-94.852659, 29.251536]",Turn right onto Seawall Boulevard/FM 3005.
+3,6,"[-94.852794, 29.251455]",Turn right.
+3,7,"[-94.853164, 29.251653]",Your destination is on the right.
+4,0,"[-94.853164, 29.251653]",Drive southwest.
+4,1,"[-94.853197, 29.251215]",Turn right onto Seawall Boulevard/FM 3005.
+4,2,"[-94.853475, 29.251049]",Your destination is on the left.
+5,0,"[-94.853475, 29.251049]",Drive southwest on Seawall Boulevard/FM 3005.
+5,1,"[-94.853529, 29.251017]",Your destination is on the left.
+6,0,"[-94.853529, 29.251017]",Drive southwest on Seawall Boulevard/FM 3005.
+6,1,"[-94.863785, 29.245177]",Keep right to take San Luis Pass Road/FM 3005.
+6,2,"[-94.868127, 29.24388]",Bear right onto Cove View Boulevard.
+6,3,"[-94.868301, 29.244247]",Turn right.
+6,4,"[-94.868233, 29.244305]",Turn right.
+6,5,"[-94.867955, 29.2444]",Your destination is on the left.
+7,0,"[-94.867955, 29.2444]",Drive east.
+7,1,"[-94.867747, 29.244471]",Your destination is on the left.
+8,0,"[-94.867747, 29.244471]",Drive southeast.
+8,1,"[-94.867591, 29.24431]",Turn right.
+8,2,"[-94.867882, 29.244238]",Turn left.
+8,3,"[-94.867928, 29.244115]",Turn right onto San Luis Pass Road/FM 3005.
+8,4,"[-94.877861, 29.240438]",Your destination is on the right.
+9,0,"[-94.877861, 29.240438]",Drive southwest on San Luis Pass Road/FM 3005.
+9,1,"[-94.937444, 29.208067]",Turn right.
+9,2,"[-94.937516, 29.208193]",Your destination is on the right.
+10,0,"[-94.937516, 29.208193]",Drive northwest.
+10,1,"[-94.937566, 29.208279]",Turn right.
+10,2,"[-94.93742, 29.208338]",Your destination is on the right.
+11,0,"[-94.93742, 29.208338]",Drive northeast.
+11,1,"[-94.937563, 29.208854]",Turn right.
+11,2,"[-94.937374, 29.20895]",Turn right onto Buccaneer Boulevard.
+11,3,"[-94.937018, 29.208241]",Turn right onto San Luis Pass Road/FM 3005.
+11,4,"[-94.985307, 29.175454]",Your destination is on the left.
+12,0,"[-94.985307, 29.175454]",Drive southwest on San Luis Pass Road/FM 3005.
+12,1,"[-95.04009, 29.141397]",Turn right onto San Jacinto Drive.
+12,2,"[-95.043968, 29.146388]",Turn left onto Burnet Drive.
+12,3,"[-95.046461, 29.14484]",Turn right.
+12,4,"[-95.046893, 29.144853]",Your destination is on the right.
+13,0,"[-95.046893, 29.144853]",Drive southwest.
+13,1,"[-95.046919, 29.144839]",You have arrived at your destination.
+14,0,"[-95.046919, 29.144839]",Drive northeast.
+14,1,"[-95.046461, 29.14484]",Turn left onto Burnet Drive.
+14,2,"[-95.043968, 29.146388]",Turn right onto San Jacinto Drive.
+14,3,"[-95.040269, 29.141633]",Your destination is on the right.
+15,0,"[-95.040269, 29.141633]",Drive southeast on San Jacinto Drive.
+15,1,"[-95.04009, 29.141397]",Turn left onto San Luis Pass Road/FM 3005.
+15,2,"[-94.950551, 29.198779]",Turn left onto 13 Mile Road.
+15,3,"[-94.953029, 29.203591]",Bear right onto Stewart Road.
+15,4,"[-94.949212, 29.207029]",Turn left.
+15,5,"[-94.949326, 29.207228]",Turn right.
+15,6,"[-94.949147, 29.207302]",Your destination is on the left.
+16,0,"[-94.949147, 29.207302]",Drive northeast.
+16,1,"[-94.949029, 29.207351]",Turn right.
+16,2,"[-94.948924, 29.207153]",Turn left onto Stewart Road.
+16,3,"[-94.865666, 29.252902]",Turn left onto 99th Street.
+16,4,"[-94.869736, 29.261687]",Turn left onto Evia Main.
+16,5,"[-94.870444, 29.261396]",Turn left onto Island Passage.
+16,6,"[-94.870262, 29.261057]",Your destination is on the right.
+17,0,"[-94.870262, 29.261057]",Drive southeast on Island Passage.
+17,1,"[-94.869835, 29.260054]",Turn left onto Barque Lane.
+17,2,"[-94.868976, 29.257968]",Turn right onto Southern Cross.
+17,3,"[-94.869374, 29.257775]",Turn right onto Island Passage.
+17,4,"[-94.870444, 29.261396]",Turn left onto Evia Main.
+17,5,"[-94.871401, 29.26106]",Make a left U-turn at Compass Circle to stay on Evia Main.
+17,6,"[-94.870659, 29.261212]",Your destination is on the right.
+18,0,"[-94.870659, 29.261212]",Drive northeast on Evia Main.
+18,1,"[-94.869685, 29.26159]",Turn right onto 99th Street.
+18,2,"[-94.865666, 29.252902]",Turn left onto Stewart Road.
+18,3,"[-94.854199, 29.254256]",Turn left.
+18,4,"[-94.855462, 29.253957]",Your destination is on the right.
+19,0,"[-94.855462, 29.253957]",Drive southeast.
+19,1,"[-94.855366, 29.253781]",Turn left onto Stewart Road.
+19,2,"[-94.841315, 29.259526]",Turn right.
+19,3,"[-94.841213, 29.259335]",Your destination is on the right.
+20,0,"[-94.841213, 29.259335]",Drive southeast.
+20,1,"[-94.841118, 29.259157]",Turn left.
+20,2,"[-94.841027, 29.259193]",Turn left.
+20,3,"[-94.841239, 29.259556]",Turn right onto Stewart Road.
+20,4,"[-94.84007, 29.260196]",Turn right onto 75th Street.
+20,5,"[-94.839582, 29.259296]",Turn left onto Seawall Boulevard/FM 3005.
+20,6,"[-94.828123, 29.265504]",Turn left.
+20,7,"[-94.82843, 29.266049]",Your destination is on the right.
+21,0,"[-94.82843, 29.266049]",Drive northwest.
+21,1,"[-94.829063, 29.267271]",Bear right.
+21,2,"[-94.828633, 29.267435]",Turn left.
+21,3,"[-94.828898, 29.267939]",Turn right.
+21,4,"[-94.827423, 29.268479]",Turn right onto 61st Street/Spur 342.
+21,5,"[-94.826267, 29.266513]",Turn left onto Seawall Boulevard.
+21,6,"[-94.825407, 29.267035]",Turn left.
+21,7,"[-94.825642, 29.267483]",Your destination is on the right.
+22,0,"[-94.825642, 29.267483]",Drive northwest.
+22,1,"[-94.82576, 29.26771]",Turn right.
+22,2,"[-94.825589, 29.267778]",Turn right.
+22,3,"[-94.825242, 29.267136]",Turn left onto Seawall Boulevard.
+22,4,"[-94.820244, 29.270208]",Turn left.
+22,5,"[-94.820475, 29.270623]",Your destination is on the right.
+24,0,"[-94.820453, 29.270939]",Drive west.
+24,1,"[-94.82058, 29.270909]",Turn left.
+24,2,"[-94.820244, 29.270208]",Turn left onto Seawall Boulevard.
+24,3,"[-94.818956, 29.270996]",Turn left onto Fort Crockett Boulevard.
+24,4,"[-94.81852, 29.272925]",Your destination is on the right.
+25,0,"[-94.81852, 29.272925]",Drive east on Fort Crockett Boulevard.
+25,1,"[-94.818463, 29.272941]",Your destination is on the right.
+26,0,"[-94.818463, 29.272941]",Drive north on Fort Crockett Boulevard.
+26,1,"[-94.818463, 29.272941]",Your destination is on the right.
+27,0,"[-94.818463, 29.272941]",Drive east on Fort Crockett Boulevard.
+27,1,"[-94.817473, 29.273218]",Turn right.
+27,2,"[-94.81722, 29.272445]",Your destination is on the right.
+28,0,"[-94.81722, 29.272445]",Drive south.
+28,1,"[-94.817116, 29.272129]",Turn left.
+28,2,"[-94.816614, 29.272344]",Your destination is on the left.
+29,0,"[-94.816614, 29.272344]",Drive northeast.
+29,1,"[-94.816203, 29.272517]",Turn left.
+29,2,"[-94.816314, 29.272811]",Your destination is on the left.
+30,0,"[-94.816314, 29.272811]",Drive east.
+30,1,"[-94.816109, 29.272861]",Turn right.
+30,2,"[-94.816067, 29.272743]",Turn left.
+30,3,"[-94.815633, 29.272847]",Turn left.
+30,4,"[-94.815811, 29.273371]",Your destination is on the right.
+31,0,"[-94.815811, 29.273371]",Drive north.
+31,1,"[-94.816145, 29.274021]",Turn right onto Fort Crockett Boulevard.
+31,2,"[-94.816342, 29.274761]",Turn right to stay on Fort Crockett Boulevard.
+31,3,"[-94.812295, 29.275828]",Turn right.
+31,4,"[-94.812215, 29.275665]",Turn left.
+31,5,"[-94.811687, 29.275562]",Your destination is on the right.
+32,0,"[-94.811687, 29.275562]",Drive southeast.
+32,1,"[-94.811427, 29.275204]",Turn left onto Seawall Boulevard.
+32,2,"[-94.808613, 29.276783]",Your destination is on the left.
+33,0,"[-94.808613, 29.276783]",Drive northeast on Seawall Boulevard.
+33,1,"[-94.806688, 29.277863]",Turn left onto Jack Johnson Boulevard - 41st Street.
+33,2,"[-94.807028, 29.278222]",Turn right onto Avenue U.
+33,3,"[-94.804958, 29.279404]",Turn right onto Mike Gaido Boulevard - 39th Street.
+33,4,"[-94.80474, 29.278999]",Turn right onto Seawall Boulevard.
+33,5,"[-94.808874, 29.276636]",Turn right.
+33,6,"[-94.809015, 29.276817]",Turn left.
+33,7,"[-94.809555, 29.276655]",Your destination is on the left.
+34,0,"[-94.809555, 29.276655]",Drive west.
+34,1,"[-94.809679, 29.277178]",Turn right.
+34,2,"[-94.809492, 29.276672]",Turn left.
+34,3,"[-94.809015, 29.276817]",Turn right.
+34,4,"[-94.808874, 29.276636]",Turn left onto Seawall Boulevard.
+34,5,"[-94.806688, 29.277863]",Turn left onto Jack Johnson Boulevard - 41st Street.
+34,6,"[-94.807028, 29.278222]",Turn left onto Avenue U.
+34,7,"[-94.807427, 29.277998]",Your destination is on the left.
+35,0,"[-94.807427, 29.277998]",Drive southwest on Avenue U.
+35,1,"[-94.811562, 29.276852]",Turn left onto 45th Street.
+35,2,"[-94.810702, 29.27561]",Turn right onto Seawall Boulevard.
+35,3,"[-94.826267, 29.266513]",Turn right onto 61st Street/Spur 342.
+35,4,"[-94.828408, 29.270621]",Turn left.
+35,5,"[-94.828709, 29.270506]",Turn right.
+35,6,"[-94.82896, 29.270972]",Turn left.
+35,7,"[-94.829399, 29.270793]",Turn left.
+35,8,"[-94.828958, 29.27072]",Your destination is on the left.
+36,0,"[-94.828958, 29.27072]",Drive northeast.
+36,1,"[-94.828848, 29.270764]",Turn right.
+36,2,"[-94.828709, 29.270506]",Turn left.
+36,3,"[-94.828408, 29.270621]",Turn left onto 61st Street/Spur 342.
+36,4,"[-94.830268, 29.274448]",Turn left.
+36,5,"[-94.830875, 29.274548]",Your destination is on the left.
+37,0,"[-94.830875, 29.274548]",Drive southwest.
+37,1,"[-94.831629, 29.274258]",Your destination is on the left.
+38,0,"[-94.831629, 29.274258]",Drive southwest.
+38,1,"[-94.831658, 29.274247]",Turn right.
+38,2,"[-94.832131, 29.275093]",Turn right onto Stewart Road.
+38,3,"[-94.832093, 29.275109]",Your destination is on the left.
+39,0,"[-94.832093, 29.275109]",Drive northeast on Stewart Road.
+39,1,"[-94.830734, 29.275745]",Your destination is on the right.
+40,0,"[-94.830734, 29.275745]",Drive northeast on Stewart Road.
+40,1,"[-94.829017, 29.276424]",Turn right onto 59th Street.
+40,2,"[-94.828141, 29.274781]",Turn right onto Avenue S ½.
+40,3,"[-94.83003, 29.273998]",Turn right onto 61st Street/Spur 342.
+40,4,"[-94.831075, 29.275585]",Turn left onto Stewart Road.
+40,5,"[-94.837667, 29.272804]",Bear right onto Jones Drive.
+40,6,"[-94.841094, 29.271389]",Turn right onto 71st Street.
+40,7,"[-94.841639, 29.272402]",Turn right.
+40,8,"[-94.841139, 29.2726]",You have arrived at your destination.
+41,0,"[-94.841139, 29.2726]",Drive southwest.
+41,1,"[-94.841639, 29.272402]",Turn left onto 71st Street.
+41,2,"[-94.841094, 29.271389]",Turn right onto Jones Drive.
+41,3,"[-94.84809, 29.268444]",Turn right onto Sky Master Road.
+41,4,"[-94.851455, 29.274878]",Enter the roundabout and take the 1st exit.
+41,5,"[-94.851126, 29.275635]",Your destination is on the right.
+42,0,"[-94.851126, 29.275635]",Drive west.
+42,1,"[-94.851353, 29.275579]",Your destination is on the right.
+43,0,"[-94.851353, 29.275579]",Drive south.
+43,1,"[-94.851565, 29.275002]",Enter the roundabout and take the 1st exit.
+43,2,"[-94.8526, 29.27498]",Your destination is on the right.
+44,0,"[-94.8526, 29.27498]",Drive west.
+44,1,"[-94.853863, 29.27535]",Turn left.
+44,2,"[-94.853654, 29.273241]",Turn left.
+44,3,"[-94.851675, 29.272809]",Turn left.
+44,4,"[-94.85144, 29.273298]",Your destination is on the right.
+45,0,"[-94.85144, 29.273298]",Drive north.
+45,1,"[-94.851321, 29.273544]",Turn left.
+45,2,"[-94.852114, 29.273836]",Turn left.
+45,3,"[-94.852238, 29.273577]",Your destination is on the right.

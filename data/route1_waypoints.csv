@@ -1,0 +1,499 @@
+location,way_points,waypoints_location,waypoints_instruction
+0,0,"[-94.852238, 29.273577]",Drive south.
+0,1,"[-94.852602, 29.272814]",Turn left onto Hope Boulevard.
+0,2,"[-94.849917, 29.2708]",Your destination is on the right.
+1,0,"[-94.849917, 29.2708]",Drive south on Hope Boulevard.
+1,1,"[-94.848802, 29.267623]",Turn left onto Jones Drive.
+1,2,"[-94.838067, 29.272507]",Bear left onto Stewart Road.
+1,3,"[-94.831075, 29.275585]",Turn left onto 61st Street/Spur 342.
+1,4,"[-94.831745, 29.276841]",Your destination is on the right.
+2,0,"[-94.831745, 29.276841]",Drive northwest on 61st Street/Spur 342.
+2,1,"[-94.831939, 29.277207]",Turn right onto Avenue Q ½.
+2,2,"[-94.831613, 29.277321]",Your destination is on the right.
+3,0,"[-94.831613, 29.277321]",Drive northeast on Avenue Q ½.
+3,1,"[-94.829832, 29.277955]",Turn right onto 59th Street.
+3,2,"[-94.829468, 29.277271]",Turn right onto Avenue R.
+3,3,"[-94.831518, 29.276412]",Turn right onto 61st Street/Spur 342.
+3,4,"[-94.832352, 29.278169]",Turn right.
+3,5,"[-94.831836, 29.278344]",You have arrived at your destination.
+4,0,"[-94.831836, 29.278344]",Drive south.
+4,1,"[-94.832352, 29.278169]",Turn right onto 61st Street/Spur 342.
+4,2,"[-94.832675, 29.278973]",Turn right onto Heards Lane.
+4,3,"[-94.832115, 29.279204]",Turn left.
+4,4,"[-94.832205, 29.279373]",Turn right.
+4,5,"[-94.832168, 29.279799]",Your destination is on the left.
+5,0,"[-94.832168, 29.279799]",Drive northwest.
+5,1,"[-94.832226, 29.279902]",Make a left U-turn.
+5,2,"[-94.83248, 29.279261]",Turn right.
+5,3,"[-94.832682, 29.27949]",Turn left.
+5,4,"[-94.832881, 29.279411]",Turn right onto 61st Street/Spur 342.
+5,5,"[-94.838095, 29.288879]",Turn left toward Spur 342/61st Street/Moody Gardens/Scholes International Airport.
+5,6,"[-94.856868, 29.28689]",Turn right onto 77th Street.
+5,7,"[-94.857091, 29.287301]",Turn right.
+5,8,"[-94.856952, 29.287369]",Your destination is on the left.
+6,0,"[-94.856952, 29.287369]",Drive southeast.
+6,1,"[-94.856247, 29.28725]",Turn right.
+6,2,"[-94.856194, 29.287113]",Turn right toward I 45 North.
+6,3,"[-94.862912, 29.285764]",Turn right onto Harborside Drive/TX 275.
+6,4,"[-94.863248, 29.289019]",Turn right.
+6,5,"[-94.862696, 29.289112]",Your destination is on the right.
+7,0,"[-94.862696, 29.289112]",Drive east.
+7,1,"[-94.863305, 29.288758]",Turn left onto Harborside Drive/TX 275.
+7,2,"[-94.863039, 29.284889]",Turn left onto Broadway Street.
+7,3,"[-94.858253, 29.285822]",Turn right onto Walsh Lane.
+7,4,"[-94.857894, 29.285259]",Turn left to stay on Walsh Lane.
+7,5,"[-94.857645, 29.285363]",Your destination is on the right.
+8,0,"[-94.857645, 29.285363]",Drive northeast on Walsh Lane.
+8,1,"[-94.857444, 29.285448]",Turn left.
+8,2,"[-94.858015, 29.285916]",Turn right onto Broadway Street.
+8,3,"[-94.854435, 29.287149]",Bear left toward I 45 South.
+8,4,"[-94.824047, 29.29157]",Turn left onto 51st Street.
+8,5,"[-94.815987, 29.318668]",Turn right onto Texas Clipper Road.
+8,6,"[-94.815435, 29.317003]",Turn right.
+8,7,"[-94.815984, 29.315766]",Turn right.
+8,8,"[-94.817216, 29.31601]",Turn left.
+8,9,"[-94.817422, 29.315641]",Turn right.
+8,10,"[-94.817566, 29.315706]",You have arrived at your destination.
+9,0,"[-94.817566, 29.315706]",Drive north.
+9,1,"[-94.817412, 29.316099]",Turn right.
+9,2,"[-94.815984, 29.315766]",Turn left.
+9,3,"[-94.815435, 29.317003]",Turn left onto Texas Clipper Road.
+9,4,"[-94.815987, 29.318668]",Turn left onto Seawolf Parkway.
+9,5,"[-94.820536, 29.315656]",Turn left.
+9,6,"[-94.819814, 29.315238]",Turn right.
+9,7,"[-94.81888, 29.313263]",Your destination is on the right.
+10,0,"[-94.81888, 29.313263]",Drive east.
+10,1,"[-94.817402, 29.313496]",Turn right.
+10,2,"[-94.817961, 29.313193]",Turn left.
+10,3,"[-94.819814, 29.315238]",Turn left.
+10,4,"[-94.820536, 29.315656]",Turn left onto Seawolf Parkway.
+10,5,"[-94.824047, 29.29157]",Turn left onto Broadway - Avenue J/TX 87.
+10,6,"[-94.822463, 29.291981]",Your destination is on the right.
+11,0,"[-94.822463, 29.291981]",Drive east on Broadway - Avenue J/TX 87.
+11,1,"[-94.817201, 29.293371]",Turn right onto 45th Street.
+11,2,"[-94.817155, 29.293238]",Your destination is on the right.
+12,0,"[-94.817155, 29.293238]",Drive south on 45th Street.
+12,1,"[-94.816898, 29.292481]",Turn left onto Avenue K.
+12,2,"[-94.815753, 29.292782]",Turn left onto 44th Street.
+12,3,"[-94.816048, 29.293678]",Turn right onto Broadway - Avenue J/TX 87.
+12,4,"[-94.810336, 29.295159]",Turn right onto Mike Gaido Boulevard - 39th Street.
+12,5,"[-94.809693, 29.293276]",Your destination is on the left.
+13,0,"[-94.809693, 29.293276]",Drive south on Mike Gaido Boulevard - 39th Street.
+13,1,"[-94.808765, 29.290557]",Your destination is on the left.
+14,0,"[-94.808765, 29.290557]",Drive south on Mike Gaido Boulevard - 39th Street.
+14,1,"[-94.808707, 29.290386]",Turn left.
+14,2,"[-94.80845, 29.290451]",Your destination is on the left.
+15,0,"[-94.80845, 29.290451]",Drive east.
+15,1,"[-94.80755, 29.290682]",Turn right onto 38th Street.
+15,2,"[-94.807252, 29.289809]",Turn right.
+15,3,"[-94.808531, 29.289489]",Your destination is on the left.
+16,0,"[-94.808531, 29.289489]",Drive west.
+16,1,"[-94.809553, 29.289208]",Turn right onto 40th Street.
+16,2,"[-94.809705, 29.289653]",Turn right onto Avenue N ½.
+16,3,"[-94.808565, 29.289954]",Turn right onto Mike Gaido Boulevard - 39th Street.
+16,4,"[-94.80678, 29.284742]",Turn right onto Avenue Q ½.
+16,5,"[-94.80771, 29.284486]",You have arrived at your destination.
+17,0,"[-94.80771, 29.284486]",Drive east on Avenue Q ½.
+17,1,"[-94.80678, 29.284742]",Turn right onto Mike Gaido Boulevard - 39th Street.
+17,2,"[-94.805292, 29.280382]",Turn left onto Avenue T.
+17,3,"[-94.80436, 29.280625]",Turn right.
+17,4,"[-94.804128, 29.279875]",You have arrived at your destination.
+18,0,"[-94.804128, 29.279875]",Drive east.
+18,1,"[-94.80436, 29.280625]",Turn right onto Avenue T.
+18,2,"[-94.80301, 29.280976]",Turn right onto 37th Street.
+18,3,"[-94.802747, 29.280289]",Turn right onto Seawall Boulevard.
+18,4,"[-94.804255, 29.279313]",Your destination is on the right.
+19,0,"[-94.804255, 29.279313]",Drive southwest on Seawall Boulevard.
+19,1,"[-94.806688, 29.277863]",Turn right onto Jack Johnson Boulevard - 41st Street.
+19,2,"[-94.807028, 29.278222]",Turn right onto Avenue U.
+19,3,"[-94.804958, 29.279404]",Turn right onto Mike Gaido Boulevard - 39th Street.
+19,4,"[-94.80474, 29.278999]",Turn left onto Seawall Boulevard.
+19,5,"[-94.803639, 29.279712]",Your destination is on the left.
+20,0,"[-94.803639, 29.279712]",Drive northeast on Seawall Boulevard.
+20,1,"[-94.801576, 29.281055]",Turn left.
+20,2,"[-94.801753, 29.281391]",Turn left.
+20,3,"[-94.801951, 29.281329]",Your destination is on the left.
+21,0,"[-94.801951, 29.281329]",Drive west.
+21,1,"[-94.802768, 29.281265]",Turn right.
+21,2,"[-94.801816, 29.281537]",Turn left.
+21,3,"[-94.801868, 29.281663]",Turn right.
+21,4,"[-94.801641, 29.281791]",Your destination is on the right.
+22,0,"[-94.801641, 29.281791]",Drive northeast.
+22,1,"[-94.80092, 29.282124]",Turn left onto 35th Street.
+22,2,"[-94.80133, 29.283317]",Turn right onto Avenue S.
+22,3,"[-94.801154, 29.283362]",Your destination is on the left.
+24,0,"[-94.798228, 29.283774]",Drive north.
+24,1,"[-94.798228, 29.283774]",Your destination is on the left.
+25,0,"[-94.798228, 29.283774]",Drive west.
+25,1,"[-94.798547, 29.284042]",Turn right onto Avenue S.
+25,2,"[-94.798091, 29.284164]",Turn right.
+25,3,"[-94.797961, 29.283811]",Your destination is on the right.
+26,0,"[-94.797961, 29.283811]",Drive south.
+26,1,"[-94.797928, 29.28372]",Your destination is on the right.
+27,0,"[-94.797928, 29.28372]",Drive south.
+27,1,"[-94.797894, 29.28363]",Your destination is on the right.
+28,0,"[-94.797894, 29.28363]",Drive north.
+28,1,"[-94.797894, 29.28363]",Your destination is on the right.
+29,0,"[-94.797894, 29.28363]",Drive north.
+29,1,"[-94.797894, 29.28363]",Your destination is on the right.
+30,0,"[-94.797894, 29.28363]",Drive south.
+30,1,"[-94.797838, 29.283477]",Turn left onto Seawall Boulevard.
+30,2,"[-94.796967, 29.284044]",Your destination is on the left.
+31,0,"[-94.796967, 29.284044]",Drive northeast on Seawall Boulevard.
+31,1,"[-94.795591, 29.284936]",Turn left onto 30th Street.
+31,2,"[-94.795741, 29.285252]",Turn right.
+31,3,"[-94.795628, 29.285281]",Your destination is on the right.
+32,0,"[-94.795628, 29.285281]",Drive east.
+32,1,"[-94.794864, 29.285414]",Bear left onto Seawall Boulevard.
+32,2,"[-94.794298, 29.285781]",Your destination is on the left.
+33,0,"[-94.794298, 29.285781]",Drive northeast on Seawall Boulevard.
+33,1,"[-94.793595, 29.286239]",Turn left onto 28th Street.
+33,2,"[-94.793785, 29.286719]",Turn left.
+33,3,"[-94.79402, 29.286657]",Your destination is on the left.
+34,0,"[-94.79402, 29.286657]",Drive west.
+34,1,"[-94.794722, 29.286472]",Turn left.
+34,2,"[-94.794574, 29.286039]",Turn left onto Avenue R ½.
+34,3,"[-94.794148, 29.286151]",Your destination is on the left.
+35,0,"[-94.794148, 29.286151]",Drive east on Avenue R ½.
+35,1,"[-94.791036, 29.287892]",Turn left.
+35,2,"[-94.791264, 29.288318]",Turn right.
+35,3,"[-94.790934, 29.288402]",Your destination is on the right.
+36,0,"[-94.790934, 29.288402]",Drive east.
+36,1,"[-94.790659, 29.288471]",Turn right onto Rosenberg Avenue - 25th Street.
+36,2,"[-94.790564, 29.288209]",Turn right onto Seawall Boulevard.
+36,3,"[-94.790564, 29.288209]",Your destination is on the left.
+37,0,"[-94.790564, 29.288209]",Drive southwest on Seawall Boulevard.
+37,1,"[-94.792583, 29.286884]",Turn right onto 27th Street.
+37,2,"[-94.793358, 29.289189]",Turn right onto Avenue Q.
+37,3,"[-94.791103, 29.289786]",Turn right onto Rosenberg Avenue - 25th Street.
+37,4,"[-94.791051, 29.28964]",Your destination is on the right.
+38,0,"[-94.791051, 29.28964]",Drive south on Rosenberg Avenue - 25th Street.
+38,1,"[-94.790564, 29.288209]",Turn left onto Seawall Boulevard.
+38,2,"[-94.788455, 29.289833]",Turn left onto Tremont Avenue - 23rd Street.
+38,3,"[-94.789122, 29.291732]",Turn right.
+38,4,"[-94.788896, 29.291786]",Your destination is on the left.
+39,0,"[-94.788896, 29.291786]",Drive east.
+39,1,"[-94.787959, 29.292012]",Turn left onto Kempner Avenue - 22nd Street.
+39,2,"[-94.788112, 29.292463]",Turn right onto Bernardo De Galvez Avenue.
+39,3,"[-94.78634, 29.292919]",Your destination is on the right.
+40,0,"[-94.78634, 29.292919]",Drive east on Bernardo De Galvez Avenue.
+40,1,"[-94.784696, 29.293357]",Turn right onto 19th Street.
+40,2,"[-94.784515, 29.292909]",Turn right onto Seawall Boulevard.
+40,3,"[-94.786006, 29.291748]",Turn right.
+40,4,"[-94.786278, 29.292356]",Your destination is on the left.
+41,0,"[-94.786278, 29.292356]",Drive east.
+41,1,"[-94.785748, 29.291948]",Turn left onto Seawall Boulevard.
+41,2,"[-94.782937, 29.294138]",Turn left.
+41,3,"[-94.783121, 29.294363]",Your destination is on the right.
+42,0,"[-94.783121, 29.294363]",Drive northwest.
+42,1,"[-94.783763, 29.294277]",Turn left onto 18th Street.
+42,2,"[-94.783549, 29.293665]",Turn left onto Seawall Boulevard.
+42,3,"[-94.78097, 29.295666]",Turn left.
+42,4,"[-94.781063, 29.295961]",Your destination is on the right.
+43,0,"[-94.781063, 29.295961]",Drive north.
+43,1,"[-94.781131, 29.296176]",Turn left onto Avenue O.
+43,2,"[-94.78186, 29.295989]",Turn left onto 16th Street.
+43,3,"[-94.781583, 29.295183]",Turn left onto Seawall Boulevard.
+43,4,"[-94.778635, 29.297505]",Turn left onto 13th Street.
+43,5,"[-94.778871, 29.298192]",Turn right.
+43,6,"[-94.778256, 29.298358]",Your destination is on the right.
+44,0,"[-94.778256, 29.298358]",Drive east.
+44,1,"[-94.777758, 29.298493]",Turn right onto 12th Street.
+44,2,"[-94.777684, 29.298443]",Turn left onto Seawall Boulevard.
+44,3,"[-94.775185, 29.301496]",Make a sharp left onto Avenue M.
+44,4,"[-94.775443, 29.301442]",Your destination is on the right.
+45,0,"[-94.775443, 29.301442]",Drive west on Avenue M.
+45,1,"[-94.776185, 29.301245]",Turn right onto 10th Street.
+45,2,"[-94.778775, 29.308869]",Turn right.
+45,3,"[-94.777808, 29.309122]",Your destination is on the right.
+46,0,"[-94.777808, 29.309122]",Drive east.
+46,1,"[-94.777647, 29.309164]",Turn right onto 9th Street.
+46,2,"[-94.776897, 29.306988]",Turn left onto Winnie Street - Avenue G.
+46,3,"[-94.774446, 29.307629]",Your destination is on the right.
+48,0,"[-94.771585, 29.306917]",Drive northeast.
+48,1,"[-94.771131, 29.306985]",Turn left.
+48,2,"[-94.771128, 29.307572]",Turn right onto Avenue H.
+48,3,"[-94.770889, 29.307637]",Turn right onto Holiday Drive.
+48,4,"[-94.770606, 29.306946]",Turn left onto Seawall Boulevard/TX 87. Continue on Seawall Boulevard.
+48,5,"[-94.76649, 29.311994]",Turn right onto East Beach Drive.
+48,6,"[-94.750282, 29.319965]",Turn right onto Shiraz Lane.
+48,7,"[-94.750051, 29.319699]",Your destination is on the right.
+49,0,"[-94.750051, 29.319699]",Drive southeast on Shiraz Lane.
+49,1,"[-94.749449, 29.319007]",Turn right onto Seaside Drive.
+49,2,"[-94.750456, 29.318324]",Turn right onto Ramsar Road.
+49,3,"[-94.751291, 29.319287]",Turn left onto East Beach Drive.
+49,4,"[-94.766408, 29.312092]",Turn left onto Seawall Boulevard.
+49,5,"[-94.768521, 29.309698]",Turn right onto Ferry Road/TX 87.
+49,6,"[-94.769751, 29.311719]",Turn left onto Market Street.
+49,7,"[-94.772084, 29.311091]",Turn left onto Holiday Drive.
+49,8,"[-94.771939, 29.310673]",Turn right.
+49,9,"[-94.772566, 29.310505]",Your destination is on the right.
+50,0,"[-94.772566, 29.310505]",Drive west.
+50,1,"[-94.773081, 29.310367]",Turn right onto 5th Street.
+50,2,"[-94.773228, 29.310793]",Turn right onto Market Street.
+50,3,"[-94.772084, 29.311091]",Turn left onto Holiday Drive.
+50,4,"[-94.774672, 29.318658]",Turn left.
+50,5,"[-94.776932, 29.318073]",Turn left.
+50,6,"[-94.777204, 29.317684]",You have arrived at your destination.
+51,0,"[-94.777204, 29.317684]",Drive northeast.
+51,1,"[-94.776932, 29.318073]",Turn right.
+51,2,"[-94.774672, 29.318658]",Turn right onto Holiday Drive - 4th Street.
+51,3,"[-94.773743, 29.315943]",Turn right.
+51,4,"[-94.776165, 29.315317]",Turn left onto University Boulevard - 6th Street.
+51,5,"[-94.775748, 29.314063]",Your destination is on the left.
+52,0,"[-94.775748, 29.314063]",Drive south on University Boulevard - 6th Street.
+52,1,"[-94.775628, 29.313701]",Turn right onto Harborside Drive/TX 275.
+52,2,"[-94.778519, 29.31292]",Turn left.
+52,3,"[-94.778199, 29.312108]",You have arrived at your destination.
+53,0,"[-94.778199, 29.312108]",Drive northwest.
+53,1,"[-94.778519, 29.31292]",Turn left onto Harborside Drive/TX 275.
+53,2,"[-94.78441, 29.310752]",Turn left onto 14th Street.
+53,3,"[-94.783456, 29.307938]",Your destination is on the right.
+54,0,"[-94.783456, 29.307938]",Drive south on 14th Street.
+54,1,"[-94.78312, 29.306968]",Your destination is on the left.
+55,0,"[-94.78312, 29.306968]",Drive south on 14th Street.
+55,1,"[-94.782672, 29.305655]",Your destination is on the left.
+56,0,"[-94.782672, 29.305655]",Drive south on 14th Street.
+56,1,"[-94.782618, 29.305498]",Turn left onto Winnie Street - Avenue G.
+56,2,"[-94.782449, 29.305542]",Your destination is on the right.
+57,0,"[-94.782449, 29.305542]",Drive east on Winnie Street - Avenue G.
+57,1,"[-94.781462, 29.305799]",Turn right onto 13th Street.
+57,2,"[-94.780576, 29.303174]",Turn right onto Broadway - Avenue J/TX 87.
+57,3,"[-94.784013, 29.302281]",Turn left onto 16th Street.
+57,4,"[-94.783418, 29.300544]",Your destination is on the left.
+58,0,"[-94.783418, 29.300544]",Drive south on 16th Street.
+58,1,"[-94.783346, 29.300329]",Turn right onto Avenue L.
+58,2,"[-94.791345, 29.298247]",Turn left onto Tremont Avenue - 23rd Street.
+58,3,"[-94.791145, 29.297662]",Your destination is on the left.
+59,0,"[-94.791145, 29.297662]",Drive south on Tremont Avenue - 23rd Street.
+59,1,"[-94.791047, 29.297375]",Turn right onto Avenue M.
+59,2,"[-94.792216, 29.297071]",Turn right onto 24th Street.
+59,3,"[-94.79251, 29.29794]",Turn right onto Avenue L.
+59,4,"[-94.791345, 29.298247]",Turn left onto Tremont Avenue - 23rd Street.
+59,5,"[-94.791555, 29.298859]",Your destination is on the right.
+60,0,"[-94.791555, 29.298859]",Drive north on Tremont Avenue - 23rd Street.
+60,1,"[-94.791555, 29.298859]",Your destination is on the right.
+61,0,"[-94.791555, 29.298859]",Drive north on Tremont Avenue - 23rd Street.
+61,1,"[-94.791642, 29.299112]",Turn left onto Avenue K.
+61,2,"[-94.792524, 29.29888]",Your destination is on the right.
+62,0,"[-94.792524, 29.29888]",Drive west on Avenue K.
+62,1,"[-94.793926, 29.298516]",Turn right onto Rosenberg Avenue - 25th Street.
+62,2,"[-94.794895, 29.301337]",Turn left onto Ball Street - Avenue H.
+62,3,"[-94.796156, 29.301008]",Turn right onto 26th Street.
+62,4,"[-94.7963, 29.301436]",Turn right.
+62,5,"[-94.795851, 29.301551]",Your destination is on the right.
+63,0,"[-94.795851, 29.301551]",Drive east.
+63,1,"[-94.795451, 29.301653]",Your destination is on the left.
+64,0,"[-94.795451, 29.301653]",Drive east.
+64,1,"[-94.795163, 29.301727]",Turn right onto Rosenberg Avenue - 25th Street.
+64,2,"[-94.795018, 29.301307]",Make a left U-turn at Ball Street - Avenue H to stay on Rosenberg Avenue - 25th Street.
+64,3,"[-94.794938, 29.301464]",Your destination is on the right.
+65,0,"[-94.794938, 29.301464]",Drive north on Rosenberg Avenue - 25th Street.
+65,1,"[-94.795193, 29.302212]",Turn right onto Winnie Street - Avenue G.
+65,2,"[-94.794056, 29.30251]",Turn left onto Mitchell Avenue - 24th Street.
+65,3,"[-94.794275, 29.303158]",Your destination is on the left.
+66,0,"[-94.794275, 29.303158]",Drive north on Mitchell Avenue - 24th Street.
+66,1,"[-94.794493, 29.303801]",Turn left.
+66,2,"[-94.795234, 29.303607]",Your destination is on the right.
+67,0,"[-94.795234, 29.303607]",Drive west.
+67,1,"[-94.795633, 29.303503]",Turn right onto Rosenberg Avenue - 25th Street.
+67,2,"[-94.795786, 29.303949]",Turn right onto Postoffice Street - Avenue E.
+67,3,"[-94.795445, 29.304035]",Your destination is on the left.
+68,0,"[-94.795445, 29.304035]",Drive east on Postoffice Street - Avenue E.
+68,1,"[-94.794861, 29.304183]",Your destination is on the right.
+69,0,"[-94.794861, 29.304183]",Drive east on Postoffice Street - Avenue E.
+69,1,"[-94.793499, 29.304534]",Turn right onto Tremont Avenue - 23rd Street.
+69,2,"[-94.793352, 29.304103]",Turn left.
+69,3,"[-94.793154, 29.304155]",Your destination is on the right.
+70,0,"[-94.793154, 29.304155]",Drive east.
+70,1,"[-94.792206, 29.304406]",Turn right onto Kempner Avenue - 22nd Street.
+70,2,"[-94.79206, 29.30398]",Turn right onto Church Street - Avenue F.
+70,3,"[-94.793206, 29.303682]",Turn right onto Tremont Avenue - 23rd Street.
+70,4,"[-94.793352, 29.304103]",Turn right.
+70,5,"[-94.793182, 29.304148]",Your destination is on the left.
+72,0,"[-94.793954, 29.305368]",Drive east on Market Street.
+72,1,"[-94.792021, 29.305882]",Turn right.
+72,2,"[-94.791949, 29.305674]",Turn right.
+72,3,"[-94.792003, 29.305662]",You have arrived at your destination.
+73,0,"[-94.792003, 29.305662]",Drive east.
+73,1,"[-94.791949, 29.305674]",Turn left.
+73,2,"[-94.792021, 29.305882]",Turn left onto Market Street.
+73,3,"[-94.792652, 29.305711]",Turn left onto Kempner Avenue - 22nd Street.
+73,4,"[-94.792355, 29.304833]",Turn left onto Postoffice Street - Avenue E.
+73,5,"[-94.792068, 29.304909]",Your destination is on the left.
+74,0,"[-94.792068, 29.304909]",Drive east on Postoffice Street - Avenue E.
+74,1,"[-94.791853, 29.304965]",Your destination is on the left.
+75,0,"[-94.791853, 29.304965]",Drive east on Postoffice Street - Avenue E.
+75,1,"[-94.79155, 29.305045]",Your destination is on the right.
+76,0,"[-94.79155, 29.305045]",Drive east on Postoffice Street - Avenue E.
+76,1,"[-94.791459, 29.30507]",Your destination is on the right.
+77,0,"[-94.791459, 29.30507]",Drive north on Postoffice Street - Avenue E.
+77,1,"[-94.791459, 29.30507]",Your destination is on the right.
+78,0,"[-94.791459, 29.30507]",Drive east on Postoffice Street - Avenue E.
+78,1,"[-94.791363, 29.305095]",Your destination is on the left.
+79,0,"[-94.791363, 29.305095]",Drive east on Postoffice Street - Avenue E.
+79,1,"[-94.791211, 29.305135]",Turn left onto Moody Avenue - 21st Street.
+79,2,"[-94.791325, 29.305468]",Your destination is on the right.
+80,0,"[-94.791325, 29.305468]",Drive north on Moody Avenue - 21st Street.
+80,1,"[-94.791364, 29.305582]",Turn right.
+80,2,"[-94.791208, 29.305623]",Your destination is on the right.
+81,0,"[-94.791208, 29.305623]",Drive east.
+81,1,"[-94.790147, 29.305902]",Turn left onto 20th Street.
+81,2,"[-94.790318, 29.306349]",Turn left onto Market Street.
+81,3,"[-94.791514, 29.30602]",Turn left onto Moody Avenue - 21st Street.
+81,4,"[-94.791325, 29.305468]",Your destination is on the left.
+82,0,"[-94.791325, 29.305468]",Drive south on Moody Avenue - 21st Street.
+82,1,"[-94.791211, 29.305135]",Turn left onto Postoffice Street - Avenue E.
+82,2,"[-94.791056, 29.305177]",Your destination is on the left.
+83,0,"[-94.791056, 29.305177]",Drive east on Postoffice Street - Avenue E.
+83,1,"[-94.790664, 29.305282]",Your destination is on the right.
+84,0,"[-94.790664, 29.305282]",Drive east on Postoffice Street - Avenue E.
+84,1,"[-94.790049, 29.305446]",Turn left onto 20th Street.
+84,2,"[-94.790246, 29.306188]",Your destination is on the right.
+85,0,"[-94.790246, 29.306188]",Drive north on 20th Street.
+85,1,"[-94.790318, 29.306349]",Turn right onto Market Street.
+85,2,"[-94.789222, 29.306614]",Turn left onto 19th Street.
+85,3,"[-94.789357, 29.307053]",Turn right.
+85,4,"[-94.789166, 29.307103]",Your destination is on the left.
+86,0,"[-94.789166, 29.307103]",Drive east.
+86,1,"[-94.789134, 29.307112]",Turn right.
+86,2,"[-94.788991, 29.30667]",Turn right onto Market Street.
+86,3,"[-94.789222, 29.306614]",Turn right onto 19th Street.
+86,4,"[-94.789731, 29.308139]",Your destination is on the right.
+87,0,"[-94.789731, 29.308139]",Drive north on 19th Street.
+87,1,"[-94.789997, 29.308952]",Your destination is on the right.
+88,0,"[-94.789997, 29.308952]",Drive north on 19th Street.
+88,1,"[-94.790092, 29.309251]",Turn left onto Harborside Drive/TX 275.
+88,2,"[-94.791267, 29.308944]",Turn right onto 20th Street.
+88,3,"[-94.791526, 29.309709]",Turn right onto Wharf Road.
+88,4,"[-94.791211, 29.309857]",Your destination is on the left.
+89,0,"[-94.791211, 29.309857]",Drive northeast on Wharf Road.
+89,1,"[-94.788698, 29.310679]",Bear left onto 17th Street.
+89,2,"[-94.787834, 29.309851]",Turn right onto Harborside Drive/TX 275.
+89,3,"[-94.791267, 29.308944]",Turn left onto 20th Street.
+89,4,"[-94.791065, 29.308355]",Your destination is on the left.
+90,0,"[-94.791065, 29.308355]",Drive south on 20th Street.
+90,1,"[-94.791004, 29.308077]",Turn left onto The Strand.
+90,2,"[-94.790642, 29.308166]",Turn right.
+90,3,"[-94.790597, 29.308025]",Your destination is on the right.
+91,0,"[-94.790597, 29.308025]",Drive south.
+91,1,"[-94.79082, 29.307753]",Turn right onto 20th Street.
+91,2,"[-94.791004, 29.308077]",Make a sharp left to stay on 20th Street.
+91,3,"[-94.790958, 29.307582]",Turn right.
+91,4,"[-94.79154, 29.307427]",Your destination is on the right.
+92,0,"[-94.79154, 29.307427]",Drive west.
+92,1,"[-94.792735, 29.307113]",Your destination is on the right.
+93,0,"[-94.792735, 29.307113]",Drive west.
+93,1,"[-94.793098, 29.307017]",Turn right onto Kempner Avenue - 22nd Street.
+93,2,"[-94.793406, 29.307917]",Turn right.
+93,3,"[-94.792674, 29.308111]",Your destination is on the right.
+94,0,"[-94.792674, 29.308111]",Drive east.
+94,1,"[-94.792264, 29.30822]",Turn left onto Moody Avenue - 21st Street.
+94,2,"[-94.792587, 29.30917]",Turn left.
+94,3,"[-94.792746, 29.309131]",Your destination is on the right.
+96,0,"[-94.793561, 29.308797]",Drive west.
+96,1,"[-94.794215, 29.308743]",Keep left at the fork.
+96,2,"[-94.794817, 29.308439]",Turn left onto Tremont Avenue - 23rd Street.
+96,3,"[-94.794537, 29.307622]",Turn right.
+96,4,"[-94.794756, 29.307567]",Your destination is on the right.
+97,0,"[-94.794756, 29.307567]",Drive west.
+97,1,"[-94.795326, 29.307553]",Turn right.
+97,2,"[-94.795771, 29.307577]",Turn right onto Mitchell Avenue - 24th Street.
+97,3,"[-94.795831, 29.307756]",Turn right onto Harborside Drive/TX 275.
+97,4,"[-94.794678, 29.308045]",Turn right onto Tremont Avenue - 23rd Street.
+97,5,"[-94.794386, 29.30717]",Turn left onto The Strand.
+97,6,"[-94.794237, 29.307209]",Your destination is on the right.
+98,0,"[-94.794237, 29.307209]",Drive east on The Strand.
+98,1,"[-94.793985, 29.307275]",Turn left.
+98,2,"[-94.794145, 29.307724]",Turn left.
+98,3,"[-94.794537, 29.307622]",Turn left onto Tremont Avenue - 23rd Street.
+98,4,"[-94.794386, 29.30717]",Turn right onto The Strand.
+98,5,"[-94.794971, 29.307017]",Your destination is on the right.
+99,0,"[-94.794971, 29.307017]",Drive west on The Strand.
+99,1,"[-94.795031, 29.307001]",Your destination is on the right.
+100,0,"[-94.795031, 29.307001]",Drive west on The Strand.
+100,1,"[-94.795677, 29.306832]",Your destination is on the right.
+101,0,"[-94.795677, 29.306832]",Drive west on The Strand.
+101,1,"[-94.795861, 29.306785]",Your destination is on the right.
+102,0,"[-94.795861, 29.306785]",Drive west on The Strand.
+102,1,"[-94.795955, 29.30676]",Your destination is on the left.
+103,0,"[-94.795955, 29.30676]",Drive west on The Strand.
+103,1,"[-94.796103, 29.306722]",Turn right.
+103,2,"[-94.796139, 29.306829]",You have arrived at your destination.
+104,0,"[-94.796139, 29.306829]",Drive south.
+104,1,"[-94.796103, 29.306722]",Turn left onto The Strand.
+104,2,"[-94.795532, 29.30687]",Turn left onto Mitchell Avenue - 24th Street.
+104,3,"[-94.795569, 29.306982]",Your destination is on the right.
+105,0,"[-94.795569, 29.306982]",Drive north on Mitchell Avenue - 24th Street.
+105,1,"[-94.795831, 29.307756]",Turn right onto Harborside Drive/TX 275.
+105,2,"[-94.794678, 29.308045]",Turn right onto Tremont Avenue - 23rd Street.
+105,3,"[-94.794231, 29.306718]",Turn right.
+105,4,"[-94.795831, 29.306301]",Your destination is on the right.
+106,0,"[-94.795831, 29.306301]",Drive west.
+106,1,"[-94.796525, 29.306116]",Turn right onto Rosenberg Avenue - 25th Street.
+106,2,"[-94.79668, 29.306572]",Turn right onto The Strand.
+106,3,"[-94.795532, 29.30687]",Turn right onto Mitchell Avenue - 24th Street.
+106,4,"[-94.795379, 29.30642]",Turn left.
+106,5,"[-94.795127, 29.306485]",Your destination is on the left.
+107,0,"[-94.795127, 29.306485]",Drive east.
+107,1,"[-94.794546, 29.306636]",Your destination is on the right.
+108,0,"[-94.794546, 29.306636]",Drive east.
+108,1,"[-94.794231, 29.306718]",Turn right onto Tremont Avenue - 23rd Street.
+108,2,"[-94.794185, 29.306579]",Your destination is on the left.
+109,0,"[-94.794185, 29.306579]",Drive south on Tremont Avenue - 23rd Street.
+109,1,"[-94.794087, 29.306285]",Turn right onto Mechanic Street - Avenue C.
+109,2,"[-94.794648, 29.306137]",Your destination is on the left.
+110,0,"[-94.794648, 29.306137]",Drive west on Mechanic Street - Avenue C.
+110,1,"[-94.794735, 29.306113]",Your destination is on the right.
+111,0,"[-94.794735, 29.306113]",Drive west on Mechanic Street - Avenue C.
+111,1,"[-94.795232, 29.305982]",Turn left onto Mitchell Avenue - 24th Street.
+111,2,"[-94.794793, 29.304688]",Turn right.
+111,3,"[-94.795166, 29.30459]",Your destination is on the left.
+112,0,"[-94.795166, 29.30459]",Drive west.
+112,1,"[-94.795776, 29.304429]",Your destination is on the right.
+113,0,"[-94.795776, 29.304429]",Drive west.
+113,1,"[-94.795935, 29.304387]",Turn right onto Rosenberg Avenue - 25th Street.
+113,2,"[-94.796081, 29.304815]",Turn left onto Market Street - Avenue D.
+113,3,"[-94.79877, 29.304111]",Your destination is on the right.
+114,0,"[-94.79877, 29.304111]",Drive west on Market Street - Avenue D.
+114,1,"[-94.799028, 29.304044]",Turn left.
+114,2,"[-94.798973, 29.303881]",Your destination is on the left.
+115,0,"[-94.798973, 29.303881]",Drive south.
+115,1,"[-94.79888, 29.303608]",Turn right.
+115,2,"[-94.799476, 29.303444]",Turn right onto 28th Street.
+115,3,"[-94.799626, 29.303889]",Turn right onto Market Street - Avenue D.
+115,4,"[-94.799475, 29.303928]",Your destination is on the left.
+116,0,"[-94.799475, 29.303928]",Drive east on Market Street - Avenue D.
+116,1,"[-94.798484, 29.304186]",Turn left onto 27th Street.
+116,2,"[-94.798628, 29.304612]",Turn left.
+116,3,"[-94.799466, 29.304399]",Your destination is on the left.
+117,0,"[-94.799466, 29.304399]",Drive west.
+117,1,"[-94.799769, 29.304311]",Turn left onto 28th Street.
+117,2,"[-94.799626, 29.303889]",Turn right onto Market Street - Avenue D.
+117,3,"[-94.800763, 29.303593]",Turn left onto Martin Luther King Boulevard - 29th Street.
+117,4,"[-94.798982, 29.298361]",Turn right onto Broadway - Avenue J/TX 87.
+117,5,"[-94.802413, 29.297464]",Turn right onto 32nd Street.
+117,6,"[-94.802464, 29.297618]",Turn left.
+117,7,"[-94.802594, 29.297584]",Your destination is on the right.
+118,0,"[-94.802594, 29.297584]",Drive west.
+118,1,"[-94.802809, 29.297641]",Make a left U-turn.
+118,2,"[-94.802464, 29.297618]",Turn right onto 32nd Street.
+118,3,"[-94.802413, 29.297464]",Turn right onto Broadway - Avenue J/TX 87.
+118,4,"[-94.80469, 29.296865]",Make a left U-turn at 34th Street to stay on Broadway - Avenue J/TX 87.
+118,5,"[-94.803971, 29.296839]",Turn right.
+118,6,"[-94.803747, 29.296684]",You have arrived at your destination.
+120,0,"[-94.806031, 29.289193]",Drive west.
+120,1,"[-94.80836, 29.288585]",Your destination is on the right.
+121,0,"[-94.80836, 29.288585]",Drive west.
+121,1,"[-94.810392, 29.288039]",Turn left onto Jack Johnson Boulevard - 41st Street.
+121,2,"[-94.808991, 29.283973]",Your destination is on the left.
+122,0,"[-94.808991, 29.283973]",Drive south on Jack Johnson Boulevard - 41st Street.
+122,1,"[-94.808165, 29.281516]",Turn right onto Avenue S.
+122,2,"[-94.810743, 29.280838]",Your destination is on the right.
+123,0,"[-94.810743, 29.280838]",Drive west on Avenue S.
+123,1,"[-94.837667, 29.272804]",Bear right onto Jones Drive.
+123,2,"[-94.848802, 29.267623]",Turn right onto Hope Boulevard.
+123,3,"[-94.852449, 29.272912]",Turn right.
+123,4,"[-94.852019, 29.273801]",Turn left.
+123,5,"[-94.852114, 29.273836]",Turn left.
+123,6,"[-94.852238, 29.273577]",Your destination is on the right.

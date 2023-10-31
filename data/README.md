@@ -10,3 +10,7 @@ Please make sure to document each source file here.
 - city approved have IDs starting from 1000
 - private parking bins have IDs starting from 2000
 - park_board bins have IDs starting from 3000
+
+*route1_waypoints.csv:* This file is an example file for Waypoints pulled from mapbox api, file will be changed with the real data, same for route2_waypoints.csv
+
+*distance_matrix_20231029_220129.npy:* updated distance matrix with both indoor and outdoor points
