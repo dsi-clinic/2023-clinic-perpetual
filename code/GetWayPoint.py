@@ -65,11 +65,11 @@ def initialize_data():
 
     # Take file name from terminal
     file_name = (
-        "/Users/genie_god/Desktop/DATA_CLINIC/branch record/data/route1.csv"
+        "../data/route1.csv"
     )
     df1 = pd.read_csv(file_name)
     file_name = (
-        "/Users/genie_god/Desktop/DATA_CLINIC/branch record/data/route2.csv"
+        "../data/route2.csv"
     )
     # file_name = sys.argv[2]
     df2 = pd.read_csv(file_name)
