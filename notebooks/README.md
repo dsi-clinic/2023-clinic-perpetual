@@ -7,3 +7,4 @@ This should contain information about what is done in each notebook
 * `mapping_FUE_Galveston.ipynb` : This is a notebook to visulaize the coordinates on the Galveston map using folium. 
 *  `VRP.ipynb` : This notebook was used to run through the Vehicle Routing Problem.
 *  `FUE_Exploration.ipynb` : This notebook was create the FUE visualization.
+* `ClusteringGAL.ipynb`: Clustering exploration notebook of Galveston indoor and outdoor points. 
