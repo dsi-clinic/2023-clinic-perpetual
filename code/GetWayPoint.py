@@ -64,13 +64,9 @@ def initialize_data():
     mapbox_token = config["mapbox"]["token"]
 
     # Take file name from terminal
-    file_name = (
-        "../data/route1.csv"
-    )
+    file_name = "../data/route1.csv"
     df1 = pd.read_csv(file_name)
-    file_name = (
-        "../data/route2.csv"
-    )
+    file_name = "../data/route2.csv"
     # file_name = sys.argv[2]
     df2 = pd.read_csv(file_name)
     # Convert coordinates to list of lists
