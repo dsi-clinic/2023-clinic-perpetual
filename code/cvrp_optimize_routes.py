@@ -30,18 +30,29 @@ distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
 
 def get_demands(location_df, cluster_number):
     """
-    This function will ...
+    This function will generate the demands
+    list for each truck on the given day of the week.
+
+    inputs: location_df = dataframe of locations we are servicing
+            cluster_number = cluster number we are servicing
+                            for dropoff on this route
+
+    outputs: demands = a list of the demands (i.e. changes in
+                        truck capacity) at each service
+                        location
     """
     demands = []
     for index, row in location_df.iterrows():
         if row["cluster_number"] == cluster_number:
             delta = int(row["Daily_Pickup_Totes"]) - int(
-                                        row["Weekly_Dropoff_Totes"])
+                row["Weekly_Dropoff_Totes"]
+            )
             demands.append(delta)
         else:
             demands.append(int(row["Daily_Pickup_Totes"]))
 
     return demands
+
 
 def create_data_model():
     """Stores the data for the problem."""
@@ -164,9 +175,7 @@ def main():
         """Returns the demand of the node."""
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
-        return (
-            data["demands"][from_node]
-        )
+        return data["demands"][from_node]
 
     demand_callback_index = routing.RegisterUnaryTransitCallback(
         demand_callback
