@@ -14,9 +14,21 @@ arg 4 = num_vehicles
 arg 5 = num seconds you want each simulation to run
 """
 
+import pandas as pd
 import os
 import subprocess
 import sys
+
+def get_starting_load(cluster_number):
+    '''
+    '''
+    location_df = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
+    
+    cluster_only_dropoff = location_df.loc[location_df.loc[:, "cluster_number"]==cluster_number, "Weekly_Dropoff_Totes"]
+    
+    location_df.loc[0, "Daily_Pickup_Totes"] = sum(cluster_only_dropoff)
+
+    location_df.to_csv("../data/" + str(sys.argv[2])+ ".csv", index=False)
 
 
 def perform_one_week_route():
@@ -33,6 +45,7 @@ def perform_one_week_route():
     list_of_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     for day_number, day in enumerate(list_of_days):
         # run the cvrp_optimize_routes simulation for that day
+        get_starting_load(day_number)
         subprocess.run(
             [
                 "python",
@@ -43,10 +56,12 @@ def perform_one_week_route():
                 str(sys.argv[4]),  # num_vehicles
                 str(sys.argv[5]),  # num seconds per simulation
                 day,
-                str(sys.argv[1]),
+                str(sys.argv[1]),#trial number
             ]
-        )  # trial number
-
+        )
+    location_df = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
+    location_df.loc[0, "Daily_Pickup_Totes"] = 0.0 
+    location_df.to_csv("../data/" + str(sys.argv[2])+ ".csv", index=False)
 
 def main():
     """ """

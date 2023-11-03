@@ -28,56 +28,28 @@ location_df = pd.read_csv("../data/" + str(sys.argv[1]) + ".csv")
 distance_matrix = pd.read_csv("../data/" + str(sys.argv[2]) + ".csv")
 
 
-def get_pickup_demands(location_df):
+def get_demands(location_df, cluster_number):
     """
-    This function will get the daily number of totes to be
-    picked up at every location provided in the df.
-
-    Inputs: location_df = df of all the service locations
-                        on the daily truck route
-    Outputs: pickup_demands = a list of the number of totes to be collected
-                            at each location daily
-                            (in the same order of locations from the df)
+    This function will ...
     """
-    pickup_demands = []
-    for index, row in location_df.iterrows():
-        pickup_demands.append(int(row["Daily_Pickup_Totes"]))
-
-    return pickup_demands
-
-
-def get_dropoff_demands(location_df, cluster_number):
-    """
-    This function will get the number of totes to be
-    dropped off at specified locations for the
-    given day.
-
-    Inputs: location_df = df of all the service locations
-                        on the daily truck route
-            cluster_number = day of dropoff service
-    Outputs: dropoff_demands = a list of the number of totes to be dropped off
-                            at each location daily (will be 0 at the locations
-                            which are not receiving totes that day)
-                            (in the same order of locations from the df)
-    """
-    dropoff_demands = []
+    demands = []
     for index, row in location_df.iterrows():
         if row["cluster_number"] == cluster_number:
-            dropoff_demands.append(int(row["Weekly_Dropoff_Totes"]))
+            delta = int(row["Daily_Pickup_Totes"]) - int(
+                                        row["Weekly_Dropoff_Totes"])
+            demands.append(delta)
         else:
-            dropoff_demands.append(0)
+            demands.append(int(row["Daily_Pickup_Totes"]))
 
-    return dropoff_demands
-
+    return demands
 
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
     data["distance_matrix"] = distance_matrix.astype(int)
-    data["pickup_demands"] = get_pickup_demands(location_df)
-    data["dropoff_demands"] = get_dropoff_demands(location_df, int(sys.argv[3]))
+    data["demands"] = get_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
-    data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
+    data["vehicle_capacities"] = [130 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
@@ -99,12 +71,11 @@ def save_to_table(data, manager, routing, solution):
         index = routing.Start(vehicle_id)
         # plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
-        route_load = sum(data["dropoff_demands"])
+        route_load = 0
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
-            route_load += data["pickup_demands"][node_index]
-            route_load -= data["dropoff_demands"][node_index]
+            route_load += data["demands"][node_index]
             # plan_output += f" {node_index} Load({route_load}) -> "
             route.append(node_index)
             truck_load.append(route_load)
@@ -194,8 +165,7 @@ def main():
         # Convert from routing variable Index to demands NodeIndex.
         from_node = manager.IndexToNode(from_index)
         return (
-            data["pickup_demands"][from_node]
-            - data["dropoff_demands"][from_node]
+            data["demands"][from_node]
         )
 
     demand_callback_index = routing.RegisterUnaryTransitCallback(
@@ -205,7 +175,7 @@ def main():
         demand_callback_index,
         0,  # null capacity slack
         data["vehicle_capacities"],  # vehicle maximum capacities
-        False,  # start cumul to zero
+        True,  # start cumul to zero
         "Capacity",
     )
 
