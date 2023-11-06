@@ -1,5 +1,5 @@
 """
-This script will call the "cvrp_optimize_routes.py" script
+This script will call the "cvrp2.py" script
 five times for each day of the week. The result will save a folder
 of the new trial, containing routing for each day of the week.
 
@@ -18,12 +18,10 @@ import os
 import subprocess
 import sys
 
-import pandas as pd
-
 
 def perform_one_week_route():
     """
-    This function will perform the cvrp_optimize_routes for
+    This function will perform the cvrp route optimization for
     each day of the week, and save the routes as dataframes for
     each day.
 
@@ -47,7 +45,6 @@ def perform_one_week_route():
                 str(sys.argv[1]),  # trial number
             ]
         )
-
 
 
 def main():

@@ -5,7 +5,7 @@ Google ORTools' Capacited Vehicles Routing Problem
 routes to deploy in Galveston.
 
 Run this script in the terminal using:
-python optimize_cvrp_galv.py <arg1> <arg2> 
+python optimize_cvrp_galv.py <arg1> <arg2>
 
 The one argument is:
 arg1 = number of vehicles
@@ -14,7 +14,6 @@ arg2 = number of seconds in the time limit
 
 import sys
 
-import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
@@ -205,8 +204,7 @@ def main():
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
     search_parameters.time_limit.FromSeconds(int(sys.argv[2]))
-    #search_parameters.time_limit.seconds = 7200
-    
+    # search_parameters.time_limit.seconds = 7200
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)

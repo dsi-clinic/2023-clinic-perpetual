@@ -1,17 +1,32 @@
-"""Capacited Vehicles Routing Problem (CVRP)."""
+"""Capacited Vehicles Routing Problem (CVRP).
+
+This is Google OR-Tools' cvrp problem copied exactly
+as it appears online, with the only changes made to create_data_model()
+so our location df and distance matrix can be used
+(uses the old points for galveston fues)
+
+In the terminal, run:
+python only_change_dfs.py <arg1>
+
+arg 1 = num_seconds
+"""
 
 import sys
+
 import pandas as pd
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
+from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
     location_df = pd.read_csv("../../data/FUE_Galveston.csv")
-    data["distance_matrix"] = pd.read_csv("../../data/distance_matrix_trial1.csv")
-    data["demands"] = location_df.loc[:, "Daily_Pickup_Totes"].astype(int).tolist()
+    data["distance_matrix"] = pd.read_csv(
+        "../../data/distance_matrix_trial1.csv"
+    )
+    data["demands"] = (
+        location_df.loc[:, "Daily_Pickup_Totes"].astype(int).tolist()
+    )
     data["vehicle_capacities"] = [150, 150, 150]
     data["num_vehicles"] = 3
     data["depot"] = 0
@@ -80,7 +95,9 @@ def main():
         from_node = manager.IndexToNode(from_index)
         return data["demands"][from_node]
 
-    demand_callback_index = routing.RegisterUnaryTransitCallback(demand_callback)
+    demand_callback_index = routing.RegisterUnaryTransitCallback(
+        demand_callback
+    )
     routing.AddDimensionWithVehicleCapacity(
         demand_callback_index,
         0,  # null capacity slack

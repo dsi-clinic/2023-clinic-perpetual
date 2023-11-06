@@ -68,12 +68,17 @@ def get_vehicle_capacity(location_df, cluster_number, num_vehicles):
                         truck capacity) at each service
                         location
     """
-    #sum the total dropoffs that will be made on the given day
-    day_dropoff_total = sum(location_df.loc[location_df.loc[:, "cluster_number"]==cluster_number, "Weekly_Dropoff_Totes"])
+    # sum the total dropoffs that will be made on the given day
+    day_dropoff_total = sum(
+        location_df.loc[
+            location_df.loc[:, "cluster_number"] == cluster_number,
+            "Weekly_Dropoff_Totes",
+        ]
+    )
     divide_evenly = day_dropoff_total / num_vehicles
-    #add an adjustment in the case of imperfect division
-    divide_evenly = int(divide_evenly+1)
-    #the division will be the vehicle capacity 
+    # add an adjustment in the case of imperfect division
+    divide_evenly = int(divide_evenly + 1)
+    # the division will be the vehicle capacity
     return divide_evenly
 
 
@@ -83,8 +88,12 @@ def create_data_model():
     data["distance_matrix"] = distance_matrix.astype(int)
     data["demands"] = get_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
-    vehicle_capacity = get_vehicle_capacity(location_df, int(sys.argv[3]), int(sys.argv[4]))
-    data["vehicle_capacities"] = [vehicle_capacity for i in range(data["num_vehicles"])]
+    vehicle_capacity = get_vehicle_capacity(
+        location_df, int(sys.argv[3]), int(sys.argv[4])
+    )
+    data["vehicle_capacities"] = [
+        vehicle_capacity for i in range(data["num_vehicles"])
+    ]
     data["depot"] = 0
     return data
 
@@ -103,14 +112,14 @@ def save_to_table(data, manager, routing, solution):
         route = []
         agg_distances = []
         index = routing.Start(vehicle_id)
-       
+
         route_distance = 0
         route_load = 0
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
             route_load += data["demands"][node_index]
-           
+
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -128,7 +137,7 @@ def save_to_table(data, manager, routing, solution):
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-  
+
     return routes, distances, loads
 
 

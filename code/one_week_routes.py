@@ -18,8 +18,6 @@ import os
 import subprocess
 import sys
 
-import pandas as pd
-
 
 def perform_one_week_route():
     """

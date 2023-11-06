@@ -11,18 +11,17 @@ python routing_no_clusters.py <arg1> <arg2> <arg3>
 
 The one argument is:
 arg1 = number of vehicles
-arg2 = vehicle capacity 
+arg2 = vehicle capacity
 arg3 = number of seconds in the time limit
 """
 
 import sys
 
-import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 # import the data
-galveston = pd.read_csv("../../data/truck_service_locations.csv")
+galveston = pd.read_csv("../../data/truck_service_pts_galv.csv")
 
 # load the distance matrix
 distance_matrix = pd.read_csv("../../data/truck_distances_galv.csv")
@@ -58,7 +57,9 @@ def create_data_model():
     data["distance_matrix"] = distance_matrix
     data["demands"] = get_demands(galveston)
     data["num_vehicles"] = int(sys.argv[1])
-    data["vehicle_capacities"] = [int(sys.argv[2]) for i in range(data["num_vehicles"])]
+    data["vehicle_capacities"] = [
+        int(sys.argv[2]) for i in range(data["num_vehicles"])
+    ]
     data["depot"] = 0
     return data
 
@@ -209,8 +210,7 @@ def main():
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
     search_parameters.time_limit.FromSeconds(int(sys.argv[3]))
-    #search_parameters.time_limit.seconds = 7200
-    
+    # search_parameters.time_limit.seconds = 7200
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)

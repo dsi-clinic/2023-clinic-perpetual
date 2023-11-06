@@ -1,11 +1,11 @@
 """
-This script will call the "cvrp_optimize_routes.py" script
+This script will call the "cvrp1.py" script
 five times for each day of the week. The result will save a folder
 of the new trial, containing routing for each day of the week.
 
 To run this script in the terminal, run:
 
-python one_week_routes.py <arg1> <arg2> <arg3> <arg4> <arg5>
+python one_week_loop1.py <arg1> <arg2> <arg3> <arg4> <arg5>
 
 arg 1 = trial #
 arg 2 = name of location df you are using
@@ -49,7 +49,7 @@ def get_starting_load(cluster_number):
 
 def perform_one_week_route():
     """
-    This function will perform the cvrp_optimize_routes for
+    This function will perform the cvrp route optimization for
     each day of the week, and save the routes as dataframes for
     each day.
 
@@ -60,7 +60,7 @@ def perform_one_week_route():
     list_of_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     for day_number, day in enumerate(list_of_days):
         # run the cvrp_optimize_routes simulation for that day
-        get_starting_load(day_number+1)
+        get_starting_load(day_number + 1)
         subprocess.run(
             [
                 "python",

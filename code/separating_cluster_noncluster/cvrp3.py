@@ -4,7 +4,6 @@ Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal number of trucks and
 routes to deploy based on a given dataset of locations.
 
-
 The arguments are:
 arg1 = name of the df for tote service locations
 arg2 = name of the df of corresponding ditance matrix
@@ -15,33 +14,65 @@ arg6 = day
 arg7 = trial number
 arg8 = vehicle_capacity
 """
-
-import os
 import sys
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-def get_location_df(name):
-    '''
-    '''
-    location_df = pd.read_csv("../../data/" + name + ".csv")
-    ##
-    ##
-    ##
-    ##
 
-def get_distance_matrix(name):
-    '''
-    '''
-    distance_matrix = pd.read_csv("../../data/" + name + ".csv")
-    ##
-    ##
-    ##
-    ##
+def get_dataframes(df_name, clustered_bool):
+    """
+    imports the locations df and distance matrix df to be used.
+    Needs to subset cluster only and non-cluster only locations
+    for each day.
 
+    inputs: df_name = name to the locations dataframe in the data folder
+            clustered_bool = boolean for whether the data will be subsetted
+                            for cluster only points (True)
+                            or non-cluster only points (False)
 
+    outputs: locations_subset, distances_subset
+            these are subsetted dataframes (either for cluster or non_cluster)
+    """
+    # import full locations and distance matrix points from data folder
+    location_df = pd.read_csv("../../data/" + df_name + ".csv")
+    distance_matrix = pd.read_csv("../../data/" + df_name + ".csv")
 
+    # grab list of indicies for cluster points
+    cluster_indices = location_df.loc[
+        (location_df.loc[:, "cluster_number"] == sys.argv[3]), :
+    ].index.values.tolist()
+
+    num_non_cluster = len(location_df) - len(cluster_indices)
+
+    # subset cluster only points
+    if clustered_bool:
+        # subset locations_df to cluster indicies and reset index
+        location_df = location_df.loc[cluster_indices, :]
+        location_df.reset_index(inplace=True, drop=True)
+
+        # select rows and columns in distance matrix to cluster only
+        cluster_columns = [str(i) for i in cluster_indices]
+        distance_matrix = distance_matrix.loc[cluster_indices, cluster_columns]
+        # reset index and columns
+        distance_matrix.reset_index(inplace=True, drop=True)
+        distance_matrix.columns = [str(i) for i in len(cluster_indices)]
+
+    # subset non-clustered points
+    else:
+        # drop cluster indicies from locations_df and reset index
+        location_df = location_df.drop(cluster_indices, axis=0)
+        location_df.reset_index(inplace=True, drop=True)
+
+        # drop cluster rows and columns in distance matrix
+        cluster_columns = [str(i) for i in cluster_indices]
+        distance_matrix = distance_matrix.drop(cluster_indices, axis=0)
+        distance_matrix = distance_matrix.drop(cluster_columns, axis=1)
+        # reset index and columns
+        distance_matrix.reset_index(inplace=True, drop=True)
+        distance_matrix.columns = [str(i) for i in range(num_non_cluster)]
+
+    return location_df, distance_matrix
 
 
 def get_demands(location_df):
@@ -65,17 +96,24 @@ def get_demands(location_df):
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
-    location_df = get_location_df(str(sys.argv[1]))
-    distance_matrix = get_distance_matrix(str(sys.argv[2]))
+    data["num_vehicles"] = int(sys.argv[4])
+    data["vehicle_capacities"] = [
+        int(sys.argv[8]) for i in range(data["num_vehicles"])
+    ]
+
+    # create the subsetted location and distance matrix df
+    # depending on whether we are running a cluster only or non-cluster only
+    if int(sys.argv[8]) < 150:
+        location_df, distance_matrix = get_dataframes(str(sys.argv[1]), True)
+    else:
+        location_df, distance_matrix = get_dataframes(str(sys.argv[1]), False)
+
     data["distance_matrix"] = distance_matrix.astype(int)
     data["demands"] = get_demands(location_df)
-    data["num_vehicles"] = int(sys.argv[4])
-    data["vehicle_capacities"] = [int(sys.argv[8]) for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
 
-# comment out all lines pertaining to the print statements
 def save_to_table(data, manager, routing, solution):
     """Save each route to its own dataframe"""
     routes = []
@@ -89,14 +127,14 @@ def save_to_table(data, manager, routing, solution):
         route = []
         agg_distances = []
         index = routing.Start(vehicle_id)
-       
+
         route_distance = 0
         route_load = 0
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
             route_load += data["demands"][node_index]
-           
+
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -114,16 +152,17 @@ def save_to_table(data, manager, routing, solution):
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-  
+
     return routes, distances, loads
 
 
-def make_dataframe(data, manager, routing, solution, df):
+def make_dataframe(data, manager, routing, solution):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
     routes, distances, loads = save_to_table(data, manager, routing, solution)
 
     if data["vehicle_capacities"][0] < 150:
+        df, _ = get_dataframes(str(sys.argv[1]), True)
         route_df = df.loc[routes[0], :]
         route_df["Cumulative_Distance"] = distances[0]
         route_df["Truck_Load"] = loads[0]
@@ -140,6 +179,7 @@ def make_dataframe(data, manager, routing, solution, df):
         route_df.to_csv(path, index=False)
 
     else:
+        df, _ = get_dataframes(str(sys.argv[1]), False)
         for i in range(len(routes)):
             route_df = df.loc[routes[i], :]
             route_df["Cumulative_Distance"] = distances[i]
@@ -147,7 +187,6 @@ def make_dataframe(data, manager, routing, solution, df):
             route_df = route_df.reset_index()
             route_df = route_df.rename(columns={"index": "Original_Index"})
 
-       
             path = (
                 "../data/trial"
                 + str(sys.argv[7])
@@ -159,8 +198,6 @@ def make_dataframe(data, manager, routing, solution, df):
             )
             # save the route file
             route_df.to_csv(path, index=False)
-        
-    
 
 
 def main():
@@ -222,9 +259,7 @@ def main():
 
     # Return solution.
     if solution:
-        # print_solution(data, manager, routing, solution)
-        # return save_to_table(data, manager, routing, solution)
-        make_dataframe(data, manager, routing, solution, location_df)
+        make_dataframe(data, manager, routing, solution)
 
 
 if __name__ == "__main__":

@@ -79,14 +79,14 @@ def save_to_table(data, manager, routing, solution):
         route = []
         agg_distances = []
         index = routing.Start(vehicle_id)
-       
+
         route_distance = 0
         route_load = 0
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
             route_load += data["demands"][node_index]
-           
+
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -104,7 +104,7 @@ def save_to_table(data, manager, routing, solution):
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-  
+
     return routes, distances, loads
 
 
