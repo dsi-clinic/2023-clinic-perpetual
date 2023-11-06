@@ -4,12 +4,15 @@ Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal number of trucks and
 routes to deploy in Galveston.
 
+Optimizes routing for pickup only, clusters not considered.
+
 Run this script in the terminal using:
-python optimize_cvrp_galv.py <arg1> <arg2> 
+python routing_no_clusters.py <arg1> <arg2> <arg3>
 
 The one argument is:
 arg1 = number of vehicles
-arg2 = number of seconds in the time limit
+arg2 = vehicle capacity 
+arg3 = number of seconds in the time limit
 """
 
 import sys
@@ -19,15 +22,16 @@ import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 # import the data
-galveston = pd.read_csv("../data/FUE_Galveston.csv")
+galveston = pd.read_csv("../../data/truck_service_locations.csv")
 
 # load the distance matrix
-distance_matrix = pd.read_csv("../data/distance_matrix_trial1.csv")
+distance_matrix = pd.read_csv("../../data/truck_distances_galv.csv")
 
 
 # import sys
 # arg 1 = num_vehicles
-# arg 2 = num_seconds
+# arg 2 = vehicle capacity
+# arg 3 = num_seconds
 
 
 def get_demands(location_df):
@@ -54,7 +58,7 @@ def create_data_model():
     data["distance_matrix"] = distance_matrix
     data["demands"] = get_demands(galveston)
     data["num_vehicles"] = int(sys.argv[1])
-    data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
+    data["vehicle_capacities"] = [int(sys.argv[2]) for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
@@ -148,7 +152,7 @@ def make_dataframe(data, manager, routing, solution, df):
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        path = "../data/route" + str(i + 1) + ".csv"
+        path = "../../data/route" + str(i + 1) + ".csv"
         route_df.to_csv(path, index=False)
 
 
@@ -204,7 +208,7 @@ def main():
     search_parameters.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    search_parameters.time_limit.FromSeconds(int(sys.argv[2]))
+    search_parameters.time_limit.FromSeconds(int(sys.argv[3]))
     #search_parameters.time_limit.seconds = 7200
     
 

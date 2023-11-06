@@ -5,7 +5,7 @@ of the new trial, containing routing for each day of the week.
 
 To run this script in the terminal, run:
 
-python one_week_routes.py <arg1> <arg2> <arg3> <arg4> <arg5>
+python one_week_loop2.py <arg1> <arg2> <arg3> <arg4> <arg5>
 
 arg 1 = trial #
 arg 2 = name of location df you are using
@@ -37,7 +37,7 @@ def perform_one_week_route():
         subprocess.run(
             [
                 "python",
-                "cvrp_optimize_routes.py",
+                "cvrp2.py",
                 str(sys.argv[2]),  # name of location df
                 str(sys.argv[3]),  # name of distance matrix df
                 str(day_number + 1),
@@ -49,9 +49,10 @@ def perform_one_week_route():
         )
 
 
+
 def main():
     """ """
-    os.mkdir("../data/trial" + str(sys.argv[1]))
+    os.mkdir("../../data/trial" + str(sys.argv[1]))
     perform_one_week_route()
 
 

@@ -60,7 +60,7 @@ def create_data_model():
     data["distance_matrix"] = distance_matrix.astype(int)
     data["demands"] = get_demands(location_df, int(sys.argv[3]))
     data["num_vehicles"] = int(sys.argv[4])
-    data["vehicle_capacities"] = [130 for i in range(data["num_vehicles"])]
+    data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
@@ -68,7 +68,6 @@ def create_data_model():
 # comment out all lines pertaining to the print statements
 def save_to_table(data, manager, routing, solution):
     """Save each route to its own dataframe"""
-    # print(f"Objective: {solution.ObjectiveValue()}")
     routes = []
     distances = []
     loads = []
@@ -80,14 +79,14 @@ def save_to_table(data, manager, routing, solution):
         route = []
         agg_distances = []
         index = routing.Start(vehicle_id)
-        # plan_output = f"Route for vehicle {vehicle_id}:\n"
+       
         route_distance = 0
         route_load = 0
         truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
             route_load += data["demands"][node_index]
-            # plan_output += f" {node_index} Load({route_load}) -> "
+           
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -97,20 +96,15 @@ def save_to_table(data, manager, routing, solution):
                 previous_index, index, vehicle_id
             )
 
-        # plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
         route.append(manager.IndexToNode(index))
         truck_load.append(route_load)
         agg_distances.append(route_distance)
-        # plan_output += f"Distance of the route: {route_distance}m\n"
-        # plan_output += f"Load of the route: {route_load}\n"
-        # print(plan_output)
         total_distance += route_distance
         total_load += route_load
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-    # print(f"Total distance of all routes: {total_distance}m")
-    # print(f"Total load of all routes: {total_load}")
+  
     return routes, distances, loads
 
 
@@ -184,7 +178,7 @@ def main():
         demand_callback_index,
         0,  # null capacity slack
         data["vehicle_capacities"],  # vehicle maximum capacities
-        True,  # start cumul to zero
+        False,  # start cumul to zero
         "Capacity",
     )
 
