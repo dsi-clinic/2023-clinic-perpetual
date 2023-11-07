@@ -42,6 +42,7 @@ def get_matrix_data(coordinates, access_token):
     return response.json()
 
 
+# not used in this file
 def generate_capacity_list(df, timestamp_str):
     """
     Generate a list of capacities from the dataframe.
@@ -53,6 +54,22 @@ def generate_capacity_list(df, timestamp_str):
     capacity_file = f"data/capacity_list_{timestamp_str}.pkl"
     with open(capacity_file, "wb") as f:
         pickle.dump(list(map(int, df["Daily_Pickup_Totes"].tolist())), f)
+
+
+def add_coordinates(file_name):
+    df = pd.read_csv(file_name)
+    df.columns = [col.capitalize() for col in df.columns]
+    df["Coordinates"] = df[["Longitude", "Latitude"]].values.tolist()
+    df.drop(columns=["Longitude", "Latitude"], inplace=True)
+    return df
+
+
+def generate_coordinate_list(df_list):
+    coordinate_list = []
+    for df in df_list:
+        for coordinate in df["Coordinates"]:
+            coordinate_list.append(coordinate)
+    return coordinate_list
 
 
 def initialize_data():
@@ -70,45 +87,41 @@ def initialize_data():
     mapbox_token = config["mapbox"]["token"]
 
     # Take file name from terminal
-    file_name = sys.argv[1]
-    df = pd.read_csv(file_name)
-    # Convert coordinates to list of lists
-    df["Coordinates"] = df[["Longitude", "Latitude"]].values.tolist()
-    df.drop(columns=["Longitude", "Latitude"], inplace=True)
+    file_name_indoor = sys.argv[1]
+    file_name_outdoor = sys.argv[2]
 
-    return df, mapbox_token
+    # Convert coordinates to list of lists
+    df_indoor = add_coordinates(file_name_indoor)
+    df_outdoor = add_coordinates(file_name_outdoor)
+
+    return df_indoor, df_outdoor, mapbox_token
 
 
 def main():
-
     # Initialize the data
-    df, mapbox_token = initialize_data()
+    df_indoor, df_outdoor, mapbox_token = initialize_data()
+
+    # prepare the coordination list
+    pickup_cor_list = generate_coordinate_list([df_indoor, df_outdoor])
+    # Add the first coordinate as the source
+    source_location = [-94.8523, 29.2736]
+    coordinate_list = [source_location] + pickup_cor_list
 
     # Initialize the matrix
-    full_matrix = np.zeros(len(df))
+    full_matrix = np.zeros(len(coordinate_list))
 
     # Get the matrix data.
     # Goes through every source once
     # and then every destination for every source.
-    col_idx = df.columns.get_loc("Coordinates")
-    for i in tqdm.tqdm(range(len(df))):
+    for i in tqdm.tqdm(range(len(coordinate_list))):
         horizontal = [[]]
         # Goes through 24 destinations for every source due to api limit
-        for j in range(0, len(df), 23):
-            coordinate_list = [df.iloc[i, col_idx]] + df.iloc[
-                j : j + 23, col_idx
-            ].tolist()
-
-            # API does not allow calls with only 1 destination
-            # so we attach a dummy destination at the end
-            # to make sure the call go through and remove it later
-            coordinate_list.append(df.iloc[i, col_idx])
+        for j in range(0, len(coordinate_list), 23):
+            c_list = [coordinate_list[i]] + coordinate_list[j : j + 23]
+            c_list.append(coordinate_list[i])
             result = [
-                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][
-                    :-1
-                ]
+                get_matrix_data(c_list, mapbox_token)["distances"][0][:-1]
             ]
-
             horizontal = np.hstack((horizontal, result))
             time.sleep(1)
         full_matrix = np.vstack((full_matrix, horizontal))
@@ -124,9 +137,6 @@ def main():
         f"data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
     )
     np.save(filename, full_matrix)
-
-    # Save the capacity list to a file
-    generate_capacity_list(df, timestamp_str)
 
     print("Complete!")
 
