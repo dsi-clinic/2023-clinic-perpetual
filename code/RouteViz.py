@@ -1,17 +1,8 @@
-# This file is meant to graph a route(s) after an order of locations
-# has been determined.
-# by: Huanlin Dai
-
-import contextily as cx
 import folium
-import geopandas
-import matplotlib
 import networkx as nx
 import osmnx as ox
 import pandas as pd
-from geodatasets import get_path
-from shapely.geometry import LineString
-
+import configparser
 
 def find_bbox(coords):
     """
@@ -41,13 +32,15 @@ def find_bbox(coords):
             max(longitude, e),
             min(longitude, w),
         ]
-    return n, s, e, w
+    nspad = 1.5 * (n-s)
+    ewpad = 1.5 * (e-w)
+    return n + nspad, s - nspad, e + ewpad, w - ewpad
 
 
 def osmnx_to_latlon(graph, routes):
     """
-    given a route created by osmnx (node numbers), create a list of x, y coordinates
-    to draw on folium
+    given a route created by osmnx (node numbers), create a list of x, y
+    coordinates to draw on folium
 
     Parameters:
         graph : osmnx graph
@@ -66,8 +59,8 @@ def osmnx_to_latlon(graph, routes):
 
 def calc_routes(graph, coords):
     """
-    Takes in a graph and a set of coordinates (w/ columns "Longitude" and "Latitude")
-    and returns the set of shortest routes between each coordinate
+    Takes in a graph and a set of coordinates (w/ columns "Longitude" and
+    "Latitude") and returns the set of shortest routes between each coordinate
 
     Parameters:
         graph : osmnx graph
@@ -121,35 +114,42 @@ def add_markers(f_map, route_df, color):
                 Pickup (daily): {pickup}
                 """
         popup = folium.Popup(popup_html, max_width=700)
-        
+
         folium.Marker(
-            (y, x), popup=popup, parse_html = True, icon=folium.Icon(color=color)
+            (y, x), popup=popup, parse_html=True, icon=folium.Icon(color=color)
         ).add_to(f_map)
-        # icon_size = 40
+        
     return None
 
 
 if __name__ == "__main__":
 
-    place = "Galveston, Texas, USA"  # location = [29.30135, -94.7977]
-
-    feu_galveston = pd.read_csv("../data/FUE_Galveston.csv")
-    route_1_data = pd.read_csv("../data/route1.csv")
+    config = configparser.ConfigParser()
+    config.read('../utils/config.ini')
+    cfg = config['route.viz']
+    
+    place = cfg['place']
+    FUE_path = cfg['FUE_path']
+    route_path = cfg['route_path']
+    latitude = float(cfg['latitude'])
+    longitude = float(cfg['longitude'])
+    save_path = cfg['save_path']
+        
+    feu_galveston = pd.read_csv(FUE_path)
+    route_data = pd.read_csv(route_path)
+    location = [latitude, longitude]
+    coords = route_data[["Longitude", "Latitude"]]
     # route_2_data = pd.read_csv("../data/route2.csv")
-    coords1 = route_1_data[["Longitude", "Latitude"]]
     # coords2 = route_2_data[["Longitude", "Latitude"]]
 
-    n1, s1, e1, w1 = find_bbox(coords1)
+    n, s, e, w = find_bbox(coords)
     # n2, s2, e2, w2 = find_bbox(coords2)
 
     graph = ox.graph_from_place(place, network_type="drive")
 
-    galv_graph1 = ox.truncate.truncate_graph_bbox(
+    galv_graph = ox.truncate.truncate_graph_bbox(
         graph,
-        n1,
-        s1,
-        e1,
-        w1,
+        n, s, e, w,
         truncate_by_edge=False,
         retain_all=False,
         quadrat_width=0.05,
@@ -167,20 +167,20 @@ if __name__ == "__main__":
     #     min_num=3,
     # )
 
-    route_1 = calc_routes(galv_graph1, coords1)
+    route = calc_routes(galv_graph, coords)
     # route_2 = calc_routes(galv_graph2, coords2)
 
     map = folium.Map(
-        location=[29.30135, -94.7977], tiles="OpenStreetMap", zoom_start=11
+        location=location, tiles="OpenStreetMap", zoom_start=11
     )
-    add_markers(map, route_1_data, "blue")
+    add_markers(map, route_data, "blue")
     # add_markers(map, route_2_data, "red")
-    folium.PolyLine(locations=route_1, color="blue").add_to(map)
+    folium.PolyLine(locations=route, color="blue").add_to(map)
     # folium.PolyLine(locations=route_2, color="red").add_to(map)
-    
-    for y,x in route_1:
-        folium.CircleMarker(location=[y,x],
-                        radius=2,
-                        weight=5, color = 'yellow').add_to(map)
 
-    map.save("../output/route.html")
+    for y, x in route:
+        folium.CircleMarker(
+            location=[y, x], radius=2, weight=5, color="yellow"
+        ).add_to(map)
+
+    map.save(save_path)
