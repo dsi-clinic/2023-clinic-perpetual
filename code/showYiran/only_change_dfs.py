@@ -23,7 +23,7 @@ def create_data_model():
     location_df = pd.read_csv("../../data/FUE_Galveston.csv")
     data["distance_matrix"] = pd.read_csv(
         "../../data/distance_matrix_trial1.csv"
-    )
+    ).to_numpy().astype(int)
     data["demands"] = (
         location_df.loc[:, "Daily_Pickup_Totes"].astype(int).tolist()
     )
