@@ -7,4 +7,6 @@ ipykernel~=6.16
 # project packages
 pandas~=1.4
 ortools~=9.7
-folium~=0.14.0
+folium ~= 0.14.0
+googlemaps ~= 4.10.0
+polyline ~= 1.4.0
