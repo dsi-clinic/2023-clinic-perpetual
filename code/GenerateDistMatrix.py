@@ -80,7 +80,6 @@ def initialize_data():
 
 
 def main():
-
     # Initialize the data
     df, mapbox_token = initialize_data()
 
@@ -98,7 +97,6 @@ def main():
             coordinate_list = [df.iloc[i, col_idx]] + df.iloc[
                 j : j + 23, col_idx
             ].tolist()
-
             # API does not allow calls with only 1 destination
             # so we attach a dummy destination at the end
             # to make sure the call go through and remove it later
@@ -120,9 +118,8 @@ def main():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename = (
-        f"data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
-    )
+    filename_root = "../data/generated_distance_matrices/distance_matrix"
+    filename = f"{filename_root}_{timestamp_str}.npy"
     np.save(filename, full_matrix)
 
     # Save the capacity list to a file
