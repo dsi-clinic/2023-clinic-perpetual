@@ -27,7 +27,7 @@ if __name__ == '__main__':
     # read config
     config = configparser.ConfigParser()
     config.read('../utils/config.ini')
-    cfg = config['bike.convert']
+    cfg = config['convert.to_bikes']
 
     # parse config
     truth_df_path = cfg['truth_df_path']
