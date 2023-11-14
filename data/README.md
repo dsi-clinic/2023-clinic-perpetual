@@ -15,3 +15,9 @@ Please make sure to document each source file here.
 - city approved have IDs starting from 1000
 - private parking bins have IDs starting from 2000
 - park_board bins have IDs starting from 3000
+
+*clustered_data.csv* File containing locations of indoor and outdoor points along with their clusters based on distance of each FUE.
+
+*pickup_totes.csv* File containing the binned indoor and outdoor points of Galveston based on location pickup capacity. 
+
+*dropoff_totes.csv* File containing the binned indoor and outdoor poitns of Galveston based on lcoation's dropoff capacity. 
