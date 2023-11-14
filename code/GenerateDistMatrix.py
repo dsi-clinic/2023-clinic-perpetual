@@ -24,7 +24,7 @@ def get_matrix_data(coordinates, access_token):
 
     # Endpoint URL (assuming driving mode here,
     # but can be changed to walking, cycling, etc.)
-    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/"
+    url_root = "https://api.mapbox.com/directions-matrix/v1/mapbox/driving"
     url = f"{url_root}/{coordinates_str}"
 
     # Parameters
@@ -80,7 +80,6 @@ def initialize_data():
 
 
 def main():
-
     # Initialize the data
     df, mapbox_token = initialize_data()
 
@@ -94,11 +93,20 @@ def main():
     for i in tqdm.tqdm(range(len(df))):
         horizontal = [[]]
         # Goes through 24 destinations for every source due to api limit
-        for j in range(0, len(df), 24):
+        for j in range(0, len(df), 23):
             coordinate_list = [df.iloc[i, col_idx]] + df.iloc[
-                j : j + 24, col_idx
+                j : j + 23, col_idx
             ].tolist()
-            result = get_matrix_data(coordinate_list, mapbox_token)["distances"]
+            # API does not allow calls with only 1 destination
+            # so we attach a dummy destination at the end
+            # to make sure the call go through and remove it later
+            coordinate_list.append(df.iloc[i, col_idx])
+            result = [
+                get_matrix_data(coordinate_list, mapbox_token)["distances"][0][
+                    :-1
+                ]
+            ]
+
             horizontal = np.hstack((horizontal, result))
             time.sleep(1)
         full_matrix = np.vstack((full_matrix, horizontal))
@@ -110,9 +118,8 @@ def main():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename = (
-        f"data/generated_distance_matrices/distance_matrix_{timestamp_str}.npy"
-    )
+    filename_root = "../data/generated_distance_matrices/distance_matrix"
+    filename = f"{filename_root}_{timestamp_str}.npy"
     np.save(filename, full_matrix)
 
     # Save the capacity list to a file

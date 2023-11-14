@@ -4,7 +4,6 @@
 Created on Fri Oct 13 22:18:05 2023
 
 @author: genie_god
-
 Capacited Vehicles Routing Problem (CVRP).
 """
 import pickle
@@ -115,7 +114,7 @@ def main():
     search_parameters.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    search_parameters.time_limit.FromSeconds(1)
+    search_parameters.time_limit.FromSeconds(10)
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)
