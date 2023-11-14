@@ -1,0 +1,257 @@
+,Name,Daily_Pickup_Totes,Weekly_Dropoff_Totes,category,Address,location_type,pickup_type
+0,Moody Gardens,0,0,,,depot,Truck
+1,Sugar Bean,1,1,cafe,"11 Evia Main, Galveston",indoor,Truck
+2,MAC-IES,1,1,restaurant,"1110 23rd Street, Galveston",indoor,Truck
+3,Good Dough,1,1,bakery,"1508 39th Street, Galveston",indoor,Truck
+4,Porch Cafe,1,1,restaurant,"1625 East Beach Drive #2A, Galveston",indoor,Truck
+5,Coastal Grill,1,1,restaurant,"1827 The Strand, Galveston",indoor,Truck
+6,Texas A&M University at Galveston,1,1,university,"200 Seawolf Parkway, Galveston",indoor,Truck
+7,Rudy & Paco Restaurant and Bar,1,1,bar,"2028 Postoffice St, Galveston",indoor,Truck
+8,Vargas Cut and Catch (listed above),1,1,bar,"2102 Postoffice Street, Galveston",indoor,Truck
+9,MarMo Cafe & Lounge,1,1,bar,"2121 Market Street suite 101, Galveston",indoor,Truck
+10,Toujouse (listed under Tremont House),1,1,cafe,"2300 Ship Mechanic Row Street, Galveston",indoor,Truck
+11,The Pink Foyer Sweets Boutique,1,1,bakery,"2315 Mechanic Street, Galveston",indoor,Truck
+12,Riondo's Ristorante,1,1,restaurant,"2328 The Strand, Galveston",indoor,Truck
+13,Sugar & Rye,1,1,restaurant,"2401 Church Street, Galveston",indoor,Truck
+14,Maceo Spice & Import Company,1,1,restaurant,"2706 Market Street, Galveston",indoor,Truck
+15,BLVD Seafood (all of Yagas Entertainment),1,1,restaurant,"2804 Avenue R 1/2, Galveston",indoor,Truck
+16,Galveston College,1,1,university,"4015 Avenue Q, Galveston",indoor,Truck
+17,Galveston College Charlie Thomas Family Applied Technology Center,3,2,university,"7626 Broadway Street, Galveston",indoor,Truck
+18,Galveston Country club,1,1,restaurant,"14888 Stewart rd Galveston, TX 77554",indoor,Truck
+19,Mr. C's Dugout @Galveston College,1,1,restaurant,"Student Center, 4015 Avenue Q, Galveston",indoor,Truck
+20,Galveston Bagel Company,1,1,bakery,"1110 23rd Street, Galveston",indoor,Truck
+21,Shykatz,2,1,cafe,"1528 Avenue L, Galveston",indoor,Truck
+22,Cajun Greek,1,1,restaurant,"2226 61st St Galveston, TX 77551",indoor,Truck
+23,Leeland House Galveston,1,1,bar,"2711 Market Street, Galveston",indoor,Truck
+24,Red Light Coffee Roasters,1,1,cafe,"2728 Market Street, Galveston",indoor,Truck
+25,Gaido's,1,1,restaurant,"3828 Seawall Boulevard, Galveston",indoor,Truck
+26,Eatcetera,1,1,restaurant,"408 25th Street, Galveston",indoor,Truck
+27,Star Drug Store,2,1,restaurant,"510 23rd Street, Galveston",indoor,Truck
+28,The Sunflower Bakery & Cafe,1,1,cafe,"512 14th Street, Galveston",indoor,Truck
+29,Mosquito Cafe,1,1,restaurant,"628 14th Street, Galveston",indoor,Truck
+30,PattyCakes Bakery,1,1,bakery,"704 14th Street, Galveston",indoor,Truck
+31,Sapori,1,1,restaurant,"7611 Stewart Road, Galveston",indoor,Truck
+32,galveston vfw hall,1,1,restaurant,"1014 24th Street Rear, Galveston",indoor,Truck
+33,Cooper's Landing,1,1,restaurant,"11150 Termini-San Luis Pass Road, Galveston",indoor,Truck
+34,Cruise Plaza,1,1,restaurant,"112 19th Street, Galveston",indoor,Truck
+35,Panda Express,2,1,restaurant,"11745 San Luis Pass Rd Galveston, TX 77554",indoor,Truck
+36,Mr. Taco,1,1,restaurant,"120 20th Street, Galveston",indoor,Truck
+37,Benno's Cajun Seafood Restaurant,1,1,restaurant,"1212 Seawall Boulevard, Galveston",indoor,Truck
+38,Bambú,1,1,restaurant,"1220 23rd Street, Galveston",indoor,Truck
+39,Lil’ Buffalo Grille,1,1,restaurant,"13 Evia Main, Galveston",indoor,Truck
+40,Saltgrass Steak House,1,1,restaurant,"1502 Seawall Boulevard, Galveston",indoor,Truck
+41,Chef Mary Bass,1,1,caterer,"1510 39th Street, Galveston",indoor,Truck
+42,Nick's,1,1,restaurant,"1613 39th Street, Galveston",indoor,Truck
+43,Longboard Pool Bar,1,1,bar,"1702 Seawall Boulevard, Galveston",indoor,Truck
+44,Pennies Tex Mex Take Out,2,1,restaurant,"1713 37th Street, Galveston",indoor,Truck
+45,Nate's Westend Seafood & Steaks,1,1,restaurant,"17515 Termini-San Luis Pass Road, Galveston",indoor,Truck
+46,Fish Company Taco,1,1,restaurant,"1914 23rd Street, Galveston",indoor,Truck
+47,Katie's Seafood House,1,1,restaurant,"2000 Wharf Road, Galveston",indoor,Truck
+48,Saltwater Grill,1,1,restaurant,"2017 Postoffice Street, Galveston",indoor,Truck
+49,Drunken Monkeyz,2,2,bar,"202 20th Street, Galveston",indoor,Truck
+50,Hubcap Grill,1,1,bar,"2021 The Strand #3, Galveston",indoor,Truck
+51,Monarch Restaurant,1,1,restaurant,"2024 Seawall Boulevard, Galveston",indoor,Truck
+52,Galvez Bar & Grill,1,1,restaurant,"2024 Seawall Boulevard, Galveston",indoor,Truck
+53,Willie G's Seafood & Steaks,1,1,restaurant,"2100 Harborside Drive, Galveston",indoor,Truck
+54,Taquilo's Tex-Mex,2,1,restaurant,"2101 Postoffice St, Galveston",indoor,Truck
+55,Sky Bar,1,1,restaurant,"2105 Postoffice St, Galveston",indoor,Truck
+56,Little Daddy’s Gumbo Bar - Galveston,1,1,restaurant,"2107 Postoffice Street, Galveston",indoor,Truck
+57,Schlitterbahn Waterpark Galveston,8,6,amusement_park,"2109 Gene Lucas Blvd, Galveston",indoor,Truck
+58,Hey Mikey's Ice Cream,1,1,cafe,"2120 Postoffice St, Galveston",indoor,Truck
+59,Vintage Crown Michelada Bar & Taqueria,1,1,bar,"215 23rd Street, Galveston",indoor,Truck
+60,The West End Marina and Restaurants,1,1,bar,"21706 Burnet Drive, Galveston",indoor,Truck
+61,Fisherman's Wharf,1,1,restaurant,"2200 Harborside Drive, Galveston",indoor,Truck
+62,Axecade,1,1,restaurant,"2217 Strand St Second Floor 217, 2217 The Strand Suite 217, Galveston",indoor,Truck
+63,Britton's Bistro (Murdocks),2,1,restaurant,"2226 71st St Galveston, TX 77551",indoor,Truck
+64,Tsunami Tequila Emporium,1,1,bar,"2314 The Strand, Galveston",indoor,Truck
+65,Playground Patio Bar & Grill,1,1,bar,"2325 The Strand, Galveston",indoor,Truck
+66,Press Box,2,2,bar,"2401 Postoffice Street, Galveston",indoor,Truck
+67,Shark Shack,1,1,bar,"2402 The Strand, Galveston",indoor,Truck
+68,Jack's Pub On Post Office,2,2,bar,"2406 Postoffice St, Galveston",indoor,Truck
+69,Hearsay On The Strand,1,1,restaurant,"2410 The Strand, Galveston",indoor,Truck
+70,Patrick’s Bar,1,1,bar,"2411 The Strand B, Galveston",indoor,Truck
+71,Trini Mike's Island Time Kitchen (Food Truck),1,1,restaurant,"2424 Post Office, Galveston (Sharkeys)",indoor,Truck
+72,La Estacion Restaurant,1,1,restaurant,"2428 Avenue H, Galveston",indoor,Truck
+73,Robert's Lafitte,1,1,bar,"2501 Avenue Q, Galveston",indoor,Truck
+74,Bubba Gump Shrimp Co.,1,1,restaurant,"2501 Seawall Boulevard, Galveston",indoor,Truck
+75,Fish Tales,1,1,restaurant,"2502 Seawall Boulevard, Galveston",indoor,Truck
+76,Shrimp 'N Stuff Downtown,2,1,restaurant,"2506 Avenue H, Galveston",indoor,Truck
+77,Freckleberry Teahouse,1,1,cafe,"2724 Market Street, Galveston",indoor,Truck
+78,Taco Cabana,2,1,restaurant,"2729 61st St. Galveston, TX 77551",indoor,Truck
+79,Float Pool & Patio Bar,1,1,bar,"2828 Seawall Boulevard, Galveston",indoor,Truck
+80,The Poop Deck,1,1,bar,"2928 Seawall Boulevard, Galveston",indoor,Truck
+81,Island time beach bar,2,2,bar,"3102 Seawall Boulevard, Galveston",indoor,Truck
+82,Taqueria Flores,2,1,restaurant,"3202 Broadway Avenue J #4228, Galveston",indoor,Truck
+83,Under the Bun,1,1,restaurant,"3202 Seawall Boulevard, Galveston (SPOT)",indoor,Truck
+84,Squeeze,1,1,bar,"3204 Seawall Boulevard c, Galveston (spot)",indoor,Truck
+85,Tiki Bar,2,2,bar,"3204 Seawall Boulevard Suite B, Galveston",indoor,Truck
+86,SideYard,1,1,bar,"3204 Seawall Boulevard Suite D, Galveston",indoor,Truck
+87,Rum Shack,1,1,bar,"3204 Seawall Boulevard Suite E, Galveston",indoor,Truck
+88,Drip,1,1,bar,"3204 Seawall Boulevard, Galveston",indoor,Truck
+89,Black Pearl Oyster Bar,1,1,restaurant,"327 23rd Street, Galveston",indoor,Truck
+90,La Michoacana Meat Market,2,1,supermarket,"3301 Broadway Avenue J, Galveston",indoor,Truck
+91,Queen's Bar-B-Que,2,1,restaurant,"3428 Avenue S, Galveston",indoor,Truck
+92,Joe's Crab Shack,1,1,restaurant,"3502 Seawall Boulevard, Galveston",indoor,Truck
+93,The Gumbo Diner,1,1,restaurant,"3602 Seawall Boulevard, Galveston",indoor,Truck
+94,Rail Road Museum,1,1,restaurant,"2602 Santa Fe Pl, Galveston",indoor,Truck
+95,Redfish Pool Bar,1,1,bar,"3788 Seawall Boulevard, Galveston",indoor,Truck
+96,Nick's Kitchen and Beach Bar,1,1,restaurant,"3802 Seawall Boulevard, Galveston",indoor,Truck
+97,Cordray Drug Store,2,1,convenience store,"3827 Ave L Galveston, TX 77550",indoor,Truck
+98,Shrimp N Stuff,2,1,restaurant,"3901 Ave O Galveston, TX 77550",indoor,Truck
+99,Whitecaps,1,1,university,"3916 Avenue Q, Galveston",indoor,Truck
+100,Mr Taco & Limon Paradise,2,1,restaurant,"4112 Seawall Boulevard, Galveston",indoor,Truck
+101,Trattoria La Vigna,1,1,restaurant,"412 20th Street, Galveston",indoor,Truck
+102,Shucks Tavern,1,1,restaurant,"414 21st Street, Galveston",indoor,Truck
+103,Gonzalo’s American Bistro,1,1,restaurant,"415 9th Street, Galveston",indoor,Truck
+104,Mama Teresa's Flying Pizza,2,1,restaurant,"416 21st Street, Galveston",indoor,Truck
+105,The Wine Next Door,1,1,bar,"418 21st Street, Galveston",indoor,Truck
+106,Seawall Bar,2,1,bar,"4302 Seawall Boulevard, Galveston (Tru Hotel)",indoor,Truck
+107,KritiKos Olympia Grill,1,1,restaurant,"4908 Seawall Boulevard suite B, Galveston",indoor,Truck
+108,Bronco Burritos,1,1,restaurant,"4917 Broadway St Galveston, TX 77551",indoor,Truck
+109,America's Kitchen,1,1,restaurant,"500 Harborside Drive, Galveston",indoor,Truck
+110,Sharky's Tavern,2,2,restaurant,"504 25th Street, Galveston",indoor,Truck
+111,H2O Pool + Bar,11,8,restaurant,"5222 Seawall Blvd Inside the San Luis Resort Galveston, TX 77551",indoor,Truck
+112,The Cove,1,1,bar,"5222 Seawall Boulevard, Galveston",indoor,Truck
+113,Landry's Prime Seafood & Steaks,1,1,restaurant,"5310 Seawall Blvd Galveston, TX 77551",indoor,Truck
+114,Hooters,1,1,restaurant,"6028 Heards Ln Galveston, TX 77551",indoor,Truck
+115,Golden Corral Buffet & Grill,1,1,restaurant,"6200 Seawall Boulevard, Galveston",indoor,Truck
+116,Tremont House Hotel,1,1,restaurant,"2300 Mechanic st Galveston, TX 77550",indoor,Truck
+117,Cafe in the Park,3,3,restaurant,"7 Hope Blvd Galveston, TX 77554",indoor,Truck
+118,Shearn's Seafood and Prime Steaks,1,1,restaurant,"7 Hope Blvd Galveston, TX 77554",indoor,Truck
+119,Rice & Curry Indo-Pak Cuisine,1,1,restaurant,"712 7th Street, Galveston",indoor,Truck
+120,PJ’s coffee,1,1,cafe,"712 Texas Avenue, Galveston (UTMB)",indoor,Truck
+121,Marina Bar & Grill,1,1,bar,"715 North Holiday Drive, Galveston",indoor,Truck
+122,Dolphin World Inc No 2,1,1,restaurant,"718 41st Str Galveston, TX 77550",indoor,Truck
+123,Number 13 Prime Steak and Seafood,1,1,bar,"7809 Broadway Street, Galveston",indoor,Truck
+124,Galveston Primetime,2,2,movie_theater,"8902 Seawall Boulevard, Galveston Movie theatre)",indoor,Truck
+125,Palm Beach At Moody Gardens,8,6,amusement_park,"8928, 1 Hope Boulevard, Galveston",indoor,Truck
+126,SEA BEAN Coffee Cafe,2,1,cafe,"9001 Seawall Blvd Galveston, TX 77551 (Jimmies)",indoor,Truck
+127,Jimmy's Curbside Restaurant and Grocery,2,1,restaurant,"9001 Seawall Boulevard, Galveston",indoor,Truck
+128,Tin Cup's Caddy Shack,1,1,bar,"9020 Stewart Road, Galveston",indoor,Truck
+129,Lone Star Rally-Bar Hq,1,1,bar,"910 Avenue M, Galveston",indoor,Truck
+130,Jetty,1,1,restaurant,HI seawall,indoor,Truck
+131,Galveston Food Truck Park,1,1,food,"Nest to the Wet Whistle Bar in Sea Isle, 21510 Termini-San Luis Pass Road, Galveston",indoor,Truck
+132,Blake's Bistro (under San Luis),1,1,restaurant,San Luis Hotel,indoor,Truck
+133,Bar 43,1,1,restaurant,,indoor,Truck
+134,B. Jiggers Lounge,1,1,restaurant,,indoor,Truck
+135,Hummel's General Store & Deli,2,1,convenience store,,indoor,Truck
+136,Grotto (under San Luis),1,1,restaurant,,indoor,Truck
+137,Rainforest Cafe,1,1,restaurant,,indoor,Truck
+138,Tortuga Mexican Kitchen,1,1,restaurant,,indoor,Truck
+139,Rainforest Pyramid,2,1,restaurant,"1 Hope Blvd Galveston, TX 77554",indoor,Truck
+140,Aquarium Pyramid,2,1,restaurant,"1 Hope Blvd Galveston, TX 77554",indoor,Truck
+141,Moody Gardens Restaurant (shown under other restaurant),1,1,restaurant,"1 Hope Boulevard, Galveston",indoor,Truck
+142,Stuttgarden Tavern,1,1,bar,"111 23rd Street, Galveston",indoor,Truck
+143,Mario's Pizza,1,1,restaurant,"13708 Termini-san Luis Pass Rd Galveston, TX 77554",indoor,Truck
+144,The Original Mexican Cafe,1,1,restaurant,"1401 Market Street, Galveston",indoor,Truck
+145,Waterman's Restaurant,1,1,restaurant,"14302 Stewart Rd Galveston, TX 77554",indoor,Truck
+146,Yamato,1,1,restaurant,"2104 61st Street, Galveston",indoor,Truck
+147,Brewchachos Tacos & Cantina,1,1,bar,"2110 The Strand, Galveston",indoor,Truck
+148,Rosario`s flying pizza and pub,1,1,restaurant,"2121 The Strand, Galveston",indoor,Truck
+149,MOD Coffeehouse,3,2,cafe,"2126 Postoffice St, Galveston",indoor,Truck
+150,The Garden Thai Cuisine,1,1,restaurant,"216 23rd Street, Galveston",indoor,Truck
+151,The Sandbar Grille,1,1,bar,"21706 Burnet Drive, Galveston",indoor,Truck
+152,Mario's Ristorante,1,1,restaurant,"2202 61st St Galveston, TX 77551",indoor,Truck
+153,Yaga's Cafe,1,1,bar,"2314 The Strand, Galveston",indoor,Truck
+154,Brews Brothers,2,2,bar,"2404 The Strand, Galveston",indoor,Truck
+155,Bubba's on The Strand,2,2,bar,"2411 The Strand, Galveston",indoor,Truck
+156,Beerfoot Beach Bar,1,1,bar,"2816 Avenue R 1/2, Galveston",indoor,Truck
+157,Huli Huli Hut,2,1,restaurant,"312 19th Street, Galveston",indoor,Truck
+158,The Spot,1,1,bar,"3204 Seawall Boulevard, Galveston",indoor,Truck
+159,Seahorse Grill,1,1,restaurant,"3802 Cove View Blvd Ste C Galveston, TX 77554",indoor,Truck
+160,Suki Poke by the Sea,1,1,restaurant,"427 Market Street, Galveston",indoor,Truck
+161,Papa's Pizza,5,4,restaurant,"4400 Seawall Blvd Galveston, TX 77550",indoor,Truck
+162,Koop's BBQ Kitchen,2,1,restaurant,"4501 Broadway Avenue J, Galveston",indoor,Truck
+163,Salsas,1,1,restaurant,"4604 Seawall Boulevard, Galveston",indoor,Truck
+164,Russo's New York Pizzeria & Italian Kitchen - Galveston,1,1,restaurant,"500 Seawall Boulevard #300, Galveston",indoor,Truck
+165,Lolo Kai Smoothies and Wraps,2,1,restaurant,"528 23rd Street, Galveston",indoor,Truck
+166,Gypsy Joynt,2,1,restaurant,"6105 Stewart Rd Galveston, TX 77551",indoor,Truck
+167,Café Canela,1,1,restaurant,"6105 Stewart Road Suite C, Galveston",indoor,Truck
+168,Gino's Italian Restaurant and Pizzeria,1,1,restaurant,"6124 Stewart Road, Galveston",indoor,Truck
+169,Vida Agave,1,1,restaurant,"711 25th Street, Galveston",indoor,Truck
+170,Seawall Coffee Company,2,1,restaurant,,indoor,Truck
+171,,1,0,,,outdoor,Truck
+172,,1,0,,,outdoor,Bike
+173,,1,0,,,outdoor,Bike
+174,,1,0,,,outdoor,Truck
+175,,1,0,,,outdoor,Truck
+176,,1,0,,,outdoor,Bike
+177,,1,0,,,outdoor,Truck
+178,,1,0,,,outdoor,Bike
+179,,1,0,,,outdoor,Bike
+180,,1,0,,,outdoor,Bike
+181,,1,0,,,outdoor,Truck
+182,,1,0,,,outdoor,Truck
+183,,1,0,,,outdoor,Bike
+184,,1,0,,,outdoor,Bike
+185,,1,0,,,outdoor,Bike
+186,,1,0,,,outdoor,Bike
+187,,1,0,,,outdoor,Bike
+188,,1,0,,,outdoor,Truck
+189,,1,0,,,outdoor,Truck
+190,,1,0,,,outdoor,Truck
+191,,1,0,,,outdoor,Truck
+192,,1,0,,,outdoor,Truck
+193,,1,0,,,outdoor,Truck
+194,,1,0,,,outdoor,Truck
+195,,1,0,,,outdoor,Truck
+196,,1,0,,,outdoor,Truck
+197,,1,0,,,outdoor,Truck
+198,,1,0,,,outdoor,Truck
+199,,1,0,,,outdoor,Bike
+200,,1,0,,,outdoor,Truck
+201,,1,0,,,outdoor,Truck
+202,,1,0,,,outdoor,Bike
+203,,1,0,,,outdoor,Truck
+204,,1,0,,,outdoor,Truck
+205,,1,0,,,outdoor,Truck
+206,,1,0,,,outdoor,Truck
+207,,1,0,,,outdoor,Truck
+208,,1,0,,,outdoor,Truck
+209,,1,0,,,outdoor,Truck
+210,,1,0,,,outdoor,Truck
+211,,1,0,,,outdoor,Truck
+212,,1,0,,,outdoor,Truck
+213,,1,0,,,outdoor,Truck
+214,,1,0,,,outdoor,Truck
+215,,1,0,,,outdoor,Truck
+216,,1,0,,,outdoor,Truck
+217,,1,0,,,outdoor,Truck
+218,,1,0,,,outdoor,Truck
+219,,1,0,,,outdoor,Truck
+220,,1,0,,,outdoor,Truck
+221,,1,0,,,outdoor,Truck
+222,,1,0,,,outdoor,Truck
+223,,1,0,,,outdoor,Truck
+224,,1,0,,,outdoor,Truck
+225,,1,0,,,outdoor,Truck
+226,,1,0,,,outdoor,Truck
+227,,1,0,,,outdoor,Truck
+228,,1,0,,,outdoor,Truck
+229,,1,0,,,outdoor,Truck
+230,,1,0,,,outdoor,Truck
+231,,1,0,,,outdoor,Truck
+232,,1,0,,,outdoor,Truck
+233,,1,0,,,outdoor,Truck
+234,,1,0,,,outdoor,Truck
+235,,1,0,,,outdoor,Truck
+236,,1,0,,,outdoor,Truck
+237,,1,0,,,outdoor,Truck
+238,,1,0,,,outdoor,Truck
+239,,1,0,,,outdoor,Truck
+240,,1,0,,,outdoor,Truck
+241,,1,0,,,outdoor,Truck
+242,,1,0,,,outdoor,Truck
+243,,1,0,,,outdoor,Truck
+244,,1,0,,,outdoor,Truck
+245,,1,0,,,outdoor,Truck
+246,,1,0,,,outdoor,Truck
+247,,1,0,,,outdoor,Truck
+248,,1,0,,,outdoor,Truck
+249,,1,0,,,outdoor,Truck
+250,,1,0,,,outdoor,Truck
+251,,1,0,,,outdoor,Truck
+252,,1,0,,,outdoor,Truck
+253,,1,0,,,outdoor,Truck
+254,,1,0,,,outdoor,Truck
+255,,1,0,,,outdoor,Truck
