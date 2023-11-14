@@ -5,7 +5,7 @@ Google ORTools' Capacited Vehicles Routing Problem
 routes to deploy in Galveston.
 
 Run this script in the terminal using:
-python optimize_cvrp_galv.py <arg1> <arg2>
+python /code/optimize_cvrp_galv.py <arg1> <arg2>
 
 The one argument is:
 arg1 = number of vehicles
@@ -147,7 +147,7 @@ def make_dataframe(data, manager, routing, solution, df):
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        path = "../data/route" + str(i + 1) + ".csv"
+        path = "../output/trial1/route" + str(i + 1) + ".csv"
         route_df.to_csv(path, index=False)
 
 

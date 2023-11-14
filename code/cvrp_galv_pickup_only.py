@@ -2,124 +2,107 @@
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal number of trucks and
-routes to deploy based on a given dataset of locations.
+routes to deploy in Galveston.
 
+For the most updated Galveston locations dataframe,
+run the CVRP on pickup capacity only, truck only
 
-The arguments are:
-arg1 = name of the df for tote service locations
-arg2 = name of the df of corresponding ditance matrix
-arg3 = day_number
-arg4 = number of vehicles
-arg5 = num seconds of simulation
-arg6 = day
-arg7 = trial number
+Set your arguments in the __name__ == main() function.
+
+Run this script in the terminal using:
+cd code
+python cvrp_galv_pickup_only.py
 """
 
-import os
 import sys
+import os
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
-# load the location df
-location_df = pd.read_csv("../../data/" + str(sys.argv[1]) + ".csv")
 
-# load the distance matrix
-distance_matrix = pd.read_csv("../../data/" + str(sys.argv[2]) + ".csv")
-
-
-def get_demands(location_df, cluster_number):
+def get_demands(location_df):
     """
-    This function will generate the demands
-    list for each truck on the given day of the week.
+    This function will get the daily number of totes to be
+    picked up at every location provided in the df.
 
-    inputs: location_df = dataframe of locations we are servicing
-            cluster_number = cluster number we are servicing
-                            for dropoff on this route
-
-    outputs: demands = a list of the demands (i.e. changes in
-                        truck capacity) at each service
-                        location
+    Inputs: location_df = df of all the service locations
+                        on the daily truck route
+    Outputs: demands_list = a list of the number of totes to be collected
+                            at each location daily
+                            (in the same order of locations from the df)
     """
-    demands = []
+    demands_list = []
     for index, row in location_df.iterrows():
-        if row["cluster_number"] == cluster_number:
-            delta = int(row["Daily_Pickup_Totes"]) - int(
-                row["Weekly_Dropoff_Totes"]
-            )
-            demands.append(delta)
-        else:
-            demands.append(int(row["Daily_Pickup_Totes"]))
+        demands_list.append(int(row["Daily_Pickup_Totes"]))
 
-    return demands
-
-
-def get_vehicle_capacity(location_df, cluster_number, num_vehicles):
-    """
-    This function will generate the vehicle capacity for each vehicle
-    (which will be the total dropoff for that day
-    divided evenly among all the trucks)
-
-    inputs: location_df = dataframe of locations we are servicing
-            cluster_number = cluster number we are servicing
-                            for dropoff on this route
-
-    outputs: demands = a list of the demands (i.e. changes in
-                        truck capacity) at each service
-                        location
-    """
-    # sum the total dropoffs that will be made on the given day
-    day_dropoff_total = sum(
-        location_df.loc[
-            location_df.loc[:, "cluster_number"] == cluster_number,
-            "Weekly_Dropoff_Totes",
-        ]
-    )
-    divide_evenly = day_dropoff_total / num_vehicles
-    # add an adjustment in the case of imperfect division
-    divide_evenly = int(divide_evenly + 1)
-    # the division will be the vehicle capacity
-    return divide_evenly
+    return demands_list
 
 
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
-    data["distance_matrix"] = distance_matrix.astype(int)
-    data["demands"] = get_demands(location_df, int(sys.argv[3]))
-    data["num_vehicles"] = int(sys.argv[4])
-    vehicle_capacity = get_vehicle_capacity(
-        location_df, int(sys.argv[3]), int(sys.argv[4])
-    )
-    data["vehicle_capacities"] = [
-        vehicle_capacity for i in range(data["num_vehicles"])
-    ]
+    data["distance_matrix"] = distance_matrix.to_numpy().astype(int)
+    data["demands"] = get_demands(galveston)
+    data["num_vehicles"] = num_vehicles
+    capacity = vehicle_capacity
+    data["vehicle_capacities"] = [capacity for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
 
-# comment out all lines pertaining to the print statements
+def print_solution(data, manager, routing, solution):
+    """Prints solution on console."""
+    print(f"Objective: {solution.ObjectiveValue()}")
+    total_distance = 0
+    total_load = 0
+    for vehicle_id in range(data["num_vehicles"]):
+        index = routing.Start(vehicle_id)
+        plan_output = f"Route for vehicle {vehicle_id}:\n"
+        route_distance = 0
+        route_load = 0
+        while not routing.IsEnd(index):
+            node_index = manager.IndexToNode(index)
+            route_load += data["demands"][node_index]
+            plan_output += f" {node_index} Load({route_load}) -> "
+            previous_index = index
+            index = solution.Value(routing.NextVar(index))
+            route_distance += routing.GetArcCostForVehicle(
+                previous_index, index, vehicle_id
+            )
+        plan_output += f" {manager.IndexToNode(index)} \
+            Load({route_load})\n"
+        plan_output += f"Distance of the route: {route_distance}m\n"
+        plan_output += f"Load of the route: {route_load}\n"
+        print(plan_output)
+        total_distance += route_distance
+        total_load += route_load
+    print(f"Total distance of all routes: {total_distance}m")
+    print(f"Total load of all routes: {total_load}")
+
+
 def save_to_table(data, manager, routing, solution):
-    """Save each route to its own dataframe"""
+    """Save each route to its own dataframe
+    and print solutions on the console."""
+    print(f"Objective: {solution.ObjectiveValue()}")
     routes = []
     distances = []
     loads = []
     total_distance = 0
     total_load = 0
-
-    # create a route for each vehicle
     for vehicle_id in range(data["num_vehicles"]):
         route = []
         agg_distances = []
+        truck_load = []
         index = routing.Start(vehicle_id)
-
+        plan_output = f"Route for vehicle {vehicle_id}:\n"
         route_distance = 0
         route_load = 0
-        truck_load = []
         while not routing.IsEnd(index):
             node_index = manager.IndexToNode(index)
             route_load += data["demands"][node_index]
-
+            plan_output += f" {node_index} Load({route_load}) -> "
+            # route.append({node_index:route_load})
             route.append(node_index)
             truck_load.append(route_load)
             agg_distances.append(route_distance)
@@ -129,15 +112,20 @@ def save_to_table(data, manager, routing, solution):
                 previous_index, index, vehicle_id
             )
 
+        plan_output += f" {manager.IndexToNode(index)} Load({route_load})\n"
         route.append(manager.IndexToNode(index))
         truck_load.append(route_load)
         agg_distances.append(route_distance)
+        plan_output += f"Distance of the route: {route_distance}m\n"
+        plan_output += f"Load of the route: {route_load}\n"
+        print(plan_output)
         total_distance += route_distance
         total_load += route_load
         routes.append(route)
         distances.append(agg_distances)
         loads.append(truck_load)
-
+    print(f"Total distance of all routes: {total_distance}m")
+    print(f"Total load of all routes: {total_load}")
     return routes, distances, loads
 
 
@@ -145,9 +133,6 @@ def make_dataframe(data, manager, routing, solution, df):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
     routes, distances, loads = save_to_table(data, manager, routing, solution)
-    # create the folder for the day that will be stored
-    os.mkdir("../data/trial" + str(sys.argv[7]) + "/" + str(sys.argv[6]))
-
     for i in range(len(routes)):
         route_df = df.loc[routes[i], :]
         route_df["Cumulative_Distance"] = distances[i]
@@ -155,19 +140,7 @@ def make_dataframe(data, manager, routing, solution, df):
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        # generate the path for the route file
-        # path = "../data/trial" + str(sys.argv[7]) + "/"
-        #            + str(sys.argv[6]) + "/route" + str(i + 1) + ".csv"
-        path = (
-            "../../data/trial"
-            + str(sys.argv[7])
-            + "/"
-            + str(sys.argv[6])
-            + "/route"
-            + str(i + 1)
-            + ".csv"
-        )
-        # save the route file
+        path = path_string + "/route" + str(i + 1) + ".csv"
         route_df.to_csv(path, index=False)
 
 
@@ -211,7 +184,7 @@ def main():
         demand_callback_index,
         0,  # null capacity slack
         data["vehicle_capacities"],  # vehicle maximum capacities
-        False,  # start cumul to zero
+        True,  # start cumul to zero
         "Capacity",
     )
 
@@ -223,7 +196,8 @@ def main():
     search_parameters.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    search_parameters.time_limit.FromSeconds(int(sys.argv[5]))
+    search_parameters.time_limit.FromSeconds(num_seconds)
+    # search_parameters.time_limit.seconds = 7200
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)
@@ -231,9 +205,30 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        # return save_to_table(data, manager, routing, solution)
-        make_dataframe(data, manager, routing, solution, location_df)
+        make_dataframe(data, manager, routing, solution, galveston)
 
 
 if __name__ == "__main__":
+
+    #I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
+    
+    # import the data
+    galveston = pd.read_csv("../output/data/truck_service_pts_galv.csv")
+
+    # load the distance matrix
+    distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
+
+    #specify number of vehicles
+    num_vehicles = 3
+
+    #specify path to save the route dataframes
+    #os.mkdir("../outputs/pickup_only")
+    path_string = "../outputs/pickup_only" 
+
+    #set vehicle capacity
+    vehicle_capacity = 130
+
+    #set num seconds of the simulations
+    num_seconds = 10_000
+
     main()
