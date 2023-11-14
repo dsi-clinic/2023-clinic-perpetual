@@ -1,35 +1,29 @@
 """
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
-(CVRP) to determine the optimal number of trucks and
-routes to deploy in Galveston.
+(CVRP) to determine the optimal routing scheme for 
+your problem. 
+Capacity is measured by dropoff quantities only.
+
+
+Set your arguments in the __name__ == main() function:
+- import the locations data (as a csv)
+- import the distance matrix data (as a csv)
+- specify the number of vehicles
+- specify path to save the route dataframes
+- set vehicle capacity
+- set number of seconds for the simulation
+
 
 Run this script in the terminal using:
-python optimize_cvrp_galv.py <arg1> <arg2>
-
-The two arguments are:
-arg1 = number of vehicles
-arg2 = number of seconds in the time limit
+cd code
+python cvrp_galv_dropoff_only.py
 """
 
-import sys
+import os
 
-import numpy as np
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
-
-# import the data
-galveston = pd.read_csv("../data/FUE_Galveston.csv")
-
-# load the distance matrix
-distance_matrix = np.loadtxt(
-    "../data/distance_matrix_g.csv", delimiter=",", dtype=int
-)
-
-
-# import sys
-# arg 1 = num_vehicles
-# arg 2 = num_seconds
 
 
 def get_demands(location_df):
@@ -45,7 +39,7 @@ def get_demands(location_df):
     """
     demands_list = []
     for index, row in location_df.iterrows():
-        demands_list.append(int(row["Daily_Pickup_Totes"]))
+        demands_list.append(int(row["Weekly_Dropoff_Totes"]))
 
     return demands_list
 
@@ -53,10 +47,11 @@ def get_demands(location_df):
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
-    data["distance_matrix"] = distance_matrix.astype(int)
+    data["distance_matrix"] = distance_matrix.to_numpy().astype(int)
     data["demands"] = get_demands(galveston)
-    data["num_vehicles"] = int(sys.argv[1])
-    data["vehicle_capacities"] = [150 for i in range(data["num_vehicles"])]
+    data["num_vehicles"] = num_vehicles
+    capacity = vehicle_capacity
+    data["vehicle_capacities"] = [capacity for i in range(data["num_vehicles"])]
     data["depot"] = 0
     return data
 
@@ -150,7 +145,7 @@ def make_dataframe(data, manager, routing, solution, df):
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        path = "../data/route" + str(i + 1) + ".csv"
+        path = path_string + "/route" + str(i + 1) + ".csv"
         route_df.to_csv(path, index=False)
 
 
@@ -206,16 +201,39 @@ def main():
     search_parameters.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    search_parameters.time_limit.FromSeconds(int(sys.argv[2]))
+    search_parameters.time_limit.FromSeconds(num_seconds)
+    # search_parameters.time_limit.seconds = 7200
 
     # Solve the problem.
     solution = routing.SolveWithParameters(search_parameters)
 
-    # Print solution on console.
+    # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
         make_dataframe(data, manager, routing, solution, galveston)
 
 
 if __name__ == "__main__":
+
+    #I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
+    
+    # import the data
+    galveston = pd.read_csv("../output/data/truck_service_pts_galv.csv")
+
+    # load the distance matrix
+    distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
+
+    #specify number of vehicles
+    num_vehicles = 2
+
+    #specify path to save the route dataframes
+    #os.mkdir("../outputs/dropoff_only")
+    path_string = "../output/one_day_dropoff_only" 
+
+    #set vehicle capacity
+    vehicle_capacity = 140
+
+    #set num seconds of the simulations
+    num_seconds = 10000
+
     main()
