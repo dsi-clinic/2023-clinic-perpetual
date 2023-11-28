@@ -1,8 +1,8 @@
 """
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
-(CVRP) to determine the optimal routing scheme for 
-your problem. 
+(CVRP) to determine the optimal routing scheme for
+your problem.
 Capacity is measured by dropoff quantities only.
 
 
@@ -215,25 +215,25 @@ def main():
 
 if __name__ == "__main__":
 
-    #I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
-    
+    # I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
+
     # import the data
     galveston = pd.read_csv("../output/data/truck_service_pts_galv.csv")
 
     # load the distance matrix
     distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
 
-    #specify number of vehicles
+    # specify number of vehicles
     num_vehicles = 2
 
-    #specify path to save the route dataframes
-    #os.mkdir("../outputs/dropoff_only")
-    path_string = "../output/one_day_dropoff_only" 
+    # specify path to save the route dataframes
+    # os.mkdir("../outputs/dropoff_only")
+    path_string = "../output/one_day_dropoff_only"
 
-    #set vehicle capacity
+    # set vehicle capacity
     vehicle_capacity = 140
 
-    #set num seconds of the simulations
+    # set num seconds of the simulations
     num_seconds = 10000
 
     main()
