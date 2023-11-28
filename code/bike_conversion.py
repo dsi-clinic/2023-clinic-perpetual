@@ -1,4 +1,5 @@
 import configparser
+
 import folium
 import pandas as pd
 
@@ -41,12 +42,11 @@ def add_markers(f_map, points, color="blue"):
             (y, x), popup=popup, parse_html=True, icon=folium.Icon(color=color)
         ).add_to(f_map)
     return None
-    
 
 
 if __name__ == "__main__":
 
-    '''
+    """
     Table of Contents:
     1. Read config
     2. Parse Config
@@ -58,10 +58,10 @@ if __name__ == "__main__":
     7. Prepare dataframes for output
     8. Prepare distance matrices for output
     9. Export everything
-    '''
+    """
 
     # 0. experimental variables
-    aggs = [11,12,19,49,72,104,147,208]
+    aggs = [11, 12, 19, 49, 72, 104, 147, 208]
 
     # 1. read config
     config = configparser.ConfigParser()
@@ -106,14 +106,14 @@ if __name__ == "__main__":
 
     # 7. prepare info dataframes for output
     truck_converted_df = converted_truth_df[
-        (converted_truth_df["pickup_type"] == "Truck") |
-        (converted_truth_df["pickup_type"] == "Bike_Aggregate")
+        (converted_truth_df["pickup_type"] == "Truck")
+        | (converted_truth_df["pickup_type"] == "Bike_Aggregate")
     ]
     bike_converted_df = converted_truth_df[
-        (converted_truth_df["pickup_type"] == "Bike") | 
-        (converted_truth_df["pickup_type"] == "Bike_Aggregate")
+        (converted_truth_df["pickup_type"] == "Bike")
+        | (converted_truth_df["pickup_type"] == "Bike_Aggregate")
     ]
-    
+
     # 8. prepare distance matrices for output
     total_inds = {i for i in range(len(truth_df))}
     bike_ind = set(bike_indices + converts_ind)
