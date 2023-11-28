@@ -14,8 +14,8 @@ cd code
 python cvrp_galv_pickup_only.py
 """
 
-import sys
 import os
+import sys
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
@@ -210,25 +210,25 @@ def main():
 
 if __name__ == "__main__":
 
-    #I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
-    
+    # I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
+
     # import the data
     galveston = pd.read_csv("../output/data/truck_service_pts_galv.csv")
 
     # load the distance matrix
     distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
 
-    #specify number of vehicles
+    # specify number of vehicles
     num_vehicles = 3
 
-    #specify path to save the route dataframes
-    #os.mkdir("../outputs/pickup_only")
-    path_string = "../outputs/pickup_only" 
+    # specify path to save the route dataframes
+    # os.mkdir("../outputs/pickup_only")
+    path_string = "../outputs/pickup_only"
 
-    #set vehicle capacity
+    # set vehicle capacity
     vehicle_capacity = 130
 
-    #set num seconds of the simulations
+    # set num seconds of the simulations
     num_seconds = 10_000
 
     main()

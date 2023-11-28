@@ -1,8 +1,9 @@
 # produce capacity list from the single-truth dataframe (used for routing)
 
 import configparser
-import pandas as pd
 import csv
+
+import pandas as pd
 
 if __name__ == "__main__":
     # read config
@@ -19,14 +20,14 @@ if __name__ == "__main__":
 
     # prepare capacity dataframe
     capacities = {}
-    name_col = 'Name'
+    name_col = "Name"
     demand_cols = ["Daily_Pickup_Totes", "Weekly_Dropoff_Totes"]
 
     # prepare capacity dictionary
     for i in range(len(truth_df)):
         capacities[truth_df[name_col].iloc[i]] = truth_df[demand_cols].iloc[i]
 
-    with open('../output/data/extracted_capacities_dict.csv', 'w') as f:
+    with open("../output/data/extracted_capacities_dict.csv", "w") as f:
         w = csv.DictWriter(f, capacities.keys())
         w.writeheader()
         w.writerow(capacities)
