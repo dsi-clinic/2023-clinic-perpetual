@@ -1,19 +1,15 @@
+import configparser
+
 import folium
 import networkx as nx
 import osmnx as ox
 import pandas as pd
 
-import osmnx as ox
-import networkx as nx
-import osmnx as ox
-import pandas as pd
-import configparser
 
 def find_bbox(coords):
     """
     Given a list of coordinates (longitude and latitude),
     find a bounding box that contains all the points of interest.
-    This function helps reduce the number of nodes and edges in a
     This function helps reduce the number of nodes and edges in a
     osmnx graph to reduce computational complexity/time.
     Parameters:
@@ -38,8 +34,8 @@ def find_bbox(coords):
             max(longitude, e),
             min(longitude, w),
         ]
-    nspad = 1.5 * (n-s)
-    ewpad = 1.5 * (e-w)
+    nspad = 1.5 * (n - s)
+    ewpad = 1.5 * (e - w)
     return n + nspad, s - nspad, e + ewpad, w - ewpad
 
 
@@ -126,23 +122,23 @@ def add_markers(f_map, route_df, color):
         folium.Marker(
             (y, x), popup=popup, parse_html=True, icon=folium.Icon(color=color)
         ).add_to(f_map)
-        
+
     return None
 
 
 if __name__ == "__main__":
 
     config = configparser.ConfigParser()
-    config.read('../utils/config_inputs.ini')
-    cfg = config['route.viz']
-    
-    place = cfg['place']
-    FUE_path = cfg['FUE_path']
-    route_path = cfg['route_path']
-    latitude = float(cfg['latitude'])
-    longitude = float(cfg['longitude'])
-    save_path = cfg['save_path']
-        
+    config.read("../utils/config_inputs.ini")
+    cfg = config["route.viz"]
+
+    place = cfg["place"]
+    FUE_path = cfg["FUE_path"]
+    route_path = cfg["route_path"]
+    latitude = float(cfg["latitude"])
+    longitude = float(cfg["longitude"])
+    save_path = cfg["save_path"]
+
     feu_galveston = pd.read_csv(FUE_path)
     route_data = pd.read_csv(route_path)
     location = [latitude, longitude]
@@ -157,7 +153,10 @@ if __name__ == "__main__":
 
     galv_graph = ox.truncate.truncate_graph_bbox(
         graph,
-        n, s, e, w,
+        n,
+        s,
+        e,
+        w,
         truncate_by_edge=False,
         retain_all=False,
         quadrat_width=0.05,
@@ -178,9 +177,7 @@ if __name__ == "__main__":
     route = calc_routes(galv_graph, coords)
     # route_2 = calc_routes(galv_graph2, coords2)
 
-    map = folium.Map(
-        location=location, tiles="OpenStreetMap", zoom_start=11
-    )
+    map = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
     add_markers(map, route_data, "blue")
     # add_markers(map, route_2_data, "red")
     folium.PolyLine(locations=route, color="blue").add_to(map)
