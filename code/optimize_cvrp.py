@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     #read inputs from the utils/config_inputs.ini file
     config = configparser.ConfigParser()
-    config.read("path/config_inputs.ini")
+    config.read("../utils/config_inputs.ini")
 
     path_to_dataframe = config["optimize google cvrp"]["path_to_dataframe"]
     path_to_distance_matrix = config["optimize google cvrp"]["path_to_distance_matrix"]
