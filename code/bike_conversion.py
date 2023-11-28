@@ -91,36 +91,33 @@ if __name__ == "__main__":
     bike_to_truck_dists = bike_dists.drop(columns=drop_cols)
 
     # 5. mark truck-served points within {distance_thresh} of bike-served points
-    converts = []
+    converts_ind = []
     for col in bike_to_truck_dists.columns:
         if min(bike_to_truck_dists[col]) <= distance_thresh and int(col):
-            converts.append(int(col))
+            converts_ind.append(int(col))
 
     # 6. convert marked truck-serviced locations to bike-servicable locations
     converted_truth_df = truth_df.copy()
-    converts_df = truth_df.iloc[list(set(converts) - set(aggs))] # for graphing
-    bike_agg_df = truth_df.iloc[aggs] # for graphing
-    for i in converts:
+    for i in converts_ind:
         if i in aggs:
             converted_truth_df.at[i, "pickup_type"] = "Bike_Aggregate"
         else:
-            converts_df.at[i, "pickup_type"] = "Bike"
             converted_truth_df.at[i, "pickup_type"] = "Bike"
 
     # 7. prepare info dataframes for output
     truck_converted_df = converted_truth_df[
-        (converted_truth_df["pickup_type"] == "Truck") &
+        (converted_truth_df["pickup_type"] == "Truck") |
         (converted_truth_df["pickup_type"] == "Bike_Aggregate")
     ]
     bike_converted_df = converted_truth_df[
-        (converted_truth_df["pickup_type"] == "Bike") & 
+        (converted_truth_df["pickup_type"] == "Bike") | 
         (converted_truth_df["pickup_type"] == "Bike_Aggregate")
     ]
     
     # 8. prepare distance matrices for output
     total_inds = {i for i in range(len(truth_df))}
-    bike_ind = set(bike_indices + converts)
-    truck_ind = sorted(list(total_inds - bike_ind + aggs))
+    bike_ind = set(bike_indices + converts_ind)
+    truck_ind = sorted(list(total_inds - bike_ind) + aggs)
     bike_ind = sorted(list(bike_ind))
     truck_dist_df = truth_dist[[str(i) for i in truck_ind]].iloc[truck_ind]
     bike_dist_df = truth_dist[[str(i) for i in bike_ind]].iloc[bike_ind]
@@ -131,10 +128,20 @@ if __name__ == "__main__":
     truck_dist_df.to_csv(truck_dist_df_savepath)
     bike_dist_df.to_csv(bike_dist_df_savepath)
 
+    # 10. visualize
+
+    converts_no_aggs_ind = list(set(converts_ind) - set(aggs))
+    converts_df = truth_df.iloc[converts_no_aggs_ind]
+    for i in converts_no_aggs_ind:
+        converts_df.at[i, "pickup_type"] = "Bike_Converted"
+    bike_agg_df = truth_df.iloc[aggs]
+    for i in aggs:
+        bike_agg_df.at[i, "pickup_type"] = "Bike_Aggregate"
+
     map = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
     add_markers(map, truck_converted_df, "blue")
     add_markers(map, bike_df, "red")
     add_markers(map, converts_df, "green")
-    add_markers(map, bike_agg_df, "orange") #  bike_aggs = [11,12,19,49,72,104,147,208]
+    add_markers(map, bike_agg_df, "orange")
 
     map.save(map_save_path)
