@@ -34,9 +34,17 @@ This directory contains python scripts used in this project's pipeline.
   
   this file will using the data and request the time duration between each stop from mapbox direction API and than accumulates all 
   the time plus 5 min picking up or drop up time at each stop.
+
+# RouteViz.py
+  data: FUE's in order of route
+
+  this file will graph routes from an order of locations using free libraries and will output routes in HTML format. 
+
+# optimize_cvrp_galv.py
+  This script will run simulations of Google ORTools' Capacited Vehicles Routing Problem (CVRP) to determine the optimal number of trucks and routes to deploy in Galveston.
+
   
   # GetWayPoint.py
   data: optimized route data
   
   this file will using the data and request the waypoints through the route along with the instructions for driveing
-

@@ -7,6 +7,7 @@ Created on Mon Oct 30 14:36:59 2023
 """
 
 import configparser
+import os
 import time
 
 import pandas as pd
@@ -44,36 +45,43 @@ def get_route_data(coordinates, access_token):
 
 
 def add_coordinator(df):
+    """
+    add coordinator coloumn to the dataframe, which will use for later api
+    requesting and visualization
+
+    """
     df["Coordinates"] = df[["Longitude", "Latitude"]].values.tolist()
     df.drop(columns=["Longitude", "Latitude"], inplace=True)
     return df
 
 
-def initialize_data():
+def initialize_data(route_path):
     """
     Initialize the data from the CSV file
-    and the Mapbox token from the config file.
 
-    :return: Dataframe and Mapbox token
+    :return: Dataframe
     """
+    file_name = route_path
+    df = pd.read_csv(file_name)
+    # Convert coordinates to list of lists
+    df = add_coordinator(df)
 
+    return df
+
+
+def get_token():
+    """
+    Initialize the token from config file
+
+    :return: token
+    """
     # Initialize the parser
     config = configparser.ConfigParser()
     # Read the config file
     config.read("config.ini")
     mapbox_token = config["mapbox"]["token"]
 
-    # Take file name from terminal
-    file_name = "../data/route1.csv"
-    df1 = pd.read_csv(file_name)
-    file_name = "../data/route2.csv"
-    # file_name = sys.argv[2]
-    df2 = pd.read_csv(file_name)
-    # Convert coordinates to list of lists
-    df1 = add_coordinator(df1)
-    df2 = add_coordinator(df2)
-
-    return df1, df2, mapbox_token
+    return mapbox_token
 
 
 def request_waypoints(df, mapbox_token):
@@ -114,24 +122,79 @@ def request_waypoints(df, mapbox_token):
     return df_waypoints
 
 
-def main():
-    # Initialize the data
-    df1, df2, mapbox_token = initialize_data()
+def add_name_address_to_waypoints(df, df_waypoints):
+    # Initialize new columns with default values
+    df_waypoints["name"] = None
+    df_waypoints["address"] = None
 
-    # Get the matrix data.
-    # Goes through every source once
-    df1_waypoints = request_waypoints(df1, mapbox_token)
-    df2_waypoints = request_waypoints(df2, mapbox_token)
+    # Iterate over the df_waypoints DataFrame
+    for index, row in df_waypoints.iterrows():
+        if row["way_points"] == 0:
 
-    # Save the DataFrame to a CSV file
-    output_file = "../data/route1_waypoints.csv"
-    df1_waypoints.to_csv(output_file, index=False)
+            df_waypoints.at[index, "name"] = df.at[row["location"], "Name"]
+            df_waypoints.at[index, "address"] = df.at[
+                row["location"], "Address"
+            ]
 
-    output_file = "../data/route2_waypoints.csv"
-    df2_waypoints.to_csv(output_file, index=False)
+    return df_waypoints
 
-    print("\nComplete!")
+
+def get_file_name(file_path):
+    # Split by '/' and get the last part (the filename)
+    file_name_with_extension = file_path.split("/")[-1]
+
+    # Split by '.' and get the first part
+    file_name_string = file_name_with_extension.split(".")[0]
+
+    return file_name_string
+
+
+def add_way_points_to_route():
+    # Initialize the data and token
+    mapbox_token = get_token()
+
+    # Initialize the parser
+    config = configparser.ConfigParser()
+    # Read the config file
+    config.read("../utils/config_inputs.ini")
+
+    # Iterate over each route in the config file
+    for route_ in config["routes"]:
+        file_path = config["routes"][route_]
+
+        # Initialize data for the current route
+        df = initialize_data(file_path)
+
+        # Process waypoints for the current route
+        df_waypoints = request_waypoints(df, mapbox_token)
+        df_waypoints = add_name_address_to_waypoints(df, df_waypoints)
+
+        # Save the DataFrame to a CSV file under data file
+
+        # Extract the base name without the .csv extension
+        base_name = os.path.splitext(file_path)[0]
+
+        output_file = base_name + "_waypoints.csv"
+
+        df_waypoints.to_csv(output_file, index=False)
+
+        print(f"Processed route {route_}, output saved to {output_file}")
+
+        # Ensure the 'Matrix Dir' section exists
+        if "way_points" not in config:
+            config["way_points"] = {}
+
+        file_name_string = get_file_name(output_file)
+
+        # Assign the filename to the route_?_way_points
+        config["way_points"][f"{file_name_string}"] = output_file
+
+        # Write the configuration to an INI file
+        with open("../utils/config_inputs.ini", "w") as configfile:
+            config.write(configfile)
+
+    print("\nComplete adding waypoints to routes!")
 
 
 if __name__ == "__main__":
-    main()
+    add_way_points_to_route()
