@@ -7,7 +7,7 @@ import csv
 if __name__ == "__main__":
     # read config
     config = configparser.ConfigParser()
-    config.read("../utils/config.ini")
+    config.read("../utils/config_inputs.ini")
     cfg = config["extract.capacity_demands"]
 
     # parse config
