@@ -46,7 +46,8 @@ def osmnx_to_latlon(graph, routes):
 
     Parameters:
         graph : osmnx graph
-        routes : list of osmnx routes (routes are usually lists of nodes)
+        routes : list of osmnx routes
+                (routes are usually lists of nodes)
     Returns:
         list of (lat, lon) coordinates
     """
@@ -61,8 +62,9 @@ def osmnx_to_latlon(graph, routes):
 
 def calc_routes(graph, coords):
     """
-    Takes in a graph and a set of coordinates (w/ columns "Longitude" and
-    "Latitude") and returns the set of shortest routes between each coordinate
+    Takes in a graph and a set of coordinates (w/ columns
+    "Longitude" and "Latitude") and returns the set of
+    shortest routes between each coordinate
 
     Parameters:
         graph : osmnx graph
@@ -127,7 +129,11 @@ def add_markers(f_map, route_df, color):
 if __name__ == "__main__":
 
     config = configparser.ConfigParser()
+<<<<<<< HEAD
     config.read("../utils/config.ini")
+=======
+    config.read("../utils/config_inputs.ini")
+>>>>>>> main
     cfg = config["route.viz"]
 
     place = cfg["place"]
