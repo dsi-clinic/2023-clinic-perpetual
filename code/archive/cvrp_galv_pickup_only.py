@@ -14,9 +14,6 @@ cd code
 python cvrp_galv_pickup_only.py
 """
 
-import os
-import sys
-
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 

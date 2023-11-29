@@ -20,7 +20,6 @@ cd code
 python cvrp_galv_dropoff_only.py
 """
 
-import os
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
