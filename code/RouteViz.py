@@ -129,11 +129,7 @@ def add_markers(f_map, route_df, color):
 if __name__ == "__main__":
 
     config = configparser.ConfigParser()
-<<<<<<< HEAD
-    config.read("../utils/config.ini")
-=======
     config.read("../utils/config_inputs.ini")
->>>>>>> main
     cfg = config["route.viz"]
 
     place = cfg["place"]
