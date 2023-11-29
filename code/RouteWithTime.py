@@ -1,5 +1,5 @@
 import configparser
-import sys
+import os
 import time
 
 import pandas as pd
@@ -40,33 +40,42 @@ def add_coordinator(df):
     return df
 
 
-def initialize_data():
+def initialize_data(route_path):
     """
     Initialize the data from the CSV file
-    and the Mapbox token from the config file.
 
-    :return: Dataframe and Mapbox token
+    :return: Dataframe
     """
+    file_name = route_path
+    df = pd.read_csv(file_name)
+    # Convert coordinates to list of lists
+    df = add_coordinator(df)
 
+    return df
+
+
+def get_token():
+    """
+    Initialize the token from config file
+
+    :return: token
+    """
     # Initialize the parser
     config = configparser.ConfigParser()
     # Read the config file
     config.read("config.ini")
     mapbox_token = config["mapbox"]["token"]
 
-    # Take file name from terminal
-    file_name = sys.argv[1]
-    df1 = pd.read_csv(file_name)
-    file_name = sys.argv[2]
-    df2 = pd.read_csv(file_name)
-    # Convert coordinates to list of lists
-    df1 = add_coordinator(df1)
-    df2 = add_coordinator(df2)
-
-    return df1, df2, mapbox_token
+    return mapbox_token
 
 
 def request_time(df, mapbox_token):
+    """
+    requesting duration for each stop, add 5 min(300 seconds) at each
+    location
+
+    """
+    # first stop, initialize 5 min loading time
     col_duration = [300]
     total_time = 300
     col_idx = df.columns.get_loc("Coordinates")
@@ -87,24 +96,63 @@ def request_time(df, mapbox_token):
     return col_duration
 
 
-def main():
-    # Initialize the data
-    df1, df2, mapbox_token = initialize_data()
+def get_file_name(file_path):
+    # Split by '/' and get the last part (the filename)
+    file_name_with_extension = file_path.split("/")[-1]
 
-    # Get the matrix data.
-    # Goes through every source once
-    df1["duration"] = request_time(df1, mapbox_token)
-    df2["duration"] = request_time(df2, mapbox_token)
+    # Split by '.' and get the first part
+    file_name_string = file_name_with_extension.split(".")[0]
 
-    # Save the DataFrame to a CSV file
-    output_file = "../data/route1_time.csv"
-    df1.to_csv(output_file, index=False)
+    return file_name_string
 
-    output_file = "../data/route2_time.csv"
-    df2.to_csv(output_file, index=False)
 
-    print("\nComplete!")
+def add_time_to_route():
+    # Initialize the data and tokein
+    mapbox_token = get_token()
+
+    # Initialize the parser
+    config = configparser.ConfigParser()
+    # Read the config file
+    config.read("../utils/config_inputs.ini")
+
+    # Iterate over each route in the config file
+    for route_ in config["routes"]:
+        file_path = config["routes"][route_]
+
+        # Initialize data for the current route
+        df = initialize_data(file_path)
+
+        # Prequsting duration for the current route
+        df["duration"] = request_time(df, mapbox_token)
+
+        # Save the DataFrame to a CSV file under data file
+        # Extract the base name without the .csv extension
+        base_name = os.path.splitext(file_path)[0]
+
+        output_file = base_name + "_time.csv"
+
+        df.to_csv(output_file, index=False)
+
+        print(
+            f"Processed route {route_}, "
+            "output duration saved to {output_file}"
+        )
+
+        # Ensure the 'Matrix Dir' section exists
+        if "route_time" not in config:
+            config["route_time"] = {}
+
+        file_name_string = get_file_name(output_file)
+
+        # Assign the filename to the route_?_way_points
+        config["route_time"][f"{file_name_string}"] = output_file
+
+        # Write the configuration to an INI file
+        with open("../utils/config_inputs.ini", "w") as configfile:
+            config.write(configfile)
+
+    print("\nComplete adding duration to routes!")
 
 
 if __name__ == "__main__":
-    main()
+    add_time_to_route()

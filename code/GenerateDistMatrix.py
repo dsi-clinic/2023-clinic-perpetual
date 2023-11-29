@@ -1,7 +1,7 @@
+import ast
 import configparser
 import datetime
 import pickle
-import sys
 import time
 
 import numpy as np
@@ -83,12 +83,13 @@ def initialize_data():
     # Initialize the parser
     config = configparser.ConfigParser()
     # Read the config file
-    config.read("config.ini")
+    config.read("config_mpabox.ini")
     mapbox_token = config["mapbox"]["token"]
 
-    # Take file name from terminal
-    file_name_indoor = sys.argv[1]
-    file_name_outdoor = sys.argv[2]
+    # Take file name from config
+    config.read("../utils/config_inputs.ini")
+    file_name_indoor = config["original data source"]["indoor"]
+    file_name_outdoor = config["original data source"]["outdoor"]
 
     # Convert coordinates to list of lists
     df_indoor = add_coordinates(file_name_indoor)
@@ -97,13 +98,15 @@ def initialize_data():
     return df_indoor, df_outdoor, mapbox_token
 
 
-def main():
+def generate_distance_matrix():
     # Initialize the data
     df_indoor, df_outdoor, mapbox_token = initialize_data()
 
     # prepare the coordination list
     pickup_cor_list = generate_coordinate_list([df_indoor, df_outdoor])
-    source_location = [-94.8523, 29.2736]
+    config = configparser.ConfigParser()
+    config.read("../utils/config_inputs.ini")
+    source_location = ast.literal_eval(config["original data source"]["source"])
     coordinate_list = [source_location] + pickup_cor_list
 
     # Initialize the matrix
@@ -133,8 +136,23 @@ def main():
     filename = f"{filename_root}_{timestamp_str}.npy"
     np.save(filename, full_matrix)
 
-    print("Complete!")
+    # Ensure the 'Matrix Dir' section exists
+    if "Matrix Dir" not in config:
+        config["Matrix Dir"] = {}
+
+    # Assign the filename to the 'distance matrix' key
+    # in the 'Matrix Dir' section
+    config["Matrix Dir"]["distance_matrix"] = filename_root + filename
+
+    # Write the configuration to an INI file
+    with open("../utils/config_inputs.ini", "w") as configfile:
+        config.write(configfile)
+
+    print(
+        f"full distance matrix generated under the file {filename_root},"
+        "by the name {filename}!"
+    )
 
 
 if __name__ == "__main__":
-    main()
+    generate_distance_matrix()
