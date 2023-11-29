@@ -1,10 +1,10 @@
 """
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
-(CVRP) to determine the optimal routing scheme for 
-your problem. 
+(CVRP) to determine the optimal routing scheme for
+your problem.
 
-1. set your arguments in the utils/config_inputs.ini file 
+1. set your arguments in the utils/config_inputs.ini file
 under [optimize google cvrp]
 
 2. Run this script in the terminal using:
@@ -211,16 +211,22 @@ def main():
 
 if __name__ == "__main__":
 
-    #read inputs from the utils/config_inputs.ini file
+    # read inputs from the utils/config_inputs.ini file
     config = configparser.ConfigParser()
     config.read("../utils/config_inputs.ini")
 
     path_to_dataframe = config["optimize google cvrp"]["path_to_dataframe"]
-    path_to_distance_matrix = config["optimize google cvrp"]["path_to_distance_matrix"]
+    path_to_distance_matrix = config["optimize google cvrp"][
+        "path_to_distance_matrix"
+    ]
     num_vehicles = config["optimize google cvrp"]["num_vehicles"].astype(int)
     output_path = config["optimize google cvrp"]["output_path"]
-    vehicle_capacity = config["optimize google cvrp"]["vehicle_capacity"].astype(int)
-    num_seconds = config["optimize google cvrp"]["num_seconds_simulation"].astype(int)
+    vehicle_capacity = config["optimize google cvrp"][
+        "vehicle_capacity"
+    ].astype(int)
+    num_seconds = config["optimize google cvrp"][
+        "num_seconds_simulation"
+    ].astype(int)
 
     capacity = config["optimize google cvrp"]["capacity"].astype(int)
 
