@@ -1,21 +1,25 @@
 """
 This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
-(CVRP) to determine the optimal number of trucks and
-routes to deploy in Galveston.
+(CVRP) to determine the optimal routing scheme for
+your problem.
+Capacity is measured by dropoff quantities only.
 
-For the most updated Galveston locations dataframe,
-run the CVRP on pickup capacity only, truck only
 
-Set your arguments in the __name__ == main() function.
+Set your arguments in the __name__ == main() function:
+- import the locations data (as a csv)
+- import the distance matrix data (as a csv)
+- specify the number of vehicles
+- specify path to save the route dataframes
+- set vehicle capacity
+- set number of seconds for the simulation
+
 
 Run this script in the terminal using:
 cd code
-python cvrp_galv_pickup_only.py
+python cvrp_galv_dropoff_only.py
 """
 
-import os
-import sys
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
@@ -34,7 +38,7 @@ def get_demands(location_df):
     """
     demands_list = []
     for index, row in location_df.iterrows():
-        demands_list.append(int(row["Daily_Pickup_Totes"]))
+        demands_list.append(int(row["Weekly_Dropoff_Totes"]))
 
     return demands_list
 
@@ -219,16 +223,16 @@ if __name__ == "__main__":
     distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
 
     # specify number of vehicles
-    num_vehicles = 3
+    num_vehicles = 2
 
     # specify path to save the route dataframes
-    # os.mkdir("../outputs/pickup_only")
-    path_string = "../outputs/pickup_only"
+    # os.mkdir("../outputs/dropoff_only")
+    path_string = "../output/one_day_dropoff_only"
 
     # set vehicle capacity
-    vehicle_capacity = 130
+    vehicle_capacity = 140
 
     # set num seconds of the simulations
-    num_seconds = 10_000
+    num_seconds = 10000
 
     main()

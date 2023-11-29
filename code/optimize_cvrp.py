@@ -3,24 +3,16 @@ This script will run simulations of
 Google ORTools' Capacited Vehicles Routing Problem
 (CVRP) to determine the optimal routing scheme for
 your problem.
-Capacity is measured by dropoff quantities only.
 
+1. set your arguments in the utils/config_inputs.ini file
+under [optimize google cvrp]
 
-Set your arguments in the __name__ == main() function:
-- import the locations data (as a csv)
-- import the distance matrix data (as a csv)
-- specify the number of vehicles
-- specify path to save the route dataframes
-- set vehicle capacity
-- set number of seconds for the simulation
-
-
-Run this script in the terminal using:
+2. Run this script in the terminal using:
 cd code
 python cvrp_galv_dropoff_only.py
 """
 
-import os
+import configparser
 
 import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
@@ -39,7 +31,7 @@ def get_demands(location_df):
     """
     demands_list = []
     for index, row in location_df.iterrows():
-        demands_list.append(int(row["Weekly_Dropoff_Totes"]))
+        demands_list.append(int(row[capacity]))
 
     return demands_list
 
@@ -47,8 +39,11 @@ def get_demands(location_df):
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
+    locations_df = pd.read_csv(path_to_dataframe)
+    distance_matrix = pd.read_csv(path_to_distance_matrix)
+
     data["distance_matrix"] = distance_matrix.to_numpy().astype(int)
-    data["demands"] = get_demands(galveston)
+    data["demands"] = get_demands(locations_df)
     data["num_vehicles"] = num_vehicles
     capacity = vehicle_capacity
     data["vehicle_capacities"] = [capacity for i in range(data["num_vehicles"])]
@@ -134,18 +129,19 @@ def save_to_table(data, manager, routing, solution):
     return routes, distances, loads
 
 
-def make_dataframe(data, manager, routing, solution, df):
+def make_dataframe(data, manager, routing, solution):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
+    locations_df = pd.read_csv(path_to_dataframe)
     routes, distances, loads = save_to_table(data, manager, routing, solution)
     for i in range(len(routes)):
-        route_df = df.loc[routes[i], :]
+        route_df = locations_df.loc[routes[i], :]
         route_df["Cumulative_Distance"] = distances[i]
         route_df["Truck_Load"] = loads[i]
         route_df = route_df.reset_index()
         route_df = route_df.rename(columns={"index": "Original_Index"})
 
-        path = path_string + "/route" + str(i + 1) + ".csv"
+        path = output_path + "/route" + str(i + 1) + ".csv"
         route_df.to_csv(path, index=False)
 
 
@@ -210,30 +206,28 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        make_dataframe(data, manager, routing, solution, galveston)
+        make_dataframe(data, manager, routing, solution)
 
 
 if __name__ == "__main__":
 
-    # I WILL ADD THESE ARGUMENTS TO THE CONFIG FILE
+    # read inputs from the utils/config_inputs.ini file
+    config = configparser.ConfigParser()
+    config.read("../utils/config_inputs.ini")
 
-    # import the data
-    galveston = pd.read_csv("../output/data/truck_service_pts_galv.csv")
+    path_to_dataframe = config["optimize google cvrp"]["path_to_dataframe"]
+    path_to_distance_matrix = config["optimize google cvrp"][
+        "path_to_distance_matrix"
+    ]
+    num_vehicles = config["optimize google cvrp"]["num_vehicles"].astype(int)
+    output_path = config["optimize google cvrp"]["output_path"]
+    vehicle_capacity = config["optimize google cvrp"][
+        "vehicle_capacity"
+    ].astype(int)
+    num_seconds = config["optimize google cvrp"][
+        "num_seconds_simulation"
+    ].astype(int)
 
-    # load the distance matrix
-    distance_matrix = pd.read_csv("../output/data/truck_distances_galv.csv")
-
-    # specify number of vehicles
-    num_vehicles = 2
-
-    # specify path to save the route dataframes
-    # os.mkdir("../outputs/dropoff_only")
-    path_string = "../output/one_day_dropoff_only"
-
-    # set vehicle capacity
-    vehicle_capacity = 140
-
-    # set num seconds of the simulations
-    num_seconds = 10000
+    capacity = config["optimize google cvrp"]["capacity"].astype(int)
 
     main()
