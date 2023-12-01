@@ -1,8 +1,10 @@
-import configparser
-import folium
-import pandas as pd
-import numpy as np
 import ast
+import configparser
+
+import folium
+import numpy as np
+import pandas as pd
+
 
 def add_markers(f_map, points, color="blue"):
     """
@@ -23,7 +25,7 @@ def add_markers(f_map, points, color="blue"):
         index = points.index[i]
         dropoff, pickup = row[["Weekly_Dropoff_Totes", "Daily_Pickup_Totes"]]
         pickup_type = row["pickup_type"]
-        agg_point = row['Bike Aggregation Point']
+        agg_point = row["Bike Aggregation Point"]
         popup_html = f"""
                 Index: {index}
                 <br>
@@ -67,24 +69,22 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("../utils/config_inputs.ini")
     cfg = config["convert.to_bikes"]
-    
+
     # 2. parse config
     truth_df_path = cfg["truth_df_path"]
     truth_dist_df_path = cfg["truth_dist_df_path"]
     location = [float(cfg["Latitude"]), float(cfg["Longitude"])]
     distance_thresh = float(cfg["distance_thresh"])  # in meters
     aggs = ast.literal_eval(cfg["bike_aggregate_list"])
-    
+
     map_all_save_path = cfg["map_all_save_path"]
     map_bikes_save_path = cfg["map_bikes_save_path"]
     map_trucks_save_path = cfg["map_trucks_save_path"]
-    
+
     truck_df_savepath = cfg["truck_df_savepath"]
     bike_df_savepath = cfg["bike_df_savepath"]
     truck_dist_df_savepath = cfg["truck_dist_df_savepath"]
     bike_dist_df_savepath = cfg["bike_dist_df_savepath"]
-    
-    
 
     # 3.0 read single-truth dataframe and single-truth distance matrix
     truth_df = pd.read_csv(truth_df_path)
@@ -115,16 +115,18 @@ if __name__ == "__main__":
     bike_no_agg_ind = sorted(bike_ind + converts_ind)
     bike_all_ind = sorted(bike_no_agg_ind + aggs)
     truck_all_ind = sorted(list(total_ind - set(bike_no_agg_ind)) + aggs)
-    
+
     # 7.1. assign aggregate locations for each bike point
     drop_truck_cols = [str(i) for i in truck_all_ind]
-    agg_to_bike_dists = truth_dist.iloc[aggs].drop(columns = drop_truck_cols)
+    agg_to_bike_dists = truth_dist.iloc[aggs].drop(columns=drop_truck_cols)
     agg_assignments = {}
     for col in agg_to_bike_dists.columns:
         assignment = int(aggs[np.argmin(agg_to_bike_dists[col])])
         key = int(col)
-        converted_truth_df.at[key, 'Bike Aggregation Point'] = assignment
-        converted_truth_df.at[assignment, 'Daily_Pickup_Totes'] += converted_truth_df.at[key, 'Daily_Pickup_Totes']
+        converted_truth_df.at[key, "Bike Aggregation Point"] = assignment
+        converted_truth_df.at[
+            assignment, "Daily_Pickup_Totes"
+        ] += converted_truth_df.at[key, "Daily_Pickup_Totes"]
 
     # 8. prepare info dataframes for output
     truck_converted_df = converted_truth_df[
@@ -138,7 +140,9 @@ if __name__ == "__main__":
     ]
 
     # 8.1. prepare distance matrices for output
-    truck_dist_df = truth_dist[[str(i) for i in truck_all_ind]].iloc[truck_all_ind]
+    truck_dist_df = truth_dist[[str(i) for i in truck_all_ind]].iloc[
+        truck_all_ind
+    ]
     bike_dist_df = truth_dist[[str(i) for i in bike_all_ind]].iloc[bike_all_ind]
 
     # 9. export dataframes
@@ -146,26 +150,36 @@ if __name__ == "__main__":
     bike_converted_df.to_csv(bike_df_savepath)
     truck_dist_df.to_csv(truck_dist_df_savepath)
     bike_dist_df.to_csv(bike_dist_df_savepath)
-    
+
     # 10. visualize
     trucks = converted_truth_df[converted_truth_df["pickup_type"] == "Truck"]
     bikes = converted_truth_df[converted_truth_df["pickup_type"] == "Bike"]
-    bike_convs = converted_truth_df[converted_truth_df["pickup_type"] == "Bike_Converted"]
-    bike_aggs = converted_truth_df[converted_truth_df["pickup_type"] == "Bike_Aggregate"]
-    
-    map_all = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
+    bike_convs = converted_truth_df[
+        converted_truth_df["pickup_type"] == "Bike_Converted"
+    ]
+    bike_aggs = converted_truth_df[
+        converted_truth_df["pickup_type"] == "Bike_Aggregate"
+    ]
+
+    map_all = folium.Map(
+        location=location, tiles="OpenStreetMap", zoom_start=11
+    )
     add_markers(map_all, trucks, "blue")
     add_markers(map_all, bikes, "red")
     add_markers(map_all, bike_convs, "green")
     add_markers(map_all, bike_aggs, "orange")
     map_all.save(map_all_save_path)
-    
-    map_truck = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
+
+    map_truck = folium.Map(
+        location=location, tiles="OpenStreetMap", zoom_start=11
+    )
     add_markers(map_truck, trucks, "blue")
     add_markers(map_truck, bike_aggs, "orange")
     map_truck.save(map_trucks_save_path)
-    
-    map_bikes = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
+
+    map_bikes = folium.Map(
+        location=location, tiles="OpenStreetMap", zoom_start=11
+    )
     add_markers(map_bikes, bikes, "red")
     add_markers(map_bikes, bike_convs, "green")
     add_markers(map_bikes, bike_aggs, "orange")
