@@ -86,9 +86,8 @@ if __name__ == "__main__":
     # 4. filter distance mtrx to distances from bike to truck-served locations
     bike_df = truth_df[truth_df["pickup_type"] == "Bike"]
     bike_indices = bike_df.index.to_list()
-    bike_dists = truth_dist.iloc[bike_indices]
-    drop_cols = [str(i) for i in bike_indices]
-    bike_to_truck_dists = bike_dists.drop(columns=drop_cols)
+    drop_bike_cols = [str(i) for i in bike_indices]
+    bike_to_truck_dists = truth_dist.iloc[bike_indices].drop(columns=drop_bike_cols)
 
     # 5. mark truck-served points within {distance_thresh} of bike-served points
     converts_ind = []
