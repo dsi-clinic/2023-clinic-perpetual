@@ -16,7 +16,7 @@ def read_config(path, section):
 
     config = configparser.ConfigParser()
     config.read(path)
-    return = config[section]
+    return config[section]
     
 def filter_df(df, col, val):
     """
