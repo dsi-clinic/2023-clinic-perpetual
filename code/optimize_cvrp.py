@@ -9,7 +9,7 @@ under [optimize google cvrp]
 
 2. Run this script in the terminal using:
 cd code
-python cvrp_galv_dropoff_only.py
+python optimize_cvrp.py
 """
 
 import configparser
@@ -47,7 +47,7 @@ def create_data_model():
     data["num_vehicles"] = num_vehicles
     capacity = vehicle_capacity
     data["vehicle_capacities"] = [capacity for i in range(data["num_vehicles"])]
-    data["depot"] = 0
+    data["depot"] = depot_index
     return data
 
 
@@ -219,15 +219,16 @@ if __name__ == "__main__":
     path_to_distance_matrix = config["optimize google cvrp"][
         "path_to_distance_matrix"
     ]
-    num_vehicles = config["optimize google cvrp"]["num_vehicles"].astype(int)
+    num_vehicles = int(config["optimize google cvrp"]["num_vehicles"])
     output_path = config["optimize google cvrp"]["output_path"]
-    vehicle_capacity = config["optimize google cvrp"][
+    vehicle_capacity = int(config["optimize google cvrp"][
         "vehicle_capacity"
-    ].astype(int)
-    num_seconds = config["optimize google cvrp"][
+    ])
+    num_seconds = int(config["optimize google cvrp"][
         "num_seconds_simulation"
-    ].astype(int)
+    ])
 
-    capacity = config["optimize google cvrp"]["capacity"].astype(int)
+    capacity = config["optimize google cvrp"]["capacity"]
+    depot_index = int(config["optimize google cvrp"]["depot_index"])
 
     main()
