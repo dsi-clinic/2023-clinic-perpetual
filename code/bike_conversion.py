@@ -3,8 +3,9 @@ import ast
 import folium
 import numpy as np
 import pandas as pd
-from _utils import filter_df, filter_dists, read_config
 from RouteViz import add_markers
+
+from utils.utils import filter_df, filter_dists, read_config
 
 if __name__ == "__main__":
 

@@ -6,7 +6,8 @@ import folium
 import networkx as nx
 import osmnx as ox
 import pandas as pd
-from _utils import read_config
+
+from utils.utils import read_config
 
 
 def find_bbox(coords):
