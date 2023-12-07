@@ -221,12 +221,8 @@ if __name__ == "__main__":
     ]
     num_vehicles = int(config["optimize google cvrp"]["num_vehicles"])
     output_path = config["optimize google cvrp"]["output_path"]
-    vehicle_capacity = int(config["optimize google cvrp"][
-        "vehicle_capacity"
-    ])
-    num_seconds = int(config["optimize google cvrp"][
-        "num_seconds_simulation"
-    ])
+    vehicle_capacity = int(config["optimize google cvrp"]["vehicle_capacity"])
+    num_seconds = int(config["optimize google cvrp"]["num_seconds_simulation"])
 
     capacity = config["optimize google cvrp"]["capacity"]
     depot_index = int(config["optimize google cvrp"]["depot_index"])
