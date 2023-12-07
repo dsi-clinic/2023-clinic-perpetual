@@ -105,14 +105,12 @@ def main():
     # #trial_dict['cumulative_time']
     # #trial_dict['cumulative_cost']
 
-    trial_dict['path_to_visualizations'] = config["feasibility report"][
+    trial_dict["path_to_visualizations"] = config["feasibility report"][
         "visualization_path"
     ]
-    #trial_dict['name_of_visualizations'] 
+    # trial_dict['name_of_visualizations']
 
-    trial_dict["capacity_type"] = config["optimize google cvrp"][
-        "capacity"
-    ]
+    trial_dict["capacity_type"] = config["optimize google cvrp"]["capacity"]
 
     # save the trial dictionary as a new row in the feasibility file
     feasibility_report.append(trial_dict, ignore_index=True)
