@@ -1,93 +1,11 @@
 import ast
-import configparser
 
 import folium
 import numpy as np
 import pandas as pd
+from RouteViz import add_markers
 
-
-def read_config(path, section):
-    """
-    Read in a config
-
-    Parameters:
-        path : string, relative path to config file
-        section : string, section of config to read
-    """
-
-    config = configparser.ConfigParser()
-    config.read(path)
-    return config[section]
-
-
-def filter_df(df, col, val):
-    """
-    Filter for rows with certain values in the desired column in df
-
-    Parameters:
-        df : pd.DataFrame
-        col : string
-        val : value of interest
-    """
-    return df[df[col] == val]
-
-
-def filter_dists(dist_mtrx, from_ind, to_ind):
-    """
-    Filter a distance matrix {dist_mtrx} to keep rows {from_ind} and
-    columns {to_ind}
-
-    Parameters:
-        dist_mtrx : 2D matrix
-        from_ind, to_ind : list of integers
-    """
-    str_inds = [str(i) for i in to_ind]
-    res = dist_mtrx[str_inds].loc[from_ind]
-    return res
-
-
-def add_markers(f_map, points, color="blue"):
-    """
-    Given a folium map, location data, and a color (str),
-    draw markers on the given map
-
-    Parameters:
-        f_map : folium map
-        route_data : pd.DataFrame
-        color : str (e.g., "red", "blue")
-    """
-
-    for i in range(len(points)):
-        row = points.iloc[i]
-        loc_name = row["Name"]
-        y, x = row[["Latitude", "Longitude"]]
-        address = row["Address"]
-        index = points.index[i]
-        dropoff, pickup = row[["Weekly_Dropoff_Totes", "Daily_Pickup_Totes"]]
-        pickup_type = row["pickup_type"]
-        agg_point = row["Bike Aggregation Point"]
-        popup_html = f"""
-                Index: {index}
-                <br>
-                Name: {loc_name}
-                <br>
-                Address: {address}
-                <br>
-                Dropoff (weekly): {dropoff}
-                <br>
-                Pickup (daily): {pickup}
-                <br>
-                Pickup Type: {pickup_type}
-                <br>
-                Aggregation Point: {agg_point}
-                """
-        popup = folium.Popup(popup_html, max_width=700)
-
-        folium.Marker(
-            (y, x), popup=popup, parse_html=True, icon=folium.Icon(color=color)
-        ).add_to(f_map)
-    return None
-
+from utils.utils import filter_df, filter_dists, read_config
 
 if __name__ == "__main__":
 
@@ -115,12 +33,14 @@ if __name__ == "__main__":
     distance_thresh = float(cfg["distance_thresh"])  # in meters
     aggs = ast.literal_eval(cfg["bike_aggregate_list"])
 
-    truck_df_savepath = cfg["truck_df_savepath"]
     bike_df_savepath = cfg["bike_df_savepath"]
-    truck_dist_df_savepath = cfg["truck_dist_df_savepath"]
+    truck_pickup_df_savepath = cfg["truck_pickup_df_savepath"]
+    truck_dropoff_df_savepath = cfg["truck_dropoff_df_savepath"]
     bike_dist_df_savepath = cfg["bike_dist_df_savepath"]
-    bike_aggregates_savedir = cfg["bike_aggregates_savedir"]
+    truck_pickup_dist_df_savepath = cfg["truck_pickup_dist_df_savepath"]
+    truck_dropoff_dist_df_savepath = cfg["truck_dropoff_dist_df_savepath"]
 
+    bike_aggregates_savedir = cfg["bike_aggregates_savedir"]
     map_all_save_path = cfg["map_all_save_path"]
     map_bikes_save_path = cfg["map_bikes_save_path"]
     map_trucks_save_path = cfg["map_trucks_save_path"]
@@ -180,15 +100,30 @@ if __name__ == "__main__":
         | (converted_truth_df["pickup_type"] == "Bike_Aggregate")
         | (converted_truth_df["pickup_type"] == "Bike_Converted")
     ]
-    # 8.1. prepare distance matrices for output
+    # 8.1. remove outdoor points for truck dropoffs
+    truck_converted_dropoffs_df = filter_df(
+        truck_converted_df, "location_type", "indoor"
+    )
+    truck_dropoff_ind = truck_converted_dropoffs_df.index.to_list()
+    # 8.2. remove bike aggregate point's pickup demand for bikes
+    bike_converted_df.loc[
+        bike_converted_df.loc[:, "pickup_type"] == "Bike_Aggregate",
+        "Daily_Pickup_Totes",
+    ] = 0
+    # 8.3. prepare distance matrices for output
     truck_dist_df = filter_dists(truth_dist, truck_all_ind, truck_all_ind)
     bike_dist_df = filter_dists(truth_dist, bike_all_ind, bike_all_ind)
+    truck_dropoff_dist_df = filter_dists(
+        truth_dist, truck_dropoff_ind, truck_dropoff_ind
+    )
 
     # 9. export dataframes
-    truck_converted_df.to_csv(truck_df_savepath)
+    truck_converted_df.to_csv(truck_pickup_df_savepath)
+    truck_converted_dropoffs_df.to_csv(truck_dropoff_df_savepath)
     bike_converted_df.to_csv(bike_df_savepath)
-    truck_dist_df.to_csv(truck_dist_df_savepath)
-    bike_dist_df.to_csv(bike_dist_df_savepath)
+    truck_dist_df.to_csv(truck_pickup_dist_df_savepath, index=False)
+    truck_dropoff_dist_df.to_csv(truck_dropoff_dist_df_savepath, index=False)
+    bike_dist_df.to_csv(bike_dist_df_savepath, index=False)
 
     # 10. visualize
     trucks = converted_truth_df[converted_truth_df["pickup_type"] == "Truck"]

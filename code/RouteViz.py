@@ -1,9 +1,13 @@
-import configparser
+import ast
+import fnmatch
+import os
 
 import folium
 import networkx as nx
 import osmnx as ox
 import pandas as pd
+
+from utils.utils import read_config
 
 
 def find_bbox(coords):
@@ -90,7 +94,7 @@ def calc_routes(graph, coords):
     return osmnx_to_latlon(graph, routes)
 
 
-def add_markers(f_map, route_df, color):
+def add_markers(f_map, points, color):
     """
     given a folium map, route data (includes location names), and a color (str),
     draw markers on the given map
@@ -102,13 +106,18 @@ def add_markers(f_map, route_df, color):
     """
 
     # icon_size = 100
-    for i in range(len(route_df)):
-        row = route_df.iloc[i]
+    for i in range(len(points)):
+        row = points.iloc[i]
         loc_name = row["Name"]
         y, x = row[["Latitude", "Longitude"]]
         address = row["Address"]
+        index = points.index[i]
         dropoff, pickup = row[["Weekly_Dropoff_Totes", "Daily_Pickup_Totes"]]
+        pickup_type = row["pickup_type"]
+        agg_point = row["Bike Aggregation Point"]
         popup_html = f"""
+                Index: {index}
+                <br>
                 Name: {loc_name}
                 <br>
                 Address: {address}
@@ -116,6 +125,10 @@ def add_markers(f_map, route_df, color):
                 Dropoff (weekly): {dropoff}
                 <br>
                 Pickup (daily): {pickup}
+                <br>
+                Pickup Type: {pickup_type}
+                <br>
+                Aggregation Point: {agg_point}
                 """
         popup = folium.Popup(popup_html, max_width=700)
 
@@ -128,64 +141,65 @@ def add_markers(f_map, route_df, color):
 
 if __name__ == "__main__":
 
-    config = configparser.ConfigParser()
-    config.read("../utils/config_inputs.ini")
-    cfg = config["route.viz"]
+    cfg = read_config("../utils/config_inputs.ini", "route.viz")
 
     place = cfg["place"]
-    FUE_path = cfg["FUE_path"]
-    route_path = cfg["route_path"]
+    route_dir = cfg["route_dir"]
     latitude = float(cfg["latitude"])
     longitude = float(cfg["longitude"])
-    save_path = cfg["save_path"]
-
-    feu_galveston = pd.read_csv(FUE_path)
-    route_data = pd.read_csv(route_path)
     location = [latitude, longitude]
-    coords = route_data[["Longitude", "Latitude"]]
-    # route_2_data = pd.read_csv("../data/route2.csv")
-    # coords2 = route_2_data[["Longitude", "Latitude"]]
-
-    n, s, e, w = find_bbox(coords)
-    # n2, s2, e2, w2 = find_bbox(coords2)
+    colors = ast.literal_eval(cfg["colors"])
 
     graph = ox.graph_from_place(place, network_type="drive")
 
-    galv_graph = ox.truncate.truncate_graph_bbox(
-        graph,
-        n,
-        s,
-        e,
-        w,
-        truncate_by_edge=False,
-        retain_all=False,
-        quadrat_width=0.05,
-        min_num=3,
+    # directory = 'files'
+
+    all_fmap = folium.Map(
+        location=location, tiles="OpenStreetMap", zoom_start=11
     )
-    # galv_graph2 = ox.truncate.truncate_graph_bbox(
-    #     graph,
-    #     n2,
-    #     s2,
-    #     e2,
-    #     w2,
-    #     truncate_by_edge=False,
-    #     retain_all=False,
-    #     quadrat_width=0.05,
-    #     min_num=3,
-    # )
 
-    route = calc_routes(galv_graph, coords)
-    # route_2 = calc_routes(galv_graph2, coords2)
+    i = 0
+    for root, _, files in os.walk(route_dir):
+        for filename in fnmatch.filter(files, "*.csv"):
+            filepath = os.path.join(root, filename)
+            if os.path.isfile(filepath):
+                name = filename[:-4]
+                print(f"mapping {name}")
+                route_data = pd.read_csv(filepath)
+                coords = route_data[["Longitude", "Latitude"]]
+                n, s, e, w = find_bbox(coords)
 
-    map = folium.Map(location=location, tiles="OpenStreetMap", zoom_start=11)
-    add_markers(map, route_data, "blue")
-    # add_markers(map, route_2_data, "red")
-    folium.PolyLine(locations=route, color="blue").add_to(map)
-    # folium.PolyLine(locations=route_2, color="red").add_to(map)
+                galv_graph = ox.truncate.truncate_graph_bbox(
+                    graph,
+                    n,
+                    s,
+                    e,
+                    w,
+                    truncate_by_edge=False,
+                    retain_all=False,
+                    quadrat_width=0.05,
+                    min_num=3,
+                )
 
-    for y, x in route:
-        folium.CircleMarker(
-            location=[y, x], radius=2, weight=5, color="yellow"
-        ).add_to(map)
+                route = calc_routes(galv_graph, coords)
+                # route_2 = calc_routes(galv_graph2, coords2)
 
-    map.save(save_path)
+                color = colors[(i % len(colors))]
+
+                fmap = folium.Map(
+                    location=location, tiles="OpenStreetMap", zoom_start=11
+                )
+                add_markers(fmap, route_data, "blue")
+                add_markers(all_fmap, route_data, color)
+
+                folium.PolyLine(locations=route, color="blue").add_to(fmap)
+                folium.PolyLine(locations=route, color=color).add_to(all_fmap)
+
+                for y, x in route:
+                    folium.CircleMarker(
+                        location=[y, x], radius=2, weight=5, color="yellow"
+                    ).add_to(fmap)
+
+                fmap.save(route_dir + "/" "map_" + name + ".html")
+                i += 1
+    all_fmap.save(route_dir + "/" + "map_all_routes.html")
