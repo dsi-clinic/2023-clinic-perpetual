@@ -1,6 +1,10 @@
 # Code
 
+* `bike_conversion.py`: Converts truck-serviced points to bike-serviced points when near other bike-serviced points; aggregate pickup/dropoff loads to designated aggregation points; separate .csv outputs
+* `extract_capacity_demands.py`:
+* `extract_supplementary_info.py`: 
 * `GenerateDistMatrix.py`: This is a python script to generate distance matrices for any dataset
+* `RouteViz.py`: Given a folder/directory of routes, create interactive visualizations (.html).
 
 # RouteWithTime.py
   data: optimized route data
