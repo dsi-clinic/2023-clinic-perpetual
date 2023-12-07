@@ -8,6 +8,7 @@ FROM jupyter/minimal-notebook:python-3.11
 USER root
 RUN apt update
 RUN apt install -y python3-pip python3-dev
+RUN apt install -y gdal-bin libgdal-dev
 USER $NB_UID
 
 # Create working directory
@@ -16,6 +17,7 @@ WORKDIR /project
 # Install Python 3 packages
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
 # install project as an editable package
 COPY utils ./utils
 COPY setup.py .

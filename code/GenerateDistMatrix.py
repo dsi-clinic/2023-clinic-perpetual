@@ -83,7 +83,7 @@ def initialize_data():
     # Initialize the parser
     config = configparser.ConfigParser()
     # Read the config file
-    config.read("config_mpabox.ini")
+    config.read("../utils/config_mapbox.ini")
     mapbox_token = config["mapbox"]["token"]
 
     # Take file name from config
@@ -132,8 +132,8 @@ def generate_distance_matrix():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename_root = "../data/generated_distance_matrices/distance_matrix"
-    filename = f"{filename_root}_{timestamp_str}.npy"
+    filename_root = "../data/generated_distance_matrices"
+    filename = f"{filename_root}/distance_matrix.npy"
     np.save(filename, full_matrix)
 
     # Ensure the 'Matrix Dir' section exists
@@ -142,15 +142,14 @@ def generate_distance_matrix():
 
     # Assign the filename to the 'distance matrix' key
     # in the 'Matrix Dir' section
-    config["Matrix Dir"]["distance_matrix"] = filename_root + filename
+    config["Matrix Dir"]["distance_matrix"] = filename
 
-    # Write the configuration to an INI file
+    # Write the configuration to config_inputs.ini file
     with open("../utils/config_inputs.ini", "w") as configfile:
         config.write(configfile)
 
     print(
-        f"full distance matrix generated under the file {filename_root},"
-        "by the name {filename}!"
+        f"full distance matrix generated at {filename}!"
     )
 
 

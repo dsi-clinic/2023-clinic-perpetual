@@ -1,15 +1,8 @@
 # Code
 
-* `GenerateDistMatrix.py`: This is a python script to generate distance matrices for any dataset
+* `GenerateDistMatrix.py`: This scripts generates distance matrices for any list of geo locations.
 
-# RouteWithTime.py
-  data: optimized route data
+* `RouteWithTime.py`: This script calculates total travel time for a given route. It requests time taken to travel between each stop from the Mapbox API, and adds 5 min for each pick-up or drop-off stop and then sums up all these time durations to get the total time taken to travel the given route.
   
-  this file will using the data and request the time duration between each stop from mapbox direction API and than accumulates all 
-  the time plus 5 min picking up or drop up time at each stop.
-  
-  # GetWayPoint.py
-  data: optimized route data
-  
-  this file will using the data and request the waypoints through the route along with the instructions for driveing
+* `GetWayPoint.py`: This script requests waypoints on routes, along with the instructions for driving, from the Mapbox API.
 
