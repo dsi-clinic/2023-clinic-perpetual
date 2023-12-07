@@ -33,12 +33,14 @@ if __name__ == "__main__":
     distance_thresh = float(cfg["distance_thresh"])  # in meters
     aggs = ast.literal_eval(cfg["bike_aggregate_list"])
 
-    truck_df_savepath = cfg["truck_df_savepath"]
     bike_df_savepath = cfg["bike_df_savepath"]
-    truck_dist_df_savepath = cfg["truck_dist_df_savepath"]
+    truck_pickup_df_savepath = cfg["truck_pickup_df_savepath"]
+    truck_dropoff_df_savepath = cfg["truck_dropoff_df_savepath"]
     bike_dist_df_savepath = cfg["bike_dist_df_savepath"]
-    bike_aggregates_savedir = cfg["bike_aggregates_savedir"]
+    truck_pickup_dist_df_savepath = cfg["truck_pickup_dist_df_savepath"]
+    truck_dropoff_dist_df_savepath = cfg["truck_dropoff_dist_df_savepath"]
 
+    bike_aggregates_savedir = cfg["bike_aggregates_savedir"]
     map_all_save_path = cfg["map_all_save_path"]
     map_bikes_save_path = cfg["map_bikes_save_path"]
     map_trucks_save_path = cfg["map_trucks_save_path"]
@@ -98,18 +100,29 @@ if __name__ == "__main__":
         | (converted_truth_df["pickup_type"] == "Bike_Aggregate")
         | (converted_truth_df["pickup_type"] == "Bike_Converted")
     ]
+    # 8.1. remove outdoor points for truck dropoffs
+    truck_converted_dropoffs_df = filter_df(
+        truck_converted_df, "location_type", "indoor"
+    )
+    truck_dropoff_ind = truck_converted_dropoffs_df.index.to_list()
+    # 8.2. remove bike aggregate point's pickup demand for bikes
     bike_converted_df.loc[
         bike_converted_df.loc[:, "pickup_type"] == "Bike_Aggregate",
         "Daily_Pickup_Totes",
     ] = 0
-    # 8.1. prepare distance matrices for output
+    # 8.3. prepare distance matrices for output
     truck_dist_df = filter_dists(truth_dist, truck_all_ind, truck_all_ind)
     bike_dist_df = filter_dists(truth_dist, bike_all_ind, bike_all_ind)
+    truck_dropoff_dist_df = filter_dists(
+        truth_dist, truck_dropoff_ind, truck_dropoff_ind
+    )
 
     # 9. export dataframes
-    truck_converted_df.to_csv(truck_df_savepath)
+    truck_converted_df.to_csv(truck_pickup_df_savepath)
+    truck_converted_dropoffs_df.to_csv(truck_dropoff_df_savepath)
     bike_converted_df.to_csv(bike_df_savepath)
-    truck_dist_df.to_csv(truck_dist_df_savepath, index=False)
+    truck_dist_df.to_csv(truck_pickup_dist_df_savepath, index=False)
+    truck_dropoff_dist_df.to_csv(truck_dropoff_dist_df_savepath, index=False)
     bike_dist_df.to_csv(bike_dist_df_savepath, index=False)
 
     # 10. visualize
