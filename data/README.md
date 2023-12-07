@@ -9,9 +9,17 @@
 
 
 * `generated_distance_matrices` : folder that contains the distance matrices generated for galveston data 
-        - *distance_matrix_20231029_220129.npy:* updated distance matrix with both indoor and outdoor points
-        - *distance_matrix_new.npy:* updated distance matrix with both indoor and outdoor points (renamed for ease)
+- *distance_matrix_20231029_220129.npy:* updated distance matrix with both indoor and outdoor points
+- *distance_matrix_new.npy:* updated distance matrix with both indoor and outdoor points (renamed for ease)
 
 
-*  `indoor_outdoor_pts_galv.csv` : csv of concatonated indoor and outdoor service locations in Galveston
-*  `indoor_outdoor_distances_galv.csv` : csv of the distance matrix for all indoor and outdoor points in galveston (converted from the npy file "distance_matrix_new.npy")
+*indoor_outdoor_pts_galv.csv:* csv of concatonated indoor and outdoor service locations in Galveston
+
+*indoor_outdoor_distances_galv.csv:* csv of the distance matrix for all indoor and outdoor points in galveston (converted from the npy file "distance_matrix_new.npy")
+
+*single_source_of_truth.csv:* csv of the single source of truth df for all Galveston locations made from the code/GenerateSingleSourceofTruth.py script
+
+
+*converted_bike_service_pts_galv.csv:* csv of the single source of truth df for all Galveston locations made from the code/GenerateSingleSourceofTruth.py script
+
+
