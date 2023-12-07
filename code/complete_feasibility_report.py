@@ -6,6 +6,10 @@ grab inputs and outputs from the pipeline and update
 the feasibility report in place for each new trial
 
 Author: Sarah Walker
+
+1. Run this script in the terminal using:
+cd code
+python complete_feasibility_report.py
 """
 
 import configparser
@@ -51,6 +55,7 @@ def build_trial_dict(feasibility_report):
 
 
 def main():
+
     trial_dict = build_trial_dict(feasibility_report)
 
     # create arguments to the extract_route_info function
@@ -100,8 +105,14 @@ def main():
     # #trial_dict['cumulative_time']
     # #trial_dict['cumulative_cost']
 
-    # trial_dict['path_to_visualizations']
-    # trial_dict['name_of_visualizations']
+    trial_dict['path_to_visualizations'] = config["feasibility report"][
+        "visualization_path"
+    ]
+    #trial_dict['name_of_visualizations'] 
+
+    trial_dict["capacity_type"] = config["optimize google cvrp"][
+        "capacity"
+    ]
 
     # save the trial dictionary as a new row in the feasibility file
     feasibility_report.append(trial_dict, ignore_index=True)
