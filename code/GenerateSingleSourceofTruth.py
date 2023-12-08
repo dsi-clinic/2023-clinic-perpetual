@@ -1,6 +1,12 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
+Generate a single source of truth DataFrame by 
+merging indoor and outdoor data and the source location
+
+Reads data from indoor and outdoor CSV files specified 
+in the configuration file, updates and prepares the data, 
+and saves the resulting DataFrame as a CSV file. 
+Save the location of the new Dataframe in configuration file.
+
 Created on Mon Nov 27 01:17:30 2023
 
 @author: genie_god
@@ -8,26 +14,41 @@ Created on Mon Nov 27 01:17:30 2023
 
 import ast
 import configparser
-
 import pandas as pd
 
 
 def generate_single_source_of_truth():
+    """
+    Generate a single source of truth DataFrame by 
+    merging indoor and outdoor data and the source location
+
+    Reads data from indoor and outdoor CSV files specified 
+    in the configuration file, updates and prepares the data, 
+    and saves the resulting DataFrame as a CSV file. 
+    Save the location of the new Dataframe in configuration file.
+
+    :return: None
+    """
+
     # Initialize the parser
     config = configparser.ConfigParser()
-    # Read the config file
-    # Take file name from config
     config.read("../utils/config_inputs.ini")
+
+    # read config file
+    # take file name from config
     file_name_indoor = config["original data source"]["indoor"]
     file_name_outdoor = config["original data source"]["outdoor"]
+    file_name_old = config["original data source"]["old"]
 
     # read indoor and outdoor data file
     df_indoor = pd.read_csv(file_name_indoor)
     df_outdoor = pd.read_csv(file_name_outdoor)
+    old_galveston = pd.read_csv(file_name_old)
 
     # update location_type and pickup_type for each dataset
     df_indoor.loc[:, "location_type"] = "indoor"
     df_indoor.loc[:, "pickup_type"] = "truck"
+    
     df_outdoor.loc[:, "Daily_Pickup_Totes"] = 1.0
     df_outdoor.loc[:, "Weekly_Dropoff_Totes"] = 0.0
     df_outdoor.loc[:, "location_type"] = "outdoor"
@@ -39,35 +60,34 @@ def generate_single_source_of_truth():
 
     # add tote number info
     # when the indoor and oudoor df don't have pickup/dropoff totes number
-    if "Weekly_Dropoff_Totes" not in df_indoor.columns:
-        old_galveston = pd.read_csv("../data/FUE_Galveston.csv")
+    if "Weekly_Dropoff_Totes" not in df_indoor.columns:      
         galveston_sub = old_galveston.loc[
             :, ["Name", "Weekly_Dropoff_Totes", "Daily_Pickup_Totes"]
         ]
         df_indoor = pd.merge(df_indoor, galveston_sub, on="Name", how="left")
 
-    # add source loacation
+    # take source location from config
     source_location = ast.literal_eval(config["original data source"]["source"])
+    source_location_lon = source_location[0]
+    source_location_lat = source_location[1]
+    df_source = pd.DataFrame({"Longitude": [source_location_lon], "Latitude": [source_location_lat]})
 
-    df_source = pd.DataFrame(
-        {"Longitude": [source_location[0]], "Latitude": [source_location[1]]}
-    )
-
+    # concat indoor points, outdoor points and source location into one df
     single_source_truth = pd.concat([df_source, df_indoor, df_outdoor])
 
-    # Save single_source to a file
+    # save single_source to a file
     filename = "../data/single_source_of_truth.csv"
     single_source_truth.to_csv(filename, index=False)
 
-    # Ensure the 'Matrix Dir' section exists
+    # add the path to single_source_of_truth to config
     if "original data source" not in config:
         config["original data source"] = {}
-
-    # Assign the filename to the single_source_of_truth section
     config["original data source"]["single_source_of_truth"] = filename
-
-    # Write the configuration to an INI file
     with open("../utils/config_inputs.ini", "w") as configfile:
         config.write(configfile)
 
     print(f"single source of truth generated under the file {filename}")
+
+
+if __name__ == "__main__":
+    generate_single_source_of_truth()
