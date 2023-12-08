@@ -20,9 +20,11 @@ Our final deliverables can be found in the `output` folder (see Repository Struc
 ## Usage
 
 Complete these steps to run the pipeline:
-1. set all of the arguments (inputs) that will be specific to your model in the utils/config_inputs.ini file. 
-2. generate a unique mapbox API token and follow the instructions to initialize this token in a config file. 
-3. open a new terminal within the Perpetual repository and run the following code in order (allow time for each step to process):
+1. clone the repository to your local machine
+2. open a new terminal within the Perpetual repository and enter into the repository's Docker environment (see Docker & Docker Make below)  
+3. generate a unique [mapbox API token](https://docs.mapbox.com/help/glossary/access-token/) then copy and paste the token into this [utils/config_mapbox.ini](/utils/config_mapbox.ini) file
+4. set all of the arguments (inputs) that will be specific to your model in the [utils/config_inputs.ini](/utils/config_inputs.ini) file.
+5. on the terminal run the following code in order (allow time for each step to process):
 
 cd code  
 python GenerateSingleSourceofTruth.py  
