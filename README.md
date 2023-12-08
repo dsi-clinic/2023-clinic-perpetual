@@ -24,14 +24,14 @@ Complete these steps to run the pipeline:
 2. generate a unique mapbox API token and follow the instructions to initialize this token in a config file. 
 3. open a new terminal and run the following code (allow time for each step to process):
 
-cd code
-python GenerateSingleSourceofTruth.py 
-python GenerateDistMatrix.py 
-python extract_capacity_demands.py
-python extract_supplementary_info.py
-python bike_conversion.py
-python optimize_cvrp.py
-python RouteViz.py
+cd code  
+python GenerateSingleSourceofTruth.py  
+python GenerateDistMatrix.py  
+python extract_capacity_demands.py  
+python extract_supplementary_info.py  
+python bike_conversion.py  
+python optimize_cvrp.py   
+python RouteViz.py   
 python complete_feasibility_report.py
 
 4. Inputs will come from the `data` and `utils` folders. Outputs will be generated and saved in the `output` folder: 
