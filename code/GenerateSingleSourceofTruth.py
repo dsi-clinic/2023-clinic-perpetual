@@ -1,17 +1,3 @@
-"""
-Generate a single source of truth DataFrame by
-merging indoor and outdoor data and the source location
-
-Reads data from indoor and outdoor CSV files specified
-in the configuration file, updates and prepares the data,
-and saves the resulting DataFrame as a CSV file.
-Save the location of the new Dataframe in configuration file.
-
-Created on Mon Nov 27 01:17:30 2023
-
-@author: genie_god
-"""
-
 import ast
 import configparser
 
