@@ -65,15 +65,15 @@ def generate_single_source_of_truth():
     single_source_truth = pd.concat([df_source, df_indoor, df_outdoor])
 
     # save single_source to a file
-    filename = "../data/single_source_of_truth.csv"
+    filename = "../data/archive/single_source_of_truth.csv"
     single_source_truth.to_csv(filename, index=False)
 
     # add the path to single_source_of_truth to config
-    if "original data source" not in config:
-        config["original data source"] = {}
-    config["original data source"]["single_source_of_truth"] = filename
-    with open("../utils/config_inputs.ini", "w") as configfile:
-        config.write(configfile)
+    # if "original data source" not in config:
+    #     config["original data source"] = {}
+    # config["original data source"]["single_source_of_truth"] = filename
+    # with open("../utils/config_inputs.ini", "w") as configfile:
+    #     config.write(configfile)
 
     print(f"single source of truth generated under the file {filename}")
 
