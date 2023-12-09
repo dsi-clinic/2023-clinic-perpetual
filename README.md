@@ -26,8 +26,9 @@ Complete these steps to run the pipeline:
 4. set all of the arguments (inputs) that will be specific to your model in the [utils/config_inputs.ini](/utils/config_inputs.ini) file.
 5. on the terminal run the following code in order (allow time for each step to process):
 
+```
 cd code  
-python CreateFullServiceDf.py -- same process in notebook at /notebooks/create_full_service_dfs.ipynb
+python CreateFullServiceDf.py // same process in notebook at /notebooks/create_full_service_dfs.ipynb
 python GenerateDistMatrix.py
 python extract_capacity_demands.py  
 python extract_supplementary_info.py  
@@ -35,6 +36,7 @@ python bike_conversion.py
 python optimize_cvrp.py   
 python RouteViz.py   
 python complete_feasibility_report.py
+```
 
 4. Inputs will come from the `data` and `utils` folders. Outputs will be generated and saved in the `output` folder: 
 * `output/data` contains all of the intermediate data frames that were converted and saved during the pipeline.
