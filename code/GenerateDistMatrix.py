@@ -72,7 +72,7 @@ def add_coordinates(file_name):
 
 def generate_coordinate_list(df_list):
     """
-    Generate a list of coordinates by extracting 'Coordinates' column 
+    Generate a list of coordinates by extracting 'Coordinates' column
     from a list of DataFrames.
 
     :param df_list: list of pandas.DataFrame
@@ -161,9 +161,7 @@ def generate_distance_matrix():
     with open("../utils/config_inputs.ini", "w") as configfile:
         config.write(configfile)
 
-    print(
-        f"full distance matrix generated at {filename}"
-    )
+    print(f"full distance matrix generated at {filename}")
 
 
 if __name__ == "__main__":
