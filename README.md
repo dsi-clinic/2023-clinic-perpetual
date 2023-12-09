@@ -87,10 +87,9 @@ In the final model made for Galveston:
 Contains files with commonly used functions stored in utility files
 * config_inputs.ini is where users can set their arguments before running the pipeline.
 
-=======
 ## Project Team
-Yifan Wu, (yifwu@uchicago.edu)
-Jessica Cibrian (jescib123@gmail.com)
-Sarah Walker (swalker10@uchicago.edu)
-Huanlin Dai, (daihuanlin@uchicago.edu)
+- Yifan Wu, (yifwu@uchicago.edu)
+- Jessica Cibrian (jescib123@gmail.com)
+- Sarah Walker (swalker10@uchicago.edu)
+- Huanlin Dai, (daihuanlin@uchicago.edu)
 
