@@ -27,8 +27,8 @@ Complete these steps to run the pipeline:
 5. on the terminal run the following code in order (allow time for each step to process):
 
 cd code  
-python GenerateSingleSourceofTruth.py  
-python GenerateDistMatrix.py  
+python CreateFullServiceDf.py -- same process in notebook at /notebooks/create_full_service_dfs.ipynb
+python GenerateDistMatrix.py
 python extract_capacity_demands.py  
 python extract_supplementary_info.py  
 python bike_conversion.py  
