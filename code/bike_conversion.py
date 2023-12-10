@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # 2. parse config
     truth_df_path = cfg["truth_df_path"]
     truth_dist_df_path = cfg["truth_dist_df_path"]
-    location = [float(cfg["Latitude"]), float(cfg["Longitude"])]
+    location = [float(cfg["latitude"]), float(cfg["longitude"])]
     distance_thresh = float(cfg["distance_thresh"])  # in meters
     aggs = ast.literal_eval(cfg["bike_aggregate_list"])
 
