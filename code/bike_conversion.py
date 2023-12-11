@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # 2. parse config
     truth_df_path = cfg["truth_df_path"]
     truth_dist_df_path = cfg["truth_dist_df_path"]
-    location = [float(cfg["Latitude"]), float(cfg["Longitude"])]
+    location = [float(cfg["latitude"]), float(cfg["longitude"])]
     distance_thresh = float(cfg["distance_thresh"])  # in meters
     aggs = ast.literal_eval(cfg["bike_aggregate_list"])
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     agg_assignments = {}
     for col in agg_to_bike_dists.columns:
         assignment = int(aggs[np.argmin(agg_to_bike_dists[col])])
-        key = int(col)
+        key = bike_no_agg_ind[int(col)]
         converted_truth_df.at[key, "Bike Aggregation Point"] = assignment
         converted_truth_df.at[
             assignment, "Daily_Pickup_Totes"

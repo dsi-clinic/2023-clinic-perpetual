@@ -20,6 +20,4 @@
 *single_source_of_truth.csv:* csv of the single source of truth df for all Galveston locations made from the code/GenerateSingleSourceofTruth.py script
 
 
-*converted_bike_service_pts_galv.csv:* csv of the single source of truth df for all Galveston locations made from the code/GenerateSingleSourceofTruth.py script
-
 

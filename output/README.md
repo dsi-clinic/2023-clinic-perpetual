@@ -11,7 +11,7 @@
     * `converted_truck_service_pts.csv` : dataframe for converted truck points
     * `extracted_supp_info_dict.csv` : dataframe storing supplementary info dictionary for all points  
 
-* `routes` : Contains folders for each model, with their routes inside. The name of each folder corresponds with the model's trial_name on the feasibility file. 
+* `routes` : Contains folders for each model, with their routes and visualizations inside. The name of each folder corresponds with the model's trial_name on the feasibility file. 
 
 
 * `feasibilityfile.csv` : Feasibility Analysis output csv file. 

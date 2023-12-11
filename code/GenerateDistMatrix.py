@@ -57,6 +57,12 @@ def generate_capacity_list(df, timestamp_str):
 
 
 def add_coordinates(file_name):
+    """
+     Read a CSV file, capitalize column names,
+     and add a new 'Coordinates' column.
+
+    :param file_name: String
+    """
     df = pd.read_csv(file_name)
     df.columns = [col.capitalize() for col in df.columns]
     df["Coordinates"] = df[["Longitude", "Latitude"]].values.tolist()
@@ -65,6 +71,13 @@ def add_coordinates(file_name):
 
 
 def generate_coordinate_list(df_list):
+    """
+    Generate a list of coordinates by extracting 'Coordinates' column
+    from a list of DataFrames.
+
+    :param df_list: list of pandas.DataFrame
+    :return: list
+    """
     coordinate_list = []
     for df in df_list:
         for coordinate in df["Coordinates"]:
@@ -83,7 +96,7 @@ def initialize_data():
     # Initialize the parser
     config = configparser.ConfigParser()
     # Read the config file
-    config.read("config_mpabox.ini")
+    config.read("../utils/config_mapbox.ini")
     mapbox_token = config["mapbox"]["token"]
 
     # Take file name from config
@@ -132,8 +145,8 @@ def generate_distance_matrix():
     full_matrix = full_matrix[1:, :]
 
     # Save the matrix to a file
-    filename_root = "../data/generated_distance_matrices/distance_matrix"
-    filename = f"{filename_root}_{timestamp_str}.npy"
+    filename_root = "../data/generated_distance_matrices"
+    filename = f"{filename_root}/distance_matrix_{timestamp_str}.npy"
     np.save(filename, full_matrix)
 
     # Ensure the 'Matrix Dir' section exists
@@ -142,16 +155,13 @@ def generate_distance_matrix():
 
     # Assign the filename to the 'distance matrix' key
     # in the 'Matrix Dir' section
-    config["Matrix Dir"]["distance_matrix"] = filename_root + filename
+    config["Matrix Dir"]["distance_matrix"] = filename
 
-    # Write the configuration to an INI file
+    # Write the configuration to the config_inputs.ini file
     with open("../utils/config_inputs.ini", "w") as configfile:
         config.write(configfile)
 
-    print(
-        f"full distance matrix generated under the file {filename_root},"
-        "by the name {filename}!"
-    )
+    print(f"full distance matrix generated at {filename}")
 
 
 if __name__ == "__main__":
