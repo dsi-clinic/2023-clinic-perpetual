@@ -31,7 +31,7 @@ def extract_route_info(path_to_routes, num_routes):
     num_loc_list = []
     distance_list = []
     for i in range(num_routes):
-        route = pd.read_csv(path_to_routes + "/route" + str(i + 1))
+        route = pd.read_csv(f'{path_to_routes}/route{i + 1}.csv', encoding='unicode_escape')
         load_list.append(route.loc[len(route) - 1, "Truck_Load"])
         num_loc_list.append(len(route) - 2)
         distance_list.append(route.loc[len(route) - 1, "Cumulative_Distance"])
@@ -60,7 +60,7 @@ def main():
 
     # create arguments to the extract_route_info function
     path_to_routes = config["optimize google cvrp"]["output_path"]
-    num_routes = config["optimize google cvrp"]["num_vehicles"].astype(int)
+    num_routes = int(config["optimize google cvrp"]["num_vehicles"])
 
     # use these arguments to call the function extract_route_info
     (
@@ -91,15 +91,15 @@ def main():
     trial_dict["path_to_dataframe"] = config["optimize google cvrp"][
         "path_to_dataframe"
     ]
-    trial_dict["simulation_run_time"] = config["optimize google cvrp"][
+    trial_dict["simulation_run_time"] = int(config["optimize google cvrp"][
         "num_seconds_simulation"
-    ].astype(int)
+    ])
     trial_dict["vehicle_type"] = config["feasibility report"]["vehicle_type"]
-    trial_dict["vehicle_capacity"] = config["optimize google cvrp"][
+    trial_dict["vehicle_capacity"] = int(config["optimize google cvrp"][
         "vehicle_capacity"
-    ].astype(int)
+    ])
 
-    # Need to include time and cost when we can update our vrp parameters
+    # Insert time and cost
     # #trial_dict['time_per_vehicle']
     # #trial_dict['cost_per_vehicle']
     # #trial_dict['cumulative_time']
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
     # create the config object that will interact with the inputs and outputs
     config = configparser.ConfigParser()
-    config.read("path/config_inputs.ini")
+    config.read("../utils/config_inputs.ini")
 
     # open the feasibility file so you can make edits
     feasibility_report = pd.read_csv("../output/feasibilityfile.csv")
