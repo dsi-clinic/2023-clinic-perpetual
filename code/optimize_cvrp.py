@@ -18,7 +18,7 @@ import pandas as pd
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 
-def get_demands(location_df):
+def get_demands(location_df, capacity):
     """
     This function will get the daily number of totes to be
     picked up at every location provided in the df.
@@ -36,14 +36,14 @@ def get_demands(location_df):
     return demands_list
 
 
-def create_data_model():
+def create_data_model(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity, capacity, depot_index):
     """Stores the data for the problem."""
     data = {}
-    locations_df = pd.read_csv(path_to_dataframe)
-    distance_matrix = pd.read_csv(path_to_distance_matrix)
+    locations_df = pd.read_csv(path_locations_df)
+    distance_matrix = pd.read_csv(path_distance_matrix)
 
     data["distance_matrix"] = distance_matrix.to_numpy().astype(int)
-    data["demands"] = get_demands(locations_df)
+    data["demands"] = get_demands(locations_df, capacity)
     data["num_vehicles"] = num_vehicles
     capacity = vehicle_capacity
     data["vehicle_capacities"] = [capacity for i in range(data["num_vehicles"])]
@@ -129,10 +129,10 @@ def save_to_table(data, manager, routing, solution):
     return routes, distances, loads
 
 
-def make_dataframe(data, manager, routing, solution):
+def make_dataframe(path_locations_df, output_path, data, manager, routing, solution):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
-    locations_df = pd.read_csv(path_to_dataframe)
+    locations_df = pd.read_csv(path_locations_df)
     routes, distances, loads = save_to_table(data, manager, routing, solution)
     for i in range(len(routes)):
         route_df = locations_df.loc[routes[i], :]
@@ -145,10 +145,11 @@ def make_dataframe(data, manager, routing, solution):
         route_df.to_csv(path, index=False)
 
 
-def main():
+def solve_and_save(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity,
+         num_seconds, capacity, depot_index, output_path):
     """Solve the CVRP problem."""
     # Instantiate the data problem.
-    data = create_data_model()
+    data = create_data_model(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity, capacity, depot_index)
 
     # Create the routing index manager.
     manager = pywrapcp.RoutingIndexManager(
@@ -206,7 +207,7 @@ def main():
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        make_dataframe(data, manager, routing, solution)
+        make_dataframe(path_locations_df, output_path, data, manager, routing, solution)
 
 
 if __name__ == "__main__":
@@ -215,16 +216,11 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("../utils/config_inputs.ini")
 
-    path_to_dataframe = config["optimize google cvrp"]["path_to_dataframe"]
-    path_to_distance_matrix = config["optimize google cvrp"][
-        "path_to_distance_matrix"
-    ]
-    num_vehicles = int(config["optimize google cvrp"]["num_vehicles"])
-    output_path = config["optimize google cvrp"]["output_path"]
-    vehicle_capacity = int(config["optimize google cvrp"]["vehicle_capacity"])
-    num_seconds = int(config["optimize google cvrp"]["num_seconds_simulation"])
-
-    capacity = config["optimize google cvrp"]["capacity"]
-    depot_index = int(config["optimize google cvrp"]["depot_index"])
-
-    main()
+    solve_and_save(path_locations_df = config["optimize google cvrp"]["path_to_dataframe"], 
+         path_distance_matrix = config["optimize google cvrp"]["path_to_distance_matrix"], 
+         num_vehicles = int(config["optimize google cvrp"]["num_vehicles"]),
+         vehicle_capacity = int(config["optimize google cvrp"]["vehicle_capacity"]),
+         num_seconds = int(config["optimize google cvrp"]["num_seconds_simulation"]), 
+         capacity = config["optimize google cvrp"]["capacity"],
+         depot_index = int(config["optimize google cvrp"]["depot_index"]), 
+         output_path = config["optimize google cvrp"]["output_path"])
