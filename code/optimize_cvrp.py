@@ -36,7 +36,14 @@ def get_demands(location_df, capacity):
     return demands_list
 
 
-def create_data_model(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity, capacity, depot_index):
+def create_data_model(
+    path_locations_df,
+    path_distance_matrix,
+    num_vehicles,
+    vehicle_capacity,
+    capacity,
+    depot_index,
+):
     """Stores the data for the problem."""
     data = {}
     locations_df = pd.read_csv(path_locations_df)
@@ -129,7 +136,9 @@ def save_to_table(data, manager, routing, solution):
     return routes, distances, loads
 
 
-def make_dataframe(path_locations_df, output_path, data, manager, routing, solution):
+def make_dataframe(
+    path_locations_df, output_path, data, manager, routing, solution
+):
     """use the output of save_to_table to save the dataframe as a
     csv file in the data folder"""
     locations_df = pd.read_csv(path_locations_df)
@@ -145,11 +154,26 @@ def make_dataframe(path_locations_df, output_path, data, manager, routing, solut
         route_df.to_csv(path, index=False)
 
 
-def solve_and_save(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity,
-         num_seconds, capacity, depot_index, output_path):
+def solve_and_save(
+    path_locations_df,
+    path_distance_matrix,
+    num_vehicles,
+    vehicle_capacity,
+    num_seconds,
+    capacity,
+    depot_index,
+    output_path,
+):
     """Solve the CVRP problem."""
     # Instantiate the data problem.
-    data = create_data_model(path_locations_df, path_distance_matrix, num_vehicles, vehicle_capacity, capacity, depot_index)
+    data = create_data_model(
+        path_locations_df,
+        path_distance_matrix,
+        num_vehicles,
+        vehicle_capacity,
+        capacity,
+        depot_index,
+    )
 
     # Create the routing index manager.
     manager = pywrapcp.RoutingIndexManager(
@@ -207,7 +231,9 @@ def solve_and_save(path_locations_df, path_distance_matrix, num_vehicles, vehicl
     # Return solution.
     if solution:
         # print_solution(data, manager, routing, solution)
-        make_dataframe(path_locations_df, output_path, data, manager, routing, solution)
+        make_dataframe(
+            path_locations_df, output_path, data, manager, routing, solution
+        )
 
 
 if __name__ == "__main__":
@@ -216,11 +242,19 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read("../utils/config_inputs.ini")
 
-    solve_and_save(path_locations_df = config["optimize google cvrp"]["path_to_dataframe"], 
-         path_distance_matrix = config["optimize google cvrp"]["path_to_distance_matrix"], 
-         num_vehicles = int(config["optimize google cvrp"]["num_vehicles"]),
-         vehicle_capacity = int(config["optimize google cvrp"]["vehicle_capacity"]),
-         num_seconds = int(config["optimize google cvrp"]["num_seconds_simulation"]), 
-         capacity = config["optimize google cvrp"]["capacity"],
-         depot_index = int(config["optimize google cvrp"]["depot_index"]), 
-         output_path = config["optimize google cvrp"]["output_path"])
+    solve_and_save(
+        path_locations_df=config["optimize google cvrp"]["path_to_dataframe"],
+        path_distance_matrix=config["optimize google cvrp"][
+            "path_to_distance_matrix"
+        ],
+        num_vehicles=int(config["optimize google cvrp"]["num_vehicles"]),
+        vehicle_capacity=int(
+            config["optimize google cvrp"]["vehicle_capacity"]
+        ),
+        num_seconds=int(
+            config["optimize google cvrp"]["num_seconds_simulation"]
+        ),
+        capacity=config["optimize google cvrp"]["capacity"],
+        depot_index=int(config["optimize google cvrp"]["depot_index"]),
+        output_path=config["optimize google cvrp"]["output_path"],
+    )
