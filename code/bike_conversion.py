@@ -84,7 +84,7 @@ if __name__ == "__main__":
     agg_assignments = {}
     for col in agg_to_bike_dists.columns:
         assignment = int(aggs[np.argmin(agg_to_bike_dists[col])])
-        key = int(col)
+        key = bike_no_agg_ind[int(col)]
         converted_truth_df.at[key, "Bike Aggregation Point"] = assignment
         converted_truth_df.at[
             assignment, "Daily_Pickup_Totes"
