@@ -31,7 +31,9 @@ def extract_route_info(path_to_routes, num_routes):
     num_loc_list = []
     distance_list = []
     for i in range(num_routes):
-        route = pd.read_csv(f'{path_to_routes}/route{i + 1}.csv', encoding='unicode_escape')
+        route = pd.read_csv(
+            f"{path_to_routes}/route{i + 1}.csv", encoding="unicode_escape"
+        )
         load_list.append(route.loc[len(route) - 1, "Truck_Load"])
         num_loc_list.append(len(route) - 2)
         distance_list.append(route.loc[len(route) - 1, "Cumulative_Distance"])
@@ -91,13 +93,13 @@ def main():
     trial_dict["path_to_dataframe"] = config["optimize google cvrp"][
         "path_to_dataframe"
     ]
-    trial_dict["simulation_run_time"] = int(config["optimize google cvrp"][
-        "num_seconds_simulation"
-    ])
+    trial_dict["simulation_run_time"] = int(
+        config["optimize google cvrp"]["num_seconds_simulation"]
+    )
     trial_dict["vehicle_type"] = config["feasibility report"]["vehicle_type"]
-    trial_dict["vehicle_capacity"] = int(config["optimize google cvrp"][
-        "vehicle_capacity"
-    ])
+    trial_dict["vehicle_capacity"] = int(
+        config["optimize google cvrp"]["vehicle_capacity"]
+    )
 
     # Insert time and cost
     # #trial_dict['time_per_vehicle']
