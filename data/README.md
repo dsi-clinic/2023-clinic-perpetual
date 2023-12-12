@@ -1,6 +1,6 @@
 ### Data
 
-`galveston_indoor_pts.csv`:* This file contains all the FUEs that will serve as both pickup and dropoff locations for the simulation. Perpetual refers to them as indoor points.
+`galveston_indoor_pts.csv`: This file contains all the FUEs that will serve as both pickup and dropoff locations for the simulation. Perpetual refers to them as indoor points.
 
 `galveston_outdoor_pts.csv`: This file contains all the locations where Perpetual will place a bin. Perpetual refers to them as outdoor points and will only be used for pickup. This dataset also marks whether a location is going to be served by a bike or a truck. The following is the classification for the id of the bins:
 - city approved have IDs starting from 1000
